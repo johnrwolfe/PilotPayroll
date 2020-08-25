@@ -1,0 +1,430 @@
+-- BP 7.1.6 content: Component syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO C_C
+	VALUES ("2645b732-5730-459d-a20e-78935a096c5b",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'HRuser',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'');
+INSERT INTO GD_MD
+	VALUES ("01eea05e-4707-4b88-813e-02809f70306c",
+	111,
+	"2645b732-5730-459d-a20e-78935a096c5b",
+	98,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	200,
+	150,
+	0,
+	'',
+	'HRuser::Components::HRuser');
+INSERT INTO GD_GE
+	VALUES ("fe82d513-73e8-4bd1-b1cb-f11619301f23",
+	"01eea05e-4707-4b88-813e-02809f70306c",
+	"2645b732-5730-459d-a20e-78935a096c5b",
+	103,
+	0,
+	'HRuser::Components::HRuser');
+INSERT INTO GD_SHP
+	VALUES ("fe82d513-73e8-4bd1-b1cb-f11619301f23");
+INSERT INTO GD_CTR
+	VALUES ("fe82d513-73e8-4bd1-b1cb-f11619301f23");
+INSERT INTO DIM_ND
+	VALUES (1032.000000,
+	800.000000,
+	"fe82d513-73e8-4bd1-b1cb-f11619301f23");
+INSERT INTO DIM_GE
+	VALUES (4100.000000,
+	3100.000000,
+	"fe82d513-73e8-4bd1-b1cb-f11619301f23",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("fe82d513-73e8-4bd1-b1cb-f11619301f23",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("0234ea8e-fe9c-48ba-b7e4-951d8fa09e75",
+	5132.000000,
+	3540.000000,
+	"fe82d513-73e8-4bd1-b1cb-f11619301f23");
+INSERT INTO GD_GE
+	VALUES ("3e4df1b7-c33d-4a71-b957-8e6dcc061b89",
+	"01eea05e-4707-4b88-813e-02809f70306c",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e",
+	93,
+	0,
+	'HRuser::Components::HRuser::Payroll::HumanResources');
+INSERT INTO GD_CON
+	VALUES ("3e4df1b7-c33d-4a71-b957-8e6dcc061b89",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("15aebbe1-b74f-4fc4-996c-8549c5acccf6",
+	"3e4df1b7-c33d-4a71-b957-8e6dcc061b89",
+	0,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"15aebbe1-b74f-4fc4-996c-8549c5acccf6");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"15aebbe1-b74f-4fc4-996c-8549c5acccf6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("15aebbe1-b74f-4fc4-996c-8549c5acccf6",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("888bf27c-d575-484e-a636-73636f4fa89c",
+	"3e4df1b7-c33d-4a71-b957-8e6dcc061b89",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"888bf27c-d575-484e-a636-73636f4fa89c");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"888bf27c-d575-484e-a636-73636f4fa89c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("888bf27c-d575-484e-a636-73636f4fa89c",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("52b0e816-d899-4435-9355-208afb191622",
+	"3e4df1b7-c33d-4a71-b957-8e6dcc061b89",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"52b0e816-d899-4435-9355-208afb191622");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"52b0e816-d899-4435-9355-208afb191622",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("52b0e816-d899-4435-9355-208afb191622",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("6d37a93f-ee78-4e7e-9a31-2809ff5ba27e",
+	"3e4df1b7-c33d-4a71-b957-8e6dcc061b89",
+	"00000000-0000-0000-0000-000000000000",
+	"ec2be8d9-3005-459a-8f77-e1a8d0301c15",
+	"b0874191-2841-47e6-8a13-39c1396fd015");
+INSERT INTO DIM_WAY
+	VALUES ("ec2be8d9-3005-459a-8f77-e1a8d0301c15",
+	5132.000000,
+	3540.000000,
+	"3e4df1b7-c33d-4a71-b957-8e6dcc061b89",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("b0874191-2841-47e6-8a13-39c1396fd015",
+	5207.000000,
+	3540.000000,
+	"3e4df1b7-c33d-4a71-b957-8e6dcc061b89",
+	"00000000-0000-0000-0000-000000000000",
+	"ec2be8d9-3005-459a-8f77-e1a8d0301c15");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"3e4df1b7-c33d-4a71-b957-8e6dcc061b89",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("3e4df1b7-c33d-4a71-b957-8e6dcc061b89",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("0234ea8e-fe9c-48ba-b7e4-951d8fa09e75",
+	"00000000-0000-0000-0000-000000000000",
+	"3e4df1b7-c33d-4a71-b957-8e6dcc061b89");
+INSERT INTO GD_GE
+	VALUES ("26b9bac3-af62-40c5-bd20-556fc66c787f",
+	"01eea05e-4707-4b88-813e-02809f70306c",
+	"1b74e50f-8046-49f2-bdd5-52b6b1284ede",
+	108,
+	0,
+	'HRuser::Components::HRuser::IncomingMessageFunctions');
+INSERT INTO GD_SHP
+	VALUES ("26b9bac3-af62-40c5-bd20-556fc66c787f");
+INSERT INTO GD_NCS
+	VALUES ("26b9bac3-af62-40c5-bd20-556fc66c787f");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"26b9bac3-af62-40c5-bd20-556fc66c787f");
+INSERT INTO DIM_GE
+	VALUES (4920.000000,
+	3100.000000,
+	"26b9bac3-af62-40c5-bd20-556fc66c787f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("26b9bac3-af62-40c5-bd20-556fc66c787f",
+	0,
+	"fe82d513-73e8-4bd1-b1cb-f11619301f23");
+INSERT INTO DIM_DIA
+	VALUES ("01eea05e-4707-4b88-813e-02809f70306c",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_PO
+	VALUES ("7d28881f-6f55-42eb-b2d1-956ace063efe",
+	"2645b732-5730-459d-a20e-78935a096c5b",
+	'Payroll',
+	0,
+	0);
+INSERT INTO C_IR
+	VALUES ("e9fbda12-253a-422d-85ae-6eb024ac3d4e",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	"00000000-0000-0000-0000-000000000000",
+	"7d28881f-6f55-42eb-b2d1-956ace063efe");
+INSERT INTO C_R
+	VALUES ("e9fbda12-253a-422d-85ae-6eb024ac3d4e",
+	'HumanResources',
+	'',
+	'Unnamed Interface',
+	'HRuser::Payroll::HumanResources');
+INSERT INTO SPR_REP
+	VALUES ("3aed07e0-e0da-499a-8f81-b54544ceaaa1",
+	"1ba55bd7-0e2e-4583-86b6-7e4ec6170539",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
+INSERT INTO SPR_RS
+	VALUES ("3aed07e0-e0da-499a-8f81-b54544ceaaa1",
+	'RetrievePayrollForReview',
+	'',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("1ba55bd7-0e2e-4583-86b6-7e4ec6170539",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	-1,
+	'RetrievePayrollForReview',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("11272843-bf2d-4c84-b1f4-f83080062f05",
+	"4d9c995d-41df-4210-b324-bacfc13385c6",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
+INSERT INTO SPR_RS
+	VALUES ("11272843-bf2d-4c84-b1f4-f83080062f05",
+	'SubmitItemUpdates',
+	'',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("4d9c995d-41df-4210-b324-bacfc13385c6",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	-1,
+	'SubmitItemUpdates',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("5fdf8504-745f-4c30-8e48-88683980ba2a",
+	"629926c0-e851-45a1-a84c-1776a2a7cba6",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
+INSERT INTO SPR_RS
+	VALUES ("5fdf8504-745f-4c30-8e48-88683980ba2a",
+	'SubmitItemApprovals',
+	'',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("629926c0-e851-45a1-a84c-1776a2a7cba6",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	-1,
+	'SubmitItemApprovals',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("a9d0bdfd-a868-4349-8823-6d208caf6071",
+	"bb2c26a6-cd84-4b87-8bb5-ed5924eab856",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
+INSERT INTO SPR_RS
+	VALUES ("a9d0bdfd-a868-4349-8823-6d208caf6071",
+	'SubmitItemHolds',
+	'',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("bb2c26a6-cd84-4b87-8bb5-ed5924eab856",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	-1,
+	'SubmitItemHolds',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("9934fb11-d8b3-4c92-b538-38528cbbd494",
+	"f143ad52-738b-43d7-a3a2-d79376361797",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
+INSERT INTO SPR_RS
+	VALUES ("9934fb11-d8b3-4c92-b538-38528cbbd494",
+	'SubmitPayHolds',
+	'',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("f143ad52-738b-43d7-a3a2-d79376361797",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	-1,
+	'SubmitPayHolds',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("c95f720c-62d7-47cb-aea7-751b815d8bc7",
+	"5ddc2f40-c598-4724-b9e2-e763f4901ac4",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
+INSERT INTO SPR_RS
+	VALUES ("c95f720c-62d7-47cb-aea7-751b815d8bc7",
+	'SubmitPayApprovals',
+	'',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("5ddc2f40-c598-4724-b9e2-e763f4901ac4",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	-1,
+	'SubmitPayApprovals',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("b473a938-3115-4475-b29f-c3f69ca27a91",
+	"8c9de5fe-1015-4d0e-bc74-0aa939a8f275",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
+INSERT INTO SPR_RS
+	VALUES ("b473a938-3115-4475-b29f-c3f69ca27a91",
+	'Payroll',
+	'',
+	'::Payroll( Department:param.Department, 
+  EmployeeID:param.EmployeeID, 
+  PaymentLabel:param.PaymentLabel, 
+  PaymentAmount:param.PaymentAmount, 
+  HoldStatus:param.HoldStatus );',
+	1,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("8c9de5fe-1015-4d0e-bc74-0aa939a8f275",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	-1,
+	'Payroll',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("a8b04439-2eb9-40ce-80e7-dc07a90eb491",
+	"0f25438a-f717-4b80-b06c-9ce0f1c905c4",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
+INSERT INTO SPR_RS
+	VALUES ("a8b04439-2eb9-40ce-80e7-dc07a90eb491",
+	'Notification',
+	'',
+	'::Notification( Code:param.Code, Message:param.Message );',
+	1,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("0f25438a-f717-4b80-b06c-9ce0f1c905c4",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	-1,
+	'Notification',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("a46989fb-e14c-473c-a868-1c33e2aa7059",
+	"180cc4e4-f88e-432c-8950-48095a2171f1",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
+INSERT INTO SPR_RS
+	VALUES ("a46989fb-e14c-473c-a868-1c33e2aa7059",
+	'SubmitPayrollApproval',
+	'',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("180cc4e4-f88e-432c-8950-48095a2171f1",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	-1,
+	'SubmitPayrollApproval',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("a6255725-9afe-4352-8615-33ac6352d9e5",
+	"cd89f044-8052-4bd7-828a-07b3030804fc",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
+INSERT INTO SPR_RS
+	VALUES ("a6255725-9afe-4352-8615-33ac6352d9e5",
+	'SubmitToFinance',
+	'',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("cd89f044-8052-4bd7-828a-07b3030804fc",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	-1,
+	'SubmitToFinance',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("db368589-2532-4e2a-9d01-928eca6da3dc",
+	"dce7039f-aa29-4ba4-af47-7258d8fb7941",
+	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
+INSERT INTO SPR_RS
+	VALUES ("db368589-2532-4e2a-9d01-928eca6da3dc",
+	'Accepted',
+	'',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("dce7039f-aa29-4ba4-af47-7258d8fb7941",
+	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	-1,
+	'Accepted',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO C_I_PROXY
+	VALUES ("cbed0e18-6775-4be9-b1f9-61714edc73e6",
+	"00000000-0000-0000-0000-000000000000",
+	'HumanResources',
+	'',
+	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO PE_PE
+	VALUES ("2645b732-5730-459d-a20e-78935a096c5b",
+	1,
+	"1ba95d76-9feb-466a-83ea-513101846e90",
+	"00000000-0000-0000-0000-000000000000",
+	2);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("1ba95d76-9feb-466a-83ea-513101846e90",
+	"9c695d56-a0ae-4c62-83b5-5b5a20374b67",
+	"9c695d56-a0ae-4c62-83b5-5b5a20374b67",
+	'Components',
+	'',
+	0,
+	'../Components.xtuml');
