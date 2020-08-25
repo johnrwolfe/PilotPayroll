@@ -2,7 +2,7 @@
 
 INSERT INTO EP_PKG
 	VALUES ("06ebca4d-c9fd-4621-817d-3fadc505ee21",
-	"5713191d-1d3c-41cb-add1-1cce3729acf2",
+	"00000000-0000-0000-0000-000000000000",
 	"5713191d-1d3c-41cb-add1-1cce3729acf2",
 	'Types',
 	'',
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	150,
 	0,
 	'4.1.17',
-	'PilotPayroll::Types');
+	'PilotPayroll::Components::PayrollMgmt::Types');
 INSERT INTO GD_GE
 	VALUES ("95805284-7755-4952-b5fc-5b6764ac2471",
 	"2880d2f1-5e1f-49b6-84ff-20262a5d5986",
 	"00bd3b1c-114b-40b3-baff-27aa0f3f186b",
 	109,
 	0,
-	'PilotPayroll::Types::TimeConversion');
+	'PilotPayroll::Components::PayrollMgmt::Types::TimeConversion');
 INSERT INTO GD_SHP
 	VALUES ("95805284-7755-4952-b5fc-5b6764ac2471");
 INSERT INTO GD_NCS
@@ -161,10 +161,21 @@ INSERT INTO PE_PE
 	VALUES ("06ebca4d-c9fd-4621-817d-3fadc505ee21",
 	1,
 	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
+	"7c6d191c-1502-4f72-9055-2069e5f671e6",
 	7);
+INSERT INTO C_C_PROXY
+	VALUES ("7c6d191c-1502-4f72-9055-2069e5f671e6",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'PayrollMgmt',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../PayrollMgmt.xtuml');
 INSERT INTO S_SYS_PROXY
 	VALUES ("5713191d-1d3c-41cb-add1-1cce3729acf2",
 	'PilotPayroll',
 	1,
-	'../PilotPayroll.xtuml');
+	'../../../PilotPayroll.xtuml');
