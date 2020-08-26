@@ -24,7 +24,7 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'',
+	'4.1.17',
 	'PilotPayroll::Components::PayrollMgmt::DataMarshalling');
 INSERT INTO DIM_DIA
 	VALUES ("72378a00-8e97-4279-8b6f-a2fd67ee8d08",
@@ -38,12 +38,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'MarshalPayroll',
 	'',
-	'index = 1;
-IDs[index] = 0;
-Labels[index] = "";
-Values[index] = 0.0;
-Holds[index] = False;
-select any dept from instances of Department where ( selected.Name == param.Dept );
+	'select any dept from instances of Department where ( selected.Name == param.Dept );
 if ( empty dept )
   LOG::LogFailure( message:"Department name not matched in Send Payroll" );
   return;
@@ -61,15 +56,18 @@ for each emp in employees
     if ( param.Holds == False ) or ( hold == True )
   	  select one spec related by payment->PaymentStructureElement[R13.''is current realization of'']
   	                                  ->PaymentElementSpec[R12.''is typed by''];
-	  IDs[index] = emp.NationalID;
-	  Labels[index] = spec.Label;
-	  Values[index] = payment.Amount;
-	  Holds[index] = hold;
-      index = index + 1;
+      create object instance entry of PayrollItem;
+      entry.ID = emp.NationalID;
+      entry.Label = spec.Label;
+      entry.Amount = payment.Amount;
+      entry.Hold = hold;
     end if;	
   end for;
 end for;
-send USER::Payroll( Department:dept.Name, EmployeeID:IDs, PaymentLabel:Labels, PaymentAmount:Values, HoldStatus:Holds );
+
+select many items from instances of PayrollItem;
+send USER::Payroll( Department:dept.Name, EntrySet:items );
+
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -116,10 +114,11 @@ if ( empty payroll )
   return;
 end if;
 
-index = param.IDs.length - 1;
-while ( index > 0 )
+entries = param.EntrySet;
+
+for each entry in entries;
   select any employee from instances of Employee
-   where ( selected.NationalID == param.IDs[index] );
+   where ( selected.NationalID == entry.ID );
   if ( not_empty employee )
   	select one payroll related by employee->EmployeePayment[R7]
   	                                      ->Payroll[R7.''is on''];
@@ -128,9 +127,9 @@ while ( index > 0 )
     for each elmt in elements
       select one spec related by elmt->PaymentStructureElement[R13.''is current realization of'']
                                     ->PaymentElementSpec[R12.''is typed by''];
-      if ( spec.Label == param.Labels[index] );
+      if ( spec.Label == entry.Label );
       	  select one pr related by elmt->Payroll[R29.''is on hold for''];
-      	if ( param.Holds[index] )
+      	if ( entry.Hold )
       	  if ( empty pr )
       	  	relate elmt to payroll across R29.''is on hold for'';
       	  end if;
@@ -142,104 +141,13 @@ while ( index > 0 )
       end if;
     end for; 
   end if;
-  index = index - 1;
-end while;
+end for;
 generate Payroll7:Reviewed() to payroll; 	                                      
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
 	0);
-INSERT INTO S_SPARM
-	VALUES ("6951c3a2-c510-407f-a5cc-1d3760839074",
-	"1e4bfa68-bb78-4314-90ca-c3a1dd322805",
-	'IDs',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'[]',
-	"4c8dcbb8-e388-4f74-950f-7fb30a7bfc4d",
-	'');
-INSERT INTO S_DIM
-	VALUES (0,
-	0,
-	"00000000-0000-0000-0000-000000000000",
-	"6951c3a2-c510-407f-a5cc-1d3760839074",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"c1cc1b1c-292d-4f5d-b189-c6c7c2fcc802",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_SPARM
-	VALUES ("8a0d4aae-73eb-4f5f-8a4a-114b3a4f9d68",
-	"1e4bfa68-bb78-4314-90ca-c3a1dd322805",
-	'Labels',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'[]',
-	"6951c3a2-c510-407f-a5cc-1d3760839074",
-	'');
-INSERT INTO S_DIM
-	VALUES (0,
-	0,
-	"00000000-0000-0000-0000-000000000000",
-	"8a0d4aae-73eb-4f5f-8a4a-114b3a4f9d68",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"7c698613-ae89-48dc-ba3e-d0dfe437c809",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_SPARM
-	VALUES ("8210bdea-8369-4fb9-90a3-96c2230f44ce",
-	"1e4bfa68-bb78-4314-90ca-c3a1dd322805",
-	'Holds',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'[]',
-	"8a0d4aae-73eb-4f5f-8a4a-114b3a4f9d68",
-	'');
-INSERT INTO S_DIM
-	VALUES (0,
-	0,
-	"00000000-0000-0000-0000-000000000000",
-	"8210bdea-8369-4fb9-90a3-96c2230f44ce",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"5f80f22d-be3b-46b0-b782-35544a584058",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_SPARM
 	VALUES ("4c8dcbb8-e388-4f74-950f-7fb30a7bfc4d",
 	"1e4bfa68-bb78-4314-90ca-c3a1dd322805",
@@ -249,6 +157,22 @@ INSERT INTO S_SPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_SPARM
+	VALUES ("f56aaeaa-c93d-4d06-9ec1-1bdc4f87f93c",
+	"1e4bfa68-bb78-4314-90ca-c3a1dd322805",
+	'EntrySet',
+	"7d341a7e-03e6-4b0e-95a2-f11c9b953e15",
+	0,
+	'',
+	"4c8dcbb8-e388-4f74-950f-7fb30a7bfc4d",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7d341a7e-03e6-4b0e-95a2-f11c9b953e15",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<PayrollItem>',
+	'',
+	'',
+	'../../../../../../MarshallingData/models/MarshallingData/Shared/Shared.xtuml');
 INSERT INTO PE_PE
 	VALUES ("1e4bfa68-bb78-4314-90ca-c3a1dd322805",
 	1,

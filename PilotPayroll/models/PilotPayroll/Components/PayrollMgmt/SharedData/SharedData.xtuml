@@ -1,0 +1,68 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("0b6a5cf5-9ef9-4d9f-9504-e94055b88a63",
+	"00000000-0000-0000-0000-000000000000",
+	"5713191d-1d3c-41cb-add1-1cce3729acf2",
+	'SharedData',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("70c3b78e-b205-4861-9439-9a188cd41c88",
+	112,
+	"0b6a5cf5-9ef9-4d9f-9504-e94055b88a63",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'PilotPayroll::Components::PayrollMgmt::SharedData');
+INSERT INTO DIM_DIA
+	VALUES ("70c3b78e-b205-4861-9439-9a188cd41c88",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO EP_PKGREF
+	VALUES ("0b6a5cf5-9ef9-4d9f-9504-e94055b88a63",
+	"e70f0559-2073-4c26-b24d-95c000f97057");
+INSERT INTO EP_PKG_PROXY
+	VALUES ("e70f0559-2073-4c26-b24d-95c000f97057",
+	"58400eb0-62bc-41ac-80c2-bca13f2a751f",
+	"58400eb0-62bc-41ac-80c2-bca13f2a751f",
+	'Shared',
+	'',
+	0,
+	'../../../../../../MarshallingData/models/MarshallingData/Shared/Shared.xtuml');
+INSERT INTO PE_PE
+	VALUES ("0b6a5cf5-9ef9-4d9f-9504-e94055b88a63",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"7c6d191c-1502-4f72-9055-2069e5f671e6",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("7c6d191c-1502-4f72-9055-2069e5f671e6",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'PayrollMgmt',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../PayrollMgmt.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("5713191d-1d3c-41cb-add1-1cce3729acf2",
+	'PilotPayroll',
+	1,
+	'../../../PilotPayroll.xtuml');

@@ -27,7 +27,7 @@ for each entry in entries
   	Holds[index] = entry.Hold;
   	Dept = entry.DeptName;
 end for;
-send TESTAPP::SubmitItemHolds( Department: Dept, EmployeeID:IDs, PaymentLabel:Labels, HoldStatus:Holds );
+//send TESTAPP::SubmitItemHolds( Department: Dept, EmployeeID:IDs, PaymentLabel:Labels, HoldStatus:Holds );
 
   
 ',

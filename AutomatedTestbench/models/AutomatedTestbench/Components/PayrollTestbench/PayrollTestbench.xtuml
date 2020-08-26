@@ -988,7 +988,7 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'RetrievePayrollForReview',
-	'',
+	'::MarshalPayroll( Dept:param.Department, Holds:False );',
 	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_REP
 	VALUES ("4440bf0d-663b-4b01-8200-caac74d10bed",
@@ -1042,7 +1042,8 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'SubmitItemHolds',
-	'',
+	'::UnmarshallitemHolds( Dept:param.Department, EntrySet:param.EntrySet );
+',
 	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_REP
 	VALUES ("8cb5f6c0-749a-40ed-90b5-10cc2650a64f",
@@ -1086,27 +1087,17 @@ INSERT INTO SPR_REP
 	"1537511c-fd0a-4f97-a1ab-fd6b6a3ce9c7");
 INSERT INTO SPR_RS
 	VALUES ("b4f90f2f-7db5-4003-92c1-5bb08c931a35",
-	'SendPayroll',
+	'Payroll',
 	'',
-	'index = param.EmployeeID.length - 1;
-LOG::LogInfo( message:"retrieving employee data in Testbench");
-while ( index > 0 )
-  create object instance entry of PayrollEntry;
-  entry.DeptName = param.Department;
-  entry.EmployeeID = param.EmployeeID[index];
-  entry.Label = param.PaymentLabel[index];
-  entry.Amount = param.PaymentAmount[index];
-  entry.Hold = param.HoldStatus[index];
-  entry.Edited = False;
-  index = index - 1;
-end while;',
+	'LOG::LogInfo( message:"retrieving employee data in Testbench");
+// Verifier does not deal with handles to sets of instances',
 	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("8c9de5fe-1015-4d0e-bc74-0aa939a8f275",
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
-	'SendPayroll',
+	'Payroll',
 	'',
 	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_REP
@@ -1115,7 +1106,7 @@ INSERT INTO SPR_REP
 	"1537511c-fd0a-4f97-a1ab-fd6b6a3ce9c7");
 INSERT INTO SPR_RS
 	VALUES ("0c2fddcc-17f0-43ca-ac28-4a50c8294c82",
-	'Notify',
+	'Notification',
 	'',
 	'create object instance msg of ReceivedNotification;
 msg.Code = param.Code;',
@@ -1125,7 +1116,7 @@ INSERT INTO C_EP_PROXY
 	VALUES ("0f25438a-f717-4b80-b06c-9ce0f1c905c4",
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
-	'Notify',
+	'Notification',
 	'',
 	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_REP
@@ -1144,7 +1135,15 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'SubmitPayrollApproval',
-	'',
+	'select any dept from instances of Department
+ where ( selected.Name == param.Department );
+select one payroll related by dept->Payroll[R34.''needs current evaluation of''];
+if ( empty payroll )
+  LOG::LogFailure( message:"Department not matched for payroll approval" );
+  return;
+end if;
+payroll.AssessForApproval();
+',
 	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_REP
 	VALUES ("dbed358c-6472-419f-8dfa-a08c6a8d0068",
@@ -1162,7 +1161,15 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'SubmitToFinance',
-	'',
+	'select any dept from instances of Department
+ where ( selected.Name == param.Department );
+if ( empty dept )
+  LOG::LogFailure( message:"Department not found for final submission" );
+  return;
+end if;
+
+select one payroll related by dept->Payroll[R34.''needs current evaluation of''];
+payroll.AssessForSubmittal();',
 	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_REP
 	VALUES ("5d56f9bf-4a46-4873-a33a-8d16ffd893b7",

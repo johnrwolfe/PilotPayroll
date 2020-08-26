@@ -41,7 +41,7 @@ INSERT INTO GD_SHP
 INSERT INTO GD_CTR
 	VALUES ("2bd49b98-b523-4394-a532-9845347466ee");
 INSERT INTO DIM_ND
-	VALUES (2352.000000,
+	VALUES (2572.000000,
 	800.000000,
 	"2bd49b98-b523-4394-a532-9845347466ee");
 INSERT INTO DIM_GE
@@ -55,7 +55,7 @@ INSERT INTO DIM_ELE
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_CON
 	VALUES ("54cf8c06-557d-482d-9f8b-cced788f4cb8",
-	6452.000000,
+	6672.000000,
 	3672.000000,
 	"2bd49b98-b523-4394-a532-9845347466ee");
 INSERT INTO GD_GE
@@ -242,7 +242,7 @@ INSERT INTO DIM_ND
 	0.000000,
 	"6723c3a7-26c4-4480-af0a-aa6c94ada18a");
 INSERT INTO DIM_GE
-	VALUES (6443.000000,
+	VALUES (6663.000000,
 	3632.000000,
 	"6723c3a7-26c4-4480-af0a-aa6c94ada18a",
 	"00000000-0000-0000-0000-000000000000");
@@ -277,14 +277,14 @@ INSERT INTO GD_LS
 	"4aa47a5b-bac3-4cea-bb68-e3878d13d8e1");
 INSERT INTO DIM_WAY
 	VALUES ("1d145705-0ae2-4b0b-a84e-d9dd687a0d55",
-	6452.000000,
+	6672.000000,
 	3672.000000,
 	"3a9ee748-3325-4c12-9037-48b9f1296cf1",
 	"00000000-0000-0000-0000-000000000000",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_WAY
 	VALUES ("4aa47a5b-bac3-4cea-bb68-e3878d13d8e1",
-	6527.000000,
+	6747.000000,
 	3672.000000,
 	"3a9ee748-3325-4c12-9037-48b9f1296cf1",
 	"00000000-0000-0000-0000-000000000000",
@@ -324,6 +324,30 @@ INSERT INTO DIM_GE
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
 	VALUES ("672dd5ed-e238-4672-bf6d-072cf74c9f5e",
+	0,
+	"2bd49b98-b523-4394-a532-9845347466ee");
+INSERT INTO GD_GE
+	VALUES ("0694e95e-68a7-43a6-abb3-c0b7ff7f87e5",
+	"b1b5332c-17f8-47a0-984e-26330c487971",
+	"0b6a5cf5-9ef9-4d9f-9504-e94055b88a63",
+	108,
+	0,
+	'PilotPayroll::Components::PayrollMgmt::SharedData');
+INSERT INTO GD_SHP
+	VALUES ("0694e95e-68a7-43a6-abb3-c0b7ff7f87e5");
+INSERT INTO GD_NCS
+	VALUES ("0694e95e-68a7-43a6-abb3-c0b7ff7f87e5");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"0694e95e-68a7-43a6-abb3-c0b7ff7f87e5");
+INSERT INTO DIM_GE
+	VALUES (6460.000000,
+	3100.000000,
+	"0694e95e-68a7-43a6-abb3-c0b7ff7f87e5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("0694e95e-68a7-43a6-abb3-c0b7ff7f87e5",
 	0,
 	"2bd49b98-b523-4394-a532-9845347466ee");
 INSERT INTO DIM_DIA
@@ -366,7 +390,7 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'RetrievePayrollForReview',
-	'',
+	'::MarshalPayroll( Dept:param.Department, Holds:False );',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("e452186a-96ca-4a24-aab6-9db618b60569",
@@ -412,7 +436,7 @@ INSERT INTO SPR_PS
 	VALUES ("f8de3ba4-c757-43e6-9493-246185227011",
 	'SubmitItemHolds',
 	'',
-	'::UnmarshallitemHolds( Dept:param.Department, IDs:param.EmployeeID, Labels:param.PaymentLabel, Holds:param.HoldStatus );
+	'::UnmarshallitemHolds( Dept:param.Department, EntrySet:param.EntrySet );
 ',
 	1,
 	0);
@@ -421,7 +445,8 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'SubmitItemHolds',
-	'',
+	'::UnmarshallitemHolds( Dept:param.Department, EntrySet:param.EntrySet );
+',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("759593f3-52e5-483a-81ae-8120e73b4312",
@@ -519,7 +544,15 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'SubmitPayrollApproval',
-	'',
+	'select any dept from instances of Department
+ where ( selected.Name == param.Department );
+select one payroll related by dept->Payroll[R34.''needs current evaluation of''];
+if ( empty payroll )
+  LOG::LogFailure( message:"Department not matched for payroll approval" );
+  return;
+end if;
+payroll.AssessForApproval();
+',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("3262aaf6-56ac-4e75-9cdb-de7134df3f29",
@@ -545,7 +578,15 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'SubmitToFinance',
-	'',
+	'select any dept from instances of Department
+ where ( selected.Name == param.Department );
+if ( empty dept )
+  LOG::LogFailure( message:"Department not found for final submission" );
+  return;
+end if;
+
+select one payroll related by dept->Payroll[R34.''needs current evaluation of''];
+payroll.AssessForSubmittal();',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("2e4fa06e-2fb2-48b4-bd9c-8dca953ad57a",
