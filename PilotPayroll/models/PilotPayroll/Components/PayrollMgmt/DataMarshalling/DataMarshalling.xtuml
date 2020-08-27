@@ -67,7 +67,6 @@ end for;
 
 select many items from instances of PayrollItem;
 send USER::Payroll( Department:dept.Name, EntrySet:items );
-
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -142,7 +141,7 @@ for each entry in entries;
     end for; 
   end if;
 end for;
-generate Payroll7:Reviewed() to payroll; 	                                      
+generate Payroll7:Reviewed() to payroll; 	                    
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
