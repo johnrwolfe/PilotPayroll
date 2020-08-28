@@ -321,16 +321,16 @@ INSERT INTO SPR_REP
 	"e9fbda12-253a-422d-85ae-6eb024ac3d4e");
 INSERT INTO SPR_RS
 	VALUES ("b473a938-3115-4475-b29f-c3f69ca27a91",
-	'Payroll',
+	'PayrollData',
 	'',
-	'::Payroll( Department:param.Department, EntrySet:param.EntrySet );',
+	'::PayrollData( Department:param.Department, EntrySet:param.EntrySet );',
 	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("8c9de5fe-1015-4d0e-bc74-0aa939a8f275",
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
-	'Payroll',
+	'PayrollData',
 	'',
 	'../../../../../PilotPayroll/models/PilotPayroll/Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_REP

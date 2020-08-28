@@ -66,7 +66,7 @@ for each emp in employees
 end for;
 
 select many items from instances of PayrollItem;
-send USER::Payroll( Department:dept.Name, EntrySet:items );
+send USER::PayrollData( Department:dept.Name, EntrySet:items );
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,

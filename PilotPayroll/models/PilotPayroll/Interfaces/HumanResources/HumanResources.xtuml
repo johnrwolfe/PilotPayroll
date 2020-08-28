@@ -291,7 +291,7 @@ INSERT INTO C_PP
 INSERT INTO S_DT_PROXY
 	VALUES ("7d341a7e-03e6-4b0e-95a2-f11c9b953e15",
 	"00000000-0000-0000-0000-000000000000",
-	'inst_ref_set<PayrollEntry>',
+	'inst_ref_set<PayrollItem>',
 	'',
 	'',
 	'../../../../../MarshallingData/models/MarshallingData/Shared/Shared.xtuml');
@@ -521,11 +521,11 @@ INSERT INTO C_EP
 	VALUES ("8c9de5fe-1015-4d0e-bc74-0aa939a8f275",
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
-	'Payroll',
+	'PayrollData',
 	'');
 INSERT INTO C_AS
 	VALUES ("8c9de5fe-1015-4d0e-bc74-0aa939a8f275",
-	'Payroll',
+	'PayrollData',
 	'',
 	1,
 	"5ddc2f40-c598-4724-b9e2-e763f4901ac4");
