@@ -13,6 +13,6 @@
   <modules>
     <module>AutomatedTestbench</module>
     <module>PilotPayroll</module>
-    <module>TestFramework</module>
+    <module>../TestFramework/TestFramework</module>
   </modules>
 </project>
