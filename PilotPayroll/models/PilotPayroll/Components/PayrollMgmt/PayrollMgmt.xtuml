@@ -58,6 +58,11 @@ INSERT INTO DIM_CON
 	6452.000000,
 	3672.000000,
 	"2bd49b98-b523-4394-a532-9845347466ee");
+INSERT INTO DIM_CON
+	VALUES ("c5f45a36-d156-4a0f-99a9-44bae98b3421",
+	5226.000000,
+	3900.000000,
+	"2bd49b98-b523-4394-a532-9845347466ee");
 INSERT INTO GD_GE
 	VALUES ("12022b9d-cb63-4736-9e2a-861fa90163a6",
 	"b1b5332c-17f8-47a0-984e-26330c487971",
@@ -326,6 +331,106 @@ INSERT INTO DIM_ELE
 	VALUES ("672dd5ed-e238-4672-bf6d-072cf74c9f5e",
 	0,
 	"2bd49b98-b523-4394-a532-9845347466ee");
+INSERT INTO GD_GE
+	VALUES ("5edb629e-445c-4491-b983-cae25052fd63",
+	"b1b5332c-17f8-47a0-984e-26330c487971",
+	"f81b23ce-1dd4-49f3-907c-0aaaf49888b0",
+	94,
+	0,
+	'PilotPayroll::Components::PayrollMgmt::TEST::TestSupport');
+INSERT INTO GD_CON
+	VALUES ("5edb629e-445c-4491-b983-cae25052fd63",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("09dc953f-068f-4be0-ab2e-3e932d1f72dd",
+	"5edb629e-445c-4491-b983-cae25052fd63",
+	0,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"09dc953f-068f-4be0-ab2e-3e932d1f72dd");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"09dc953f-068f-4be0-ab2e-3e932d1f72dd",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("09dc953f-068f-4be0-ab2e-3e932d1f72dd",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("bc7cab6c-ff09-494b-9e69-eb8ff4381205",
+	"5edb629e-445c-4491-b983-cae25052fd63",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"bc7cab6c-ff09-494b-9e69-eb8ff4381205");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"bc7cab6c-ff09-494b-9e69-eb8ff4381205",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("bc7cab6c-ff09-494b-9e69-eb8ff4381205",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("38d695c4-b5d5-4a25-8507-7eff34039ee4",
+	"5edb629e-445c-4491-b983-cae25052fd63",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"38d695c4-b5d5-4a25-8507-7eff34039ee4");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"38d695c4-b5d5-4a25-8507-7eff34039ee4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("38d695c4-b5d5-4a25-8507-7eff34039ee4",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("96ca6acb-30f1-4f31-801b-e111820d2b3a",
+	"5edb629e-445c-4491-b983-cae25052fd63",
+	"00000000-0000-0000-0000-000000000000",
+	"e0338f49-901e-4aae-a8eb-a80116f7416a",
+	"2579b16f-741e-43e8-8ceb-acb879c14146");
+INSERT INTO DIM_WAY
+	VALUES ("e0338f49-901e-4aae-a8eb-a80116f7416a",
+	5226.000000,
+	3900.000000,
+	"5edb629e-445c-4491-b983-cae25052fd63",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("2579b16f-741e-43e8-8ceb-acb879c14146",
+	5228.000000,
+	3972.000000,
+	"5edb629e-445c-4491-b983-cae25052fd63",
+	"00000000-0000-0000-0000-000000000000",
+	"e0338f49-901e-4aae-a8eb-a80116f7416a");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"5edb629e-445c-4491-b983-cae25052fd63",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("5edb629e-445c-4491-b983-cae25052fd63",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("c5f45a36-d156-4a0f-99a9-44bae98b3421",
+	"00000000-0000-0000-0000-000000000000",
+	"5edb629e-445c-4491-b983-cae25052fd63");
 INSERT INTO DIM_DIA
 	VALUES ("b1b5332c-17f8-47a0-984e-26330c487971",
 	'',
@@ -357,7 +462,9 @@ INSERT INTO SPR_PEP
 INSERT INTO SPR_PS
 	VALUES ("0bda7c67-dbef-4adf-bb45-59d4e6a9ca9f",
 	'RetrievePayrollForReview',
-	'',
+	'Request from client to get department payroll data for review.
+Some reviews request only those items with on-hold status.
+',
 	'::MarshalPayroll( Dept:param.Department, Holds:False );',
 	1,
 	0);
@@ -366,7 +473,9 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'RetrievePayrollForReview',
-	'',
+	'Request from client to get department payroll data for review.
+Some reviews request only those items with on-hold status.
+',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("e452186a-96ca-4a24-aab6-9db618b60569",
@@ -374,8 +483,10 @@ INSERT INTO SPR_PEP
 	"8673d1a5-e3c1-4890-a8c6-d82bc89731e7");
 INSERT INTO SPR_PS
 	VALUES ("e452186a-96ca-4a24-aab6-9db618b60569",
-	'SubmitItemUpdates',
-	'',
+	'SubmitItemUpdate',
+	'Update a payment element amount for an employee on a department payroll.
+Not used for preliminary Use Cases.
+',
 	'',
 	1,
 	0);
@@ -383,8 +494,10 @@ INSERT INTO C_EP_PROXY
 	VALUES ("4d9c995d-41df-4210-b324-bacfc13385c6",
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
-	'SubmitItemUpdates',
-	'',
+	'SubmitItemUpdate',
+	'Update a payment element amount for an employee on a department payroll.
+Not used for preliminary Use Cases.
+',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("2d2951f1-f7bf-4ff2-91bf-5d9b221a1528",
@@ -392,8 +505,10 @@ INSERT INTO SPR_PEP
 	"8673d1a5-e3c1-4890-a8c6-d82bc89731e7");
 INSERT INTO SPR_PS
 	VALUES ("2d2951f1-f7bf-4ff2-91bf-5d9b221a1528",
-	'SubmitItemApprovals',
-	'',
+	'SubmitItemApproval',
+	'Approve a payment element amount for an employee on a department payroll.
+Not used for preliminary Use Cases.
+',
 	'',
 	1,
 	0);
@@ -401,8 +516,10 @@ INSERT INTO C_EP_PROXY
 	VALUES ("629926c0-e851-45a1-a84c-1776a2a7cba6",
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
-	'SubmitItemApprovals',
-	'',
+	'SubmitItemApproval',
+	'Approve a payment element amount for an employee on a department payroll.
+Not used for preliminary Use Cases.
+',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("f8de3ba4-c757-43e6-9493-246185227011",
@@ -410,8 +527,10 @@ INSERT INTO SPR_PEP
 	"8673d1a5-e3c1-4890-a8c6-d82bc89731e7");
 INSERT INTO SPR_PS
 	VALUES ("f8de3ba4-c757-43e6-9493-246185227011",
-	'SubmitItemHolds',
-	'',
+	'SubmitItemHold',
+	'Update the on-hold status of a payment element for an employee on a department payroll.
+
+',
 	'::UnmarshallitemHold( Dept:param.Department, ID:param.EmployeeID, Label:param.PaymentLabel, Hold:param.HoldStatus );
 ',
 	1,
@@ -420,8 +539,10 @@ INSERT INTO C_EP_PROXY
 	VALUES ("bb2c26a6-cd84-4b87-8bb5-ed5924eab856",
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
-	'SubmitItemHolds',
-	'',
+	'SubmitItemHold',
+	'Update the on-hold status of a payment element for an employee on a department payroll.
+
+',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("759593f3-52e5-483a-81ae-8120e73b4312",
@@ -429,8 +550,10 @@ INSERT INTO SPR_PEP
 	"8673d1a5-e3c1-4890-a8c6-d82bc89731e7");
 INSERT INTO SPR_PS
 	VALUES ("759593f3-52e5-483a-81ae-8120e73b4312",
-	'SubmitPayHolds',
-	'',
+	'SubmitPayHold',
+	'Client submits an on-hold status for the entire payment for an employee in a department.
+Not used for preliminary Use Cases.
+',
 	'',
 	1,
 	0);
@@ -438,8 +561,10 @@ INSERT INTO C_EP_PROXY
 	VALUES ("f143ad52-738b-43d7-a3a2-d79376361797",
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
-	'SubmitPayHolds',
-	'',
+	'SubmitPayHold',
+	'Client submits an on-hold status for the entire payment for an employee in a department.
+Not used for preliminary Use Cases.
+',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("537ef455-63f8-44f2-a3fe-11666471a47b",
@@ -447,8 +572,10 @@ INSERT INTO SPR_PEP
 	"8673d1a5-e3c1-4890-a8c6-d82bc89731e7");
 INSERT INTO SPR_PS
 	VALUES ("537ef455-63f8-44f2-a3fe-11666471a47b",
-	'SubmitPayApprovals',
-	'',
+	'SubmitPayApproval',
+	'Signal approval of the entire payment for an employee in a department.
+Not used for preliminary Use Cases.
+',
 	'',
 	1,
 	0);
@@ -456,8 +583,10 @@ INSERT INTO C_EP_PROXY
 	VALUES ("5ddc2f40-c598-4724-b9e2-e763f4901ac4",
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
-	'SubmitPayApprovals',
-	'',
+	'SubmitPayApproval',
+	'Signal approval of the entire payment for an employee in a department.
+Not used for preliminary Use Cases.
+',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("6caf6b8c-d33e-471f-b6ca-ee9e88c3ecee",
@@ -466,7 +595,7 @@ INSERT INTO SPR_PEP
 INSERT INTO SPR_PS
 	VALUES ("6caf6b8c-d33e-471f-b6ca-ee9e88c3ecee",
 	'PayrollData',
-	'',
+	'Data for single payroll payment element for an employee in a department.',
 	'',
 	1,
 	0);
@@ -475,7 +604,7 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'PayrollData',
-	'',
+	'Data for single payroll payment element for an employee in a department.',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("b78d9224-37d3-4371-829b-727ce3157b4b",
@@ -484,7 +613,7 @@ INSERT INTO SPR_PEP
 INSERT INTO SPR_PS
 	VALUES ("b78d9224-37d3-4371-829b-727ce3157b4b",
 	'Notification',
-	'',
+	'Notify a client of some occurrence.',
 	'',
 	1,
 	0);
@@ -493,7 +622,7 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'Notification',
-	'',
+	'Notify a client of some occurrence.',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("8be019a9-e027-42fd-810b-bd39356e51a2",
@@ -502,7 +631,7 @@ INSERT INTO SPR_PEP
 INSERT INTO SPR_PS
 	VALUES ("8be019a9-e027-42fd-810b-bd39356e51a2",
 	'SubmitPayrollApproval',
-	'',
+	'Signal that the payroll for a department has been approved by a client.',
 	'select any dept from instances of Department
  where ( selected.Name == param.Department );
 select one payroll related by dept->Payroll[R34.''needs current evaluation of''];
@@ -519,7 +648,7 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'SubmitPayrollApproval',
-	'',
+	'Signal that the payroll for a department has been approved by a client.',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("3262aaf6-56ac-4e75-9cdb-de7134df3f29",
@@ -528,7 +657,7 @@ INSERT INTO SPR_PEP
 INSERT INTO SPR_PS
 	VALUES ("3262aaf6-56ac-4e75-9cdb-de7134df3f29",
 	'SubmitToFinance',
-	'',
+	'Signal that client wishes to submit finally reviewed payroll to Finance for payment.',
 	'select any dept from instances of Department
  where ( selected.Name == param.Department );
 if ( empty dept )
@@ -545,7 +674,7 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'SubmitToFinance',
-	'',
+	'Signal that client wishes to submit finally reviewed payroll to Finance for payment.',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("2e4fa06e-2fb2-48b4-bd9c-8dca953ad57a",
@@ -554,7 +683,9 @@ INSERT INTO SPR_PEP
 INSERT INTO SPR_PS
 	VALUES ("2e4fa06e-2fb2-48b4-bd9c-8dca953ad57a",
 	'Accepted',
-	'',
+	'Signal acceptance from Finance of a department payroll submitted for payment.
+Not used for preliminary Use Cases.
+',
 	'',
 	1,
 	0);
@@ -563,7 +694,9 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'Accepted',
-	'',
+	'Signal acceptance from Finance of a department payroll submitted for payment.
+Not used for preliminary Use Cases.
+',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("f9413599-a85d-4909-9ad3-b44281dc4af2",
@@ -572,7 +705,7 @@ INSERT INTO SPR_PEP
 INSERT INTO SPR_PS
 	VALUES ("f9413599-a85d-4909-9ad3-b44281dc4af2",
 	'PayrollSent',
-	'',
+	'Signal that all of a department''s payroll data requested for review has been sent to client.',
 	'',
 	3,
 	0);
@@ -581,7 +714,7 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'PayrollSent',
-	'',
+	'Signal that all of a department''s payroll data requested for review has been sent to client.',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("8185cb14-1495-4f74-aba2-96daf97f3cbf",
@@ -590,7 +723,7 @@ INSERT INTO SPR_PEP
 INSERT INTO SPR_PS
 	VALUES ("8185cb14-1495-4f74-aba2-96daf97f3cbf",
 	'UpdatesSent',
-	'',
+	'Signal that all payroll updates for a department have been submitted by client.',
 	'select any dept from instances of Department
  where ( selected.Name == param.Department );
 if ( empty dept )
@@ -612,7 +745,7 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'UpdatesSent',
-	'',
+	'Signal that all payroll updates for a department have been submitted by client.',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO C_I_PROXY
 	VALUES ("cbed0e18-6775-4be9-b1f9-61714edc73e6",
@@ -620,6 +753,66 @@ INSERT INTO C_I_PROXY
 	'HumanResources',
 	'',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
+INSERT INTO C_PO
+	VALUES ("73a46cd3-cc25-4100-97e1-1f839357b66e",
+	"7c6d191c-1502-4f72-9055-2069e5f671e6",
+	'TEST',
+	0,
+	0);
+INSERT INTO C_IR
+	VALUES ("f81b23ce-1dd4-49f3-907c-0aaaf49888b0",
+	"0ffbfc91-301a-4969-b82a-e0fb92ee6e4b",
+	"00000000-0000-0000-0000-000000000000",
+	"73a46cd3-cc25-4100-97e1-1f839357b66e");
+INSERT INTO C_P
+	VALUES ("f81b23ce-1dd4-49f3-907c-0aaaf49888b0",
+	'TestSupport',
+	'Unnamed Interface',
+	'',
+	'PayrollMgmt::TEST::TestSupport');
+INSERT INTO SPR_PEP
+	VALUES ("80e0143e-1a19-46a7-8747-157e622bab17",
+	"2873b505-0875-46ba-adc1-3803a23c091a",
+	"f81b23ce-1dd4-49f3-907c-0aaaf49888b0");
+INSERT INTO SPR_PS
+	VALUES ("80e0143e-1a19-46a7-8747-157e622bab17",
+	'Initialize',
+	'',
+	'::CreatePEIs();
+send TEST::InitializationComplete();',
+	1,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("2873b505-0875-46ba-adc1-3803a23c091a",
+	"0ffbfc91-301a-4969-b82a-e0fb92ee6e4b",
+	-1,
+	'Initialize',
+	'',
+	'../../Interfaces/TestSupport/TestSupport.xtuml');
+INSERT INTO SPR_PEP
+	VALUES ("413e10a0-24e6-4e1f-8f82-fdb37c1db031",
+	"dacd0bea-8275-4100-a9c7-c45e20e5eb7c",
+	"f81b23ce-1dd4-49f3-907c-0aaaf49888b0");
+INSERT INTO SPR_PS
+	VALUES ("413e10a0-24e6-4e1f-8f82-fdb37c1db031",
+	'InitializationComplete',
+	'',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("dacd0bea-8275-4100-a9c7-c45e20e5eb7c",
+	"0ffbfc91-301a-4969-b82a-e0fb92ee6e4b",
+	-1,
+	'InitializationComplete',
+	'',
+	'../../Interfaces/TestSupport/TestSupport.xtuml');
+INSERT INTO C_I_PROXY
+	VALUES ("0ffbfc91-301a-4969-b82a-e0fb92ee6e4b",
+	"00000000-0000-0000-0000-000000000000",
+	'TestSupport',
+	'',
+	'../../Interfaces/TestSupport/TestSupport.xtuml');
 INSERT INTO PE_PE
 	VALUES ("7c6d191c-1502-4f72-9055-2069e5f671e6",
 	1,
