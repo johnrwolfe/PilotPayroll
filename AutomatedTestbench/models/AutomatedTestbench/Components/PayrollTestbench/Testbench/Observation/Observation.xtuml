@@ -78,15 +78,15 @@ INSERT INTO O_TFR
 	'This operation will be invoked when the counterpart instance is encountered by the sequencing service.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one gn related by self->GetNotification[R4];
+	'select one gn related by self->GetNotification[R2];
 if ( not_empty gn )
   gn.CheckNotification();
 else
-  select one rvw related by self->ReviewPayrollEntry[R4];
+  select one rvw related by self->ReviewPayrollEntry[R2];
   if ( not_empty rvw )
   	rvw.ReviewEntry();
   else
-  	select one wft related by self->WaitForTrigger[R4];
+  	select one wft related by self->WaitForTrigger[R2];
   	if ( not_empty wft )
   	  wft.EndWait();
   	end if;
@@ -200,19 +200,19 @@ INSERT INTO O_TFR
 	'Dispose of the client instances when the test sequence service no longer needs them.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one gn related by self->GetNotification[R4];
+	'select one gn related by self->GetNotification[R2];
 if ( not_empty gn )
-  unrelate gn from self across R4;
+  unrelate gn from self across R2;
   delete object instance gn;
 else
-  select one rvw related by self->ReviewPayrollEntry[R4];
+  select one rvw related by self->ReviewPayrollEntry[R2];
   if ( not_empty rvw )
-  	unrelate rvw from self across R4;
+  	unrelate rvw from self across R2;
   	delete object instance rvw;
   else
-  	select one wft related by self->WaitForTrigger[R4];
+  	select one wft related by self->WaitForTrigger[R2];
   	if ( not_empty wft )
-  	  unrelate wft from self across R4;
+  	  unrelate wft from self across R2;
   	  delete object instance wft;
   	end if;
   end if;
@@ -261,6 +261,15 @@ INSERT INTO EP_PKG_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	"254e12da-372d-4f11-ad9a-5b53303407a5",
 	'Testbench',
-	'',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.',
 	0,
 	'../Testbench.xtuml');

@@ -22,7 +22,7 @@ rvw.label = param.label;
 rvw.action = param.action;
 
 create object instance observation of Observation;
-relate rvw to observation across R4;
+relate rvw to observation across R2;
 
 
 observation.AppendPolling( stimulus:param.stimulus, 
@@ -95,7 +95,7 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'LOG::LogInfo( message:"--- Expecting to review payroll entry with action " + self.action );
-select one obs related by self->Observation[R4];
+select one obs related by self->Observation[R2];
 
 select any entry from instances of PayrollEntry
  where ( selected.EmployeeID == self.employeeID )
@@ -210,6 +210,15 @@ INSERT INTO EP_PKG_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	"254e12da-372d-4f11-ad9a-5b53303407a5",
 	'Testbench',
-	'',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.',
 	0,
 	'../Testbench.xtuml');

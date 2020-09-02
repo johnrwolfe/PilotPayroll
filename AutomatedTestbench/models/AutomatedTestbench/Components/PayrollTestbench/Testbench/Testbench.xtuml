@@ -570,7 +570,7 @@ INSERT INTO GD_GE
 	"d60190b3-a3ab-498b-8115-02c377210e6f",
 	36,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R4');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R2');
 INSERT INTO GD_CON
 	VALUES ("9b5203fe-64b4-41bf-bd5c-abda55c45cbb",
 	"00000000-0000-0000-0000-000000000000");
@@ -718,7 +718,7 @@ INSERT INTO GD_GE
 	"cbe9b630-af23-4642-9b18-57268ba983df",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R4::ReviewPayrollEntry');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R2::ReviewPayrollEntry');
 INSERT INTO GD_CON
 	VALUES ("00b95d2b-cc8b-45bb-a956-022015d70aa7",
 	"00000000-0000-0000-0000-000000000000");
@@ -973,7 +973,7 @@ INSERT INTO GD_GE
 	"485a8f0c-acb4-4992-af2e-7c95dec2a83b",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R4::WaitForTrigger');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R2::WaitForTrigger');
 INSERT INTO GD_CON
 	VALUES ("1f3a39fc-6165-412f-8ec3-e0f320825708",
 	"00000000-0000-0000-0000-000000000000");
@@ -1168,7 +1168,7 @@ INSERT INTO GD_GE
 	"d41c5ba9-3c48-41d7-85b2-6a55efc6b75a",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R4::GetNotification');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R2::GetNotification');
 INSERT INTO GD_CON
 	VALUES ("6aaf33c1-a535-4c7f-ba06-6f526c01d291",
 	"00000000-0000-0000-0000-000000000000");
@@ -1790,7 +1790,7 @@ INSERT INTO R_SUBSUP
 	VALUES ("d60190b3-a3ab-498b-8115-02c377210e6f");
 INSERT INTO R_REL
 	VALUES ("d60190b3-a3ab-498b-8115-02c377210e6f",
-	4,
+	2,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_SUPER
