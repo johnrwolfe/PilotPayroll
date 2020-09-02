@@ -778,7 +778,8 @@ INSERT INTO SPR_PS
 	VALUES ("80e0143e-1a19-46a7-8747-157e622bab17",
 	'Initialize',
 	'',
-	'::CreatePEIs();
+	'LOG::LogInfo( message:"Payroll::TestSupport::Initialize()" );
+::CreatePEIs();
 send TEST::InitializationComplete();',
 	1,
 	0);

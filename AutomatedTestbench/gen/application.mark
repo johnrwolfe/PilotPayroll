@@ -1,2 +1,2 @@
 *,RootPackage,*,AutomatedTestbench::SimulationConfiguration
-Components::AutomatedTestbench,InitFunction,Component,RunNominalCases
+Components::PayrollTestbench,InitFunction,Component,RunNominalCases
