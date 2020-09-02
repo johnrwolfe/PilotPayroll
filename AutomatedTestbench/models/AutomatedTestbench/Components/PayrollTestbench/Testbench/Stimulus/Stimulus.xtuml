@@ -36,15 +36,15 @@ INSERT INTO O_TFR
 	'This operation will be invoked when the stimulus is encountered by the sequencing service.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one ff related by self->FastForward[R3];
+	'select one ff related by self->FastForward[R1];
 if ( not_empty ff )
   ff.Advance();
 else
-  select one rp related by self->RequestPayroll[R3];
+  select one rp related by self->RequestPayroll[R1];
   if ( not_empty rp )
   	rp.MakeRequest();
   else
-  	select one psu related by self->PayrollStatusUpdate[R3];
+  	select one psu related by self->PayrollStatusUpdate[R1];
   	if ( not_empty psu )
   	  psu.SetStatus();
   	end if;
@@ -86,19 +86,19 @@ INSERT INTO O_TFR
 	'Dispose of the client instances when the test sequence service no longer needs them.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one ff related by self->FastForward[R3];
+	'select one ff related by self->FastForward[R1];
 if ( not_empty ff )
-  unrelate ff from self across R3;
+  unrelate ff from self across R1;
   delete object instance ff;
 else
-  select one rp related by self->RequestPayroll[R3];
+  select one rp related by self->RequestPayroll[R1];
   if ( not_empty rp )
-  	unrelate rp from self across R3;
+  	unrelate rp from self across R1;
   	delete object instance rp;
   else
-  	select one psu related by self->PayrollStatusUpdate[R3];
+  	select one psu related by self->PayrollStatusUpdate[R1];
   	if ( not_empty psu )
-  	  unrelate psu from self across R3;
+  	  unrelate psu from self across R1;
   	  delete object instance psu;
   	end if;
   end if;
@@ -136,7 +136,7 @@ INSERT INTO S_DT_PROXY
 	'timerResolution',
 	'',
 	'',
-	'../../../../../../../TestFramework/models/TestFramework/Datatypes/Datatypes.xtuml');
+	'../../../../../../../TestFramework/models/TestFramework/SharedDatatypes/SharedDatatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("3f63fbd9-c794-49fa-8248-321f094ed245",
 	"7b139d9e-a4c7-4441-861a-ae1b3f71c89f");
@@ -176,6 +176,15 @@ INSERT INTO EP_PKG_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	"254e12da-372d-4f11-ad9a-5b53303407a5",
 	'Testbench',
-	'',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.',
 	0,
 	'../Testbench.xtuml');
