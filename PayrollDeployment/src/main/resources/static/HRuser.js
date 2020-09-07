@@ -3,6 +3,7 @@ var stompClient = null;
 var vm = new Vue({
 	el: '#main-content',
 	data {
+	    AvailableDisabled: true;
 	    PayrollRequestDisabled: true,
 	    CancelDisabled: true,
 	    UpdateDisabled: true,
@@ -14,6 +15,7 @@ var vm = new Vue({
 })
 
 function initialize() {
+        vm.AvailableDisabled = true;
 	    vm.PayrollRequestDisabled = true;
 	    vm.CancelDisabled = true;
 	    vcm.UpdateDisabled = true;
@@ -63,6 +65,9 @@ function disconnect() {
 
 // Client-to-server messages.
 
+function sendAvailablePayrolls() {
+    stompClient.send("/app/AvailablePayrolls", {} ));
+}
 function sendRetrievePayrollForReview() {
     stompClient.send("/app/RetrievePayrollForReview", {}, 
       JSON.stringify({'department': $("#department").val()}));
@@ -123,14 +128,16 @@ function showReply(message) {
     if ( messageName == "Notification" ) {
         msgident = JSON.parse( reply.body ).Ident;
         vm.notification = msgs[ msgident ];
+        if ( msgident == "generated" ) {
+            vm.AvailableDisabled = false;
+         }
     } else if ( messageName == "PayrollAvailable" ) {
            vm.PayrollDisabled = false;
            payrollAvailable( message );
-           
     } else if ( messageName == "PayeeData" ) {
            vm.PayrollDisabled = true;
            payeeDataMsg( message );
-    } else if ( messageName == "PayrollData" ) {
+    } else if ( messageName == "PayrollData" )
            vm.PayrollDisabled = true;
            payrollDataMsg( message );
     } else if ( messageName == "DataSent" ) {
@@ -146,6 +153,7 @@ $(function () {
     });
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
+    $( "#available" ).click(function() { sendAvailablePayrolls(); });
     $( "#payroll" ).click(function() { sendRetrievePayrollForReview(); });
     $( "#cancel" ).click(function() { cancel(); });
     $( "#update" ).click(function() { sendUpdates(); });

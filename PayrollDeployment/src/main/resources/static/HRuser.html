@@ -30,6 +30,30 @@
         </div>
 
         <div class="col-md-6">
+            <div class="row">
+                <button v-bind:disabled="AvailableDisabled" id="available" class="btn btn-primary" type="submit" disabled="disabled">Request available payrolls</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table id="payrolldepts" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Available for review</th>
+                </tr>
+                </thead>
+                <tbody id="payrolls">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+   <div class="row">
+        <div class="col-md-6">
             <form class="form-inline">
                 <div class="form-group">
                     <label for="department">Enter department name:</label>
@@ -49,20 +73,6 @@
         </div>
     </div>
 
-
-    <div class="row">
-        <div class="col-md-12">
-            <table id="payrolldepts" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Available for review</th>
-                </tr>
-                </thead>
-                <tbody id="payrolls">
-                </tbody>
-            </table>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-md-12">
