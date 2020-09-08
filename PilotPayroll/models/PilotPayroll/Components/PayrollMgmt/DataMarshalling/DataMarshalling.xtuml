@@ -80,7 +80,7 @@ for each emp in employees
       if ( not empsent )		// time to send
         send USER::PayeeData( Department:dept.Name, 
                               EmployeeID:emp.NationalID, 
-                              EmployeeFirstName:"", EmployeeLastName:"" );
+                              EmployeeFirstName:emp.FirstName, EmployeeLastName:emp.LastName );
         empsent = True;
       end if;
   	  select one spec related by payment->PaymentStructureElement[R13.''is current realization of'']
