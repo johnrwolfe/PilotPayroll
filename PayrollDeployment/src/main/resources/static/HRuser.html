@@ -28,14 +28,12 @@
         <div class="row">
             <h4 style="color:blue;">{{ notification }}</h4>
         </div>
-
         <div class="col-md-6">
             <div class="row">
-                <button v-bind:disabled="AvailableDisabled" id="available" class="btn btn-primary" type="submit" disabled="disabled">Request available payrolls</button>
+                <button v-bind:disabled="AvailableDisabled" id="available" class="btn btn-primary" type="submit">Request available payrolls</button>
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-12">
             <table id="payrolldepts" class="table table-striped">
@@ -49,9 +47,6 @@
             </table>
         </div>
     </div>
-
-
-
    <div class="row">
         <div class="col-md-6">
             <form class="form-inline">
@@ -61,19 +56,16 @@
                 </div>
             </form>
         </div>
-
         <div class="col-md-6">
             <div class="row">
-                <button v-bind:disabled="PayrollRequestDisabled" id="payroll" class="btn btn-primary" type="submit" disabled="disabled">Retrieve payroll for review</button>
-                <button v-bind:disabled="CancelDisabled" id="cancel" class="btn btn-primary" type="submit" disabled="disabled">Cancel</button>
-                <button v-bind:disabled="UpdateDisabled" id="update" class="btn btn-primary" type="submit" disabled="disabled">Submit updates</button>
-                <button v-bind:disabled="ApproveDisabled" id="approve" class="btn btn-primary" type="submit" disabled="disabled">Submit approved payroll</button>
-                <button v-bind:disabled="SubmitDisabled" id="finance" class="btn btn-primary" type="submit" disabled="disabled">Submit to Finance</button>
+                <button v-bind:disabled="PayrollRequestDisabled" id="payroll" class="btn btn-primary" type="submit">Retrieve payroll for review</button>
+                <button v-bind:disabled="CancelDisabled" id="cancel" class="btn btn-primary" type="submit">Cancel</button>
+                <button v-bind:disabled="UpdateDisabled" id="update" class="btn btn-primary" type="submit">Submit updates</button>
+                <button v-bind:disabled="ApproveDisabled" id="approve" class="btn btn-primary" type="submit">Submit approved payroll</button>
+                <button v-bind:disabled="SubmitDisabled" id="finance" class="btn btn-primary" type="submit">Submit to Finance</button>
             </div>
         </div>
     </div>
-
-
     <div class="row">
         <div class="col-md-12">
             <table id="payrollentries" class="table table-striped">
@@ -87,8 +79,6 @@
             </table>
         </div>
     </div>
-
-
     <div class="row">
         <div class="col-md-12">
             <table id="conversation" class="table table-striped">
@@ -105,5 +95,5 @@
 </div>
 </body>
 <script src="/vue.js"></script>
-<script src="/TestControl.js"></script>
+<script src="/HRuser.js"></script>
 </html>

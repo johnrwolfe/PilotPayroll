@@ -61,8 +61,8 @@ payspec.Label = "Monthly salary";
 create object instance dept of Department;
 dept.Name = "IT";
 
-TIM::set_epoch( day:1, month:1, year:2020 );
-toss = TimeUtilities::AdvanceTime( days:31, hours:0, minutes:0 );	// Feb 1 ?
+TIM::set_epoch( day:1, month:1, year:2020 );  // Make time values small numbers
+toss = TIM::set_time( day:1, hour:0, microsecond:0, minute:0, month:2, second:0, year:2020 );  // Set current time
 now = TIM::current_seconds();
 create object instance schedule of PayrollScheduleEntry;
 relate schedule to dept across R4.''is scheduled for'';
