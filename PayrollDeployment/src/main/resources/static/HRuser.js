@@ -66,8 +66,10 @@ function disconnect() {
 // Client-to-server messages.
 
 function sendAvailablePayrolls() {
-    stompClient.send( "/app/AvailablePayrolls", {} );
+    stompClient.send( "/app/AvailablePayrolls", {}, 
+      JSON.stringify( {'payload': "unused" } ) );
 }
+
 function sendRetrievePayrollForReview() {
     stompClient.send( "/app/RetrievePayrollForReview", {}, 
       JSON.stringify( {'department': $("#department").val()} ) );
@@ -119,6 +121,8 @@ var msgs = { 'imminent': "Payroll generation imminent for department ",
 		     'generating': "Draft payroll being generated for department ",
 		     'generated': "Draft payroll has been generated for department ",
 		     'reviewed': "Payroll has been reviewed for department ",
+		     'approved': "Payroll has been approved for department ",
+		     'submitted': "Payroll has been submitted for department ",
              'overdue': "Payroll submission overdue for department " };
 
 function showReply( message ) {
@@ -135,15 +139,17 @@ function showReply( message ) {
            vm.PayrollDisabled = false;
            payrollAvailable( message );
     } else if ( messageName == "PayeeData" ) {
-           vm.PayrollDisabled = true;
            payeeDataMsg( message );
     } else if ( messageName == "PayrollData" ) {
-           vm.PayrollDisabled = true;
            payrollDataMsg( message );
     } else if ( messageName == "DataSent" ) {
-           vm.UpdateDisabled = false;
-           vm.ApproveDisabled = false;
-        $("#payrollentries").show();
+           var dataident = JSON.parse( message.body ).ident;
+           if ( dataident == "payroll" ) {
+               vm.PayrollDisabled = false;
+               vm.UpdateDisabled = false;
+               vm.ApproveDisabled = false;
+               $("#payrollentries").show();
+           }
     }
 }
 
