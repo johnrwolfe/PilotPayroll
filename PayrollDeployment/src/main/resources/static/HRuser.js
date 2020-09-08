@@ -76,10 +76,8 @@ function sendRetrievePayrollForReview() {
 }
 
 function sendSubmitPayrollApproval() {
-    stompClient.send( "/app/SubmitPayrollForApproval", {}, 
+    stompClient.send( "/app/SubmitPayrollApproval", {}, 
       JSON.stringify( {'department': $("#department").val()} ) );
-      vm.ApproveDisabled = true;
-      vm.SubmitDisabled = false;
       $("#payrollentries").hide();
 }
 
@@ -87,7 +85,7 @@ function sendUpdates() {
     // send a SubmitItemHold message for any changed hold status
     // then indicate all updates sent
     stompClient.send("/app/UpdatesSent", {}, 
-      JSON.stringify( {'department': $("#department").val()} ) );
+      JSON.stringify( {'department': $("#department").val(), 'count': "0" } ) );
 }
 
 function sendSubmitToFinance() {
@@ -99,20 +97,23 @@ function sendSubmitToFinance() {
 // Support functions for incoming message handling
 
 function availablePayroll ( message ) {
-    dept = JSON.parse( message.body ).department;
+    var dept = JSON.parse( message.body ).department;
     $("#payrolls").append("<tr><td>" + dept + "</td></tr>");
-}
+    $("#payrolldepts").show();
+ }
 
 function payeeDataMsg( message ) {
     // accept a payee element data message 
-    name = JSON.parse( message.body ).employeeFirstName + " " + JSON.parse( message.body ).employeeLastName;
-    $("#entries").append("<tr><td>" + name + "</td></tr>");
+    var ename = JSON.parse( message.body ).employeeFirstName + " " + JSON.parse( message.body ).employeeLastName;
+    $("#entries").append("<tr><td>" + ename + "</td></tr>");
+    $("#payrollentries").show();
 }
 
 function payrollDataMsg( message ) {
     // accept a payroll element data message - just display it, for now
-    entry = JSON.parse( message.body ).paymentLabel + " " + JSON.parse( message.body ).paymentAmount;
-    $("#entries").append("<tr><td>" + entry + "</td></tr>");
+    var pentry = JSON.parse( message.body ).paymentLabel + " " + JSON.parse( message.body ).paymentAmount;
+    $("#entries").append("<tr><td>" + pentry + "</td></tr>");
+    $("#payrollentries").show();
 }
 
 // Display a message received from the server.
@@ -121,6 +122,7 @@ var msgs = { 'imminent': "Payroll generation imminent for department ",
 		     'generating': "Draft payroll being generated for department ",
 		     'generated': "Draft payroll has been generated for department ",
 		     'reviewed': "Payroll has been reviewed for department ",
+		     'unapproved': "Payroll has NOT been approved for department ",
 		     'approved': "Payroll has been approved for department ",
 		     'submitted': "Payroll has been submitted for department ",
              'overdue': "Payroll submission overdue for department " };
@@ -134,21 +136,30 @@ function showReply( message ) {
         vm.notification = msgs[ msgident ] + content;
         if ( msgident == "generated" ) {
             vm.AvailableDisabled = false;
-         }
+        }
+        if ( msgident == "approved" ) {
+            vm.ApproveDisabled = true;
+            vm.SubmitDisabled = false;
+        }
     } else if ( messageName == "PayrollAvailable" ) {
-           vm.PayrollDisabled = false;
-           payrollAvailable( message );
+           availablePayroll( message );
     } else if ( messageName == "PayeeData" ) {
            payeeDataMsg( message );
     } else if ( messageName == "PayrollData" ) {
            payrollDataMsg( message );
     } else if ( messageName == "DataSent" ) {
            var dataident = JSON.parse( message.body ).ident;
+           if ( dataident == "available" ) {
+               vm.PayrollRequestDisabled = false;
+           }   
            if ( dataident == "payroll" ) {
-               vm.PayrollDisabled = false;
                vm.UpdateDisabled = false;
                vm.ApproveDisabled = false;
                $("#payrollentries").show();
+           }
+            if ( dataident == "approved" ) {
+               vm.UpdateDisabled = true;
+               vm.ApproveDisabled = true;
            }
     }
 }

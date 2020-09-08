@@ -3,9 +3,8 @@ package payrolldeployment;
 //Spring requires a POJ class for each message.
 public class AvailablePayrollsMsg {
 	private String payload;
-	public AvailablePayrollsMsg( String payload ) {
-		this.payload = payload;
-	}
+	public AvailablePayrollsMsg() {
+    }
 	public void setPayload( String payload ) {
 		this.payload = payload;
 	}
