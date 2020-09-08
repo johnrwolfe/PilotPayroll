@@ -92,6 +92,8 @@ function sendSubmitToFinance() {
     stompClient.send("/app/SubmitToFinance", {}, 
       JSON.stringify( {'department': $("#department").val()} ) );
       vm.SubmitDisabled = true;
+      vm.UpdateDisabled = true;
+      vm.PayrollRequestDisabled = true;
 }
 
 // Support functions for incoming message handling
@@ -150,7 +152,9 @@ function showReply( message ) {
     } else if ( messageName == "DataSent" ) {
            var dataident = JSON.parse( message.body ).ident;
            if ( dataident == "available" ) {
-               vm.PayrollRequestDisabled = false;
+               if ( JSON.parse( message.body ).count != "0" ) {
+                   vm.PayrollRequestDisabled = false;
+               }
            }   
            if ( dataident == "payroll" ) {
                vm.UpdateDisabled = false;
@@ -176,5 +180,5 @@ $(function () {
     $( "#cancel" ).click(function() { cancel(); });
     $( "#update" ).click(function() { sendUpdates(); });
     $( "#approve" ).click(function() { sendSubmitPayrollApproval(); });
-    $( "#submit" ).click(function() { sendSubmitToFinance(); });
+    $( "#finance" ).click(function() { sendSubmitToFinance(); });
 });
