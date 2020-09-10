@@ -5,6 +5,9 @@ public class AvailablePayrollsMsg {
 	private String payload;
 	public AvailablePayrollsMsg() {
     }
+	public AvailablePayrollsMsg( String payload ) {
+		this.payload = payload;
+    }
 	public void setPayload( String payload ) {
 		this.payload = payload;
 	}
