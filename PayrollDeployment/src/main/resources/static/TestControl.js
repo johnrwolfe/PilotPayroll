@@ -81,8 +81,10 @@ function sendSetTime() {
     	              'minute': dateTime.getUTCMinutes()}));
 }
 
-function sendSetTime() {
-    stompClient.send("/app/SetTime", {} );
+
+function sendGetTime() {
+    stompClient.send( "/app/GetTime", {}, 
+      JSON.stringify( {'payload': "unused" } ) );
 }
 
 // End of client-to-server..
