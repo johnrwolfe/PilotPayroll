@@ -6,7 +6,8 @@ INSERT INTO O_OBJ
 	27,
 	'ReviewPayrollElement',
 	'Find a payroll element and act upon it according to parameters.
-To succeed, this observation must locate the element and successfully accomplish the configured action.',
+To succeed, this observation must locate the element and successfully accomplish the configured action.
+This is a polling observation because there is no signal defined to initiate review of possibly multiple elements.',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("fcee4895-9f58-4809-9f34-ed23174fce47",
