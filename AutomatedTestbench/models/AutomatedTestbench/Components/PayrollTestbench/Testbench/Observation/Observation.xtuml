@@ -123,8 +123,6 @@ INSERT INTO O_TFR
 	'AppendTriggered',
 	'Add an instance of Observation sub/supertype pair following the specified stimulus.
 A triggered observation will be re-evaluated whenever its key value matches that of a assess signal.
-An overall time limit for such re-evaluation may be specified.
-Failure to signal success within the time limit is considered a time-out failure.
 Any observation failure terminates the entire test case.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,

@@ -8,64 +8,6 @@ INSERT INTO O_OBJ
 	'This observation succeeds when it finds a notification from the application that matches its identification attribute.',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
-	VALUES ("b2793190-40e6-43fc-87a3-ba7ac95daf33",
-	"77d6047f-1bcc-4553-92e7-a60486cde93e",
-	'CreatePolling',
-	'Add an observation of this type to the ''script'' of a test case.
-See Observation.AppendPolling for description.',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	0,
-	'create object instance verify of GetNotification;
-
-create object instance obs of Observation;
-relate verify to obs across R4;
-verify.Ident = param.matchIdent;
-
-obs.AppendPolling( stimulus:param.stimulus,
-                   pollInterval:param.pollInterval, 
-                   timeLimit:param.timeLimit );
-',
-	1,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	0);
-INSERT INTO O_TPARM
-	VALUES ("161a587e-de92-4047-aad3-478094cae10f",
-	"b2793190-40e6-43fc-87a3-ba7ac95daf33",
-	'pollInterval',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"bb2565aa-68c3-4ea0-84a8-a6a4a2ae141a",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("2b8eca8f-69a8-4b39-917e-00d40d809ae3",
-	"b2793190-40e6-43fc-87a3-ba7ac95daf33",
-	'timeLimit',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"161a587e-de92-4047-aad3-478094cae10f",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("67659838-3468-4731-8315-765ddbdccb9b",
-	"b2793190-40e6-43fc-87a3-ba7ac95daf33",
-	'stimulus',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("bb2565aa-68c3-4ea0-84a8-a6a4a2ae141a",
-	"b2793190-40e6-43fc-87a3-ba7ac95daf33",
-	'matchIdent',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"67659838-3468-4731-8315-765ddbdccb9b",
-	'This value should match the Ident field of a received notification for observation success.');
-INSERT INTO O_TFR
 	VALUES ("970fd98b-a0a5-4914-b5c5-541810cbb5fb",
 	"77d6047f-1bcc-4553-92e7-a60486cde93e",
 	'CheckNotification',
@@ -86,8 +28,47 @@ end if;
 ',
 	1,
 	'',
-	"b2793190-40e6-43fc-87a3-ba7ac95daf33",
+	"6765dd76-e26a-460a-b548-8f51743b7cdf",
 	0);
+INSERT INTO O_TFR
+	VALUES ("6765dd76-e26a-460a-b548-8f51743b7cdf",
+	"77d6047f-1bcc-4553-92e7-a60486cde93e",
+	'CreateTriggered',
+	'Add an observation of this type to the ''script'' of a test case.
+See Observation.AppendTriggered for description.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'create object instance verify of GetNotification;
+
+create object instance obs of Observation;
+relate verify to obs across R4;
+verify.Ident = param.matchIdent;
+
+obs.AppendTriggered( stimulus:param.stimulus, key:"Notification",
+                   pollInterval:0, 
+                   timeLimit:0 );',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("c9fa781d-bcf8-45d1-b3ce-af45cf73e081",
+	"6765dd76-e26a-460a-b548-8f51743b7cdf",
+	'stimulus',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e60585a3-7aec-461d-9227-7cd0bd69aba8",
+	"6765dd76-e26a-460a-b548-8f51743b7cdf",
+	'matchIdent',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"c9fa781d-bcf8-45d1-b3ce-af45cf73e081",
+	'This value should match the Ident field of a received notification for observation success.');
 INSERT INTO O_NBATTR
 	VALUES ("6e067a53-63bf-4306-ab29-7acf2a824fe2",
 	"77d6047f-1bcc-4553-92e7-a60486cde93e");

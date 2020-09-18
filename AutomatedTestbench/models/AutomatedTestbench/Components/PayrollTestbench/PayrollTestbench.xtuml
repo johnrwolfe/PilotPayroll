@@ -1261,7 +1261,8 @@ select any str from instances of NotificationString
  where ( selected.key == param.Ident );
 if ( not_empty str )
   LOG::LogInfo( message:"**** NOTIFICATION: " + str.message + param.Content );
-end if;',
+end if;
+send TESTSEQ::Assess( key:"Notification" );',
 	1,
 	0);
 INSERT INTO C_EP_PROXY
