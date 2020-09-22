@@ -781,60 +781,6 @@ INSERT INTO C_EP_PROXY
 	'Signals the testbench that the identified test bucket sub/supertype can be disposed of.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
-	VALUES ("259313ca-d0dc-4bd1-87f2-d463697bffe1",
-	"9ef51640-e733-4e08-87de-474d06cc17d7",
-	"8343e62e-053d-47d5-9e0f-752dd12b137a");
-INSERT INTO SPR_RS
-	VALUES ("259313ca-d0dc-4bd1-87f2-d463697bffe1",
-	'SetTestBucketResolution',
-	'Test buckets inherit a default resolution from the test suite; this can be overridden.',
-	'',
-	1,
-	0);
-INSERT INTO C_EP_PROXY
-	VALUES ("9ef51640-e733-4e08-87de-474d06cc17d7",
-	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
-	-1,
-	'SetTestBucketResolution',
-	'Test buckets inherit a default resolution from the test suite; this can be overridden.',
-	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
-INSERT INTO SPR_REP
-	VALUES ("ec66832c-b73d-4159-8095-ad145817bc84",
-	"7db0ac18-85c0-4cf0-a9aa-cd3dc8466a8f",
-	"8343e62e-053d-47d5-9e0f-752dd12b137a");
-INSERT INTO SPR_RS
-	VALUES ("ec66832c-b73d-4159-8095-ad145817bc84",
-	'SetSequenceResolution',
-	'Test sequences inherit a default resolution from the test bucket; this can be overridden.',
-	'',
-	1,
-	0);
-INSERT INTO C_EP_PROXY
-	VALUES ("7db0ac18-85c0-4cf0-a9aa-cd3dc8466a8f",
-	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
-	-1,
-	'SetSequenceResolution',
-	'Test sequences inherit a default resolution from the test bucket; this can be overridden.',
-	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
-INSERT INTO SPR_REP
-	VALUES ("fa408aea-dd16-4fd5-bdaa-a7638f2c9bf4",
-	"e9a718cd-155e-4f82-ab40-9e08b065623a",
-	"8343e62e-053d-47d5-9e0f-752dd12b137a");
-INSERT INTO SPR_RS
-	VALUES ("fa408aea-dd16-4fd5-bdaa-a7638f2c9bf4",
-	'SetTestSuiteResolution',
-	'Set the timer resolution which will be default for the test buckets in this test suite.',
-	'',
-	1,
-	0);
-INSERT INTO C_EP_PROXY
-	VALUES ("e9a718cd-155e-4f82-ab40-9e08b065623a",
-	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
-	-1,
-	'SetTestSuiteResolution',
-	'Set the timer resolution which will be default for the test buckets in this test suite.',
-	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
-INSERT INTO SPR_REP
 	VALUES ("2c76a625-776a-4dce-84a6-427ca4c209dc",
 	"b1465433-efc9-45bd-ad88-e5ead4500931",
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
@@ -851,26 +797,6 @@ INSERT INTO C_EP_PROXY
 	-1,
 	'RegisterTestSuite',
 	'A single instance of test suite must be created, to which will be added test bucket(s) containg test case(s).',
-	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
-INSERT INTO SPR_REP
-	VALUES ("b99d23ed-066d-4943-a265-b1af041825d2",
-	"9e278084-be96-4393-8eee-f1793a29017b",
-	"8343e62e-053d-47d5-9e0f-752dd12b137a");
-INSERT INTO SPR_RS
-	VALUES ("b99d23ed-066d-4943-a265-b1af041825d2",
-	'SetTestCaseDurationLimit',
-	'Assign an optional overall duration limit for execution of a test case.
-If the limit is exceeded, the test case fails and terminates all sequence execution.',
-	'',
-	1,
-	0);
-INSERT INTO C_EP_PROXY
-	VALUES ("9e278084-be96-4393-8eee-f1793a29017b",
-	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
-	-1,
-	'SetTestCaseDurationLimit',
-	'Assign an optional overall duration limit for execution of a test case.
-If the limit is exceeded, the test case fails and terminates all sequence execution.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
 	VALUES ("729644d0-9d87-4a2c-b7bd-963d9c5d3e7e",
@@ -971,7 +897,8 @@ INSERT INTO SPR_REP
 INSERT INTO SPR_RS
 	VALUES ("eb447a89-9567-4975-82b5-d178e0a58521",
 	'CreateStimulusSequence',
-	'A test case, identified by its label, can have one or more labeled sequences of stimuli.
+	'Deprecated: AddStimulusSequence now adds a labelled sequence to the current test case.
+A test case, identified by its label, can have one or more labeled sequences of stimuli.
 These sequences may run in parallel and may interact via assess signals.',
 	'',
 	1,
@@ -981,7 +908,8 @@ INSERT INTO C_EP_PROXY
 	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	-1,
 	'CreateStimulusSequence',
-	'A test case, identified by its label, can have one or more labeled sequences of stimuli.
+	'Deprecated: AddStimulusSequence now adds a labelled sequence to the current test case.
+A test case, identified by its label, can have one or more labeled sequences of stimuli.
 These sequences may run in parallel and may interact via assess signals.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
@@ -1027,8 +955,8 @@ INSERT INTO SPR_REP
 INSERT INTO SPR_RS
 	VALUES ("e71d7e5b-d640-4664-9297-b9df2d56054e",
 	'RequestIntervalTimerValue',
-	'Request the value of the interval timer associated with the sequence to which the observation belongs.
-The value will be signalled to the testbench, attaching the observation identifier.
+	'An observation may request the value of the interval timer associated with its stimulus sequence.
+The value will be signalled back to the testbench, along with the supplied identification key.
 Optionally, the timer can be reset.',
 	'',
 	1,
@@ -1038,8 +966,8 @@ INSERT INTO C_EP_PROXY
 	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	-1,
 	'RequestIntervalTimerValue',
-	'Request the value of the interval timer associated with the sequence to which the observation belongs.
-The value will be signalled to the testbench, attaching the observation identifier.
+	'An observation may request the value of the interval timer associated with its stimulus sequence.
+The value will be signalled back to the testbench, along with the supplied identification key.
 Optionally, the timer can be reset.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
@@ -1059,6 +987,102 @@ INSERT INTO C_EP_PROXY
 	-1,
 	'IntervalTimerValue',
 	'',
+	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("ec74d567-b44d-4227-b0de-65e056a833f8",
+	"d69685a1-d173-411e-954d-82338177cf09",
+	"8343e62e-053d-47d5-9e0f-752dd12b137a");
+INSERT INTO SPR_RS
+	VALUES ("ec74d567-b44d-4227-b0de-65e056a833f8",
+	'AddStimulusSequence',
+	'A test case can have one or more labeled sequences of stimuli.
+A labelled sequence will be added to the test case currently being constructed.
+These sequences may run in parallel and may interact via assess signals.',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("d69685a1-d173-411e-954d-82338177cf09",
+	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
+	-1,
+	'AddStimulusSequence',
+	'A test case can have one or more labeled sequences of stimuli.
+A labelled sequence will be added to the test case currently being constructed.
+These sequences may run in parallel and may interact via assess signals.',
+	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("9c95bfc5-838d-4a01-89e6-a7b9a06eb05b",
+	"ca057380-3763-49be-a902-4f89bd14277c",
+	"8343e62e-053d-47d5-9e0f-752dd12b137a");
+INSERT INTO SPR_RS
+	VALUES ("9c95bfc5-838d-4a01-89e6-a7b9a06eb05b",
+	'CancelTriggeredObservation',
+	'On this signal, any active observations with matching key value will be canceled.
+This has the effect of completing the observation without a failure penalty.',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("ca057380-3763-49be-a902-4f89bd14277c",
+	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
+	-1,
+	'CancelTriggeredObservation',
+	'On this signal, any active observations with matching key value will be canceled.
+This has the effect of completing the observation without a failure penalty.',
+	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("c16a74eb-d867-48ed-bbf1-7edc86839e8a",
+	"de9c9d7b-2d7a-4144-923a-4f0477575d03",
+	"8343e62e-053d-47d5-9e0f-752dd12b137a");
+INSERT INTO SPR_RS
+	VALUES ("c16a74eb-d867-48ed-bbf1-7edc86839e8a",
+	'SetTestBucketResolution',
+	'Test buckets inherit a default resolution from the test suite; this can be overridden.',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("de9c9d7b-2d7a-4144-923a-4f0477575d03",
+	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
+	-1,
+	'SetTestBucketResolution',
+	'Test buckets inherit a default resolution from the test suite; this can be overridden.',
+	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("e6fd1ea6-ab0b-4083-8ed0-7b498d8d40c2",
+	"092a77de-9124-470e-9e04-e55568aebdc9",
+	"8343e62e-053d-47d5-9e0f-752dd12b137a");
+INSERT INTO SPR_RS
+	VALUES ("e6fd1ea6-ab0b-4083-8ed0-7b498d8d40c2",
+	'SetSequenceResolution',
+	'Test sequences inherit a default resolution from the test bucket; this can be overridden.',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("092a77de-9124-470e-9e04-e55568aebdc9",
+	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
+	-1,
+	'SetSequenceResolution',
+	'Test sequences inherit a default resolution from the test bucket; this can be overridden.',
+	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("d6ed7f9b-7131-434e-a079-91b471c76183",
+	"168e2aad-1615-4146-ac35-e977e2dbf6c5",
+	"8343e62e-053d-47d5-9e0f-752dd12b137a");
+INSERT INTO SPR_RS
+	VALUES ("d6ed7f9b-7131-434e-a079-91b471c76183",
+	'SetTestSuiteResolution',
+	'Set the timer resolution which will be default for the test buckets in this test suite.',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("168e2aad-1615-4146-ac35-e977e2dbf6c5",
+	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
+	-1,
+	'SetTestSuiteResolution',
+	'Set the timer resolution which will be default for the test buckets in this test suite.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO C_I_PROXY
 	VALUES ("eff7aa83-70b9-46a6-bfc0-08d66d36431e",

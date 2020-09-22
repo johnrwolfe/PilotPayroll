@@ -27,7 +27,7 @@ create object instance observation of Observation;
 relate rvw to observation across R4;
 
 
-observation.AppendPolling( stimulus:param.stimulus, 
+observation.AppendPolling( seqLabel:param.seqLabel, 
                            pollInterval:param.pollInterval, 
                            timeLimit:param.timeLimit );
 ',
@@ -65,8 +65,8 @@ INSERT INTO O_TPARM
 INSERT INTO O_TPARM
 	VALUES ("aa3537e1-e29b-4df7-a3ca-0eb089cd6467",
 	"fcee4895-9f58-4809-9f34-ed23174fce47",
-	'stimulus',
-	"ba5eda7a-def5-0000-0000-000000000005",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
