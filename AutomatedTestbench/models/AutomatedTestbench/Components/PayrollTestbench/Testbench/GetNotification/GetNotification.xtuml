@@ -46,7 +46,8 @@ verify.Ident = param.matchIdent;
 
 obs.AppendTriggered( seqLabel:param.seqLabel, key:"Notification",
                    pollInterval:0, 
-                   timeLimit:0 );',
+                   timeLimit:0,
+                   concurrent:True );',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",

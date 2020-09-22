@@ -30,27 +30,60 @@ send TESTSEQ::SetTestBucketResolution( bucketId:bucket.bucketId, resolution:time
 // Use Case UC06 
 send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC06" ); 
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq06" );
-stId06 = FastForward::Create( seqLabel:"seq06", days:13, hours:11 );
+FastForward::Create( seqLabel:"seq06", days:13, hours:11 );
 GetNotification::CreateTriggered( seqLabel:"seq06", matchIdent:"imminent" );
 
 // Use Case UC05
 send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC05" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq05" );
-stId05 = FastForward::Create( seqLabel:"seq05", days:1, hours:1 );
+FastForward::Create( seqLabel:"seq05", days:1, hours:1 );
 GetNotification::CreateTriggered( seqLabel:"seq05", matchIdent:"generating" );
 GetNotification::CreateTriggered( seqLabel:"seq05", matchIdent:"generated" );
 
 // Use Case UC03
 send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC03" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq03" );
-stId = RequestAvailable::Create( seqLabel:"seq03" );
-stId = RequestPayroll::Create( seqLabel:"seq03", dept:"IT", holds:False );
+RequestAvailable::Create( seqLabel:"seq03" );
+WaitForTrigger::CreateTriggered( seqLabel:"seq03", key:"DepartmentsSent", pollInterval:0, timeLimit:0 );
+RequestPayroll::Create( seqLabel:"seq03", dept:"IT", holds:False );
 WaitForTrigger::CreateTriggered( seqLabel:"seq03", key:"PayrollAvailable", pollInterval:0, timeLimit:0 );
 ReviewPayrollElement::CreatePolling( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5 );
-stId = PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"Save" );
+PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"Save" );
 GetNotification::CreateTriggered( seqLabel:"seq03", matchIdent:"reviewed" );
 ReviewPayrollElement::CreatePolling( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"checkhold", pollInterval:1, timeLimit:5 );
-stId = PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"clear" );
+PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"clear" );
+
+
+// Use Case UC07
+send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC07" );
+send TESTSEQ::AddStimulusSequence( seqLabel:"seq07" );
+RequestPayroll::Create( seqLabel:"seq07", dept:"IT", holds:True );
+WaitForTrigger::CreateTriggered( seqLabel:"seq07", key:"PayrollAvailable", pollInterval:0, timeLimit:0 );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"clear", pollInterval:1, timeLimit:5 );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10002, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5 );
+PayrollStatusUpdate::Create( seqLabel:"seq07", dept:"IT", requestedstatus:"Save" );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"checkclear", pollInterval:1, timeLimit:5 );
+PayrollStatusUpdate::Create( seqLabel:"seq07", dept:"IT", requestedstatus:"Clear" );
+
+// Use Case UC04
+send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC04" );
+send TESTSEQ::AddStimulusSequence( seqLabel:"seq04" );
+RequestPayroll::Create( seqLabel:"seq04", dept:"IT", holds:False );
+WaitForTrigger::CreateTriggered( seqLabel:"seq04", key:"PayrollAvailable", pollInterval:0, timeLimit:0 );
+PayrollStatusUpdate::Create( seqLabel:"seq04", dept:"IT", requestedstatus:"Approve" );
+GetNotification::CreateTriggered( seqLabel:"seq04", matchIdent:"unapproved" );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq04", employee:10002, label:"Monthly salary", action:"checkunapproval", pollInterval:1, timeLimit:5 );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq04", employee:10002, label:"Monthly salary", action:"approve", pollInterval:1, timeLimit:5 );
+PayrollStatusUpdate::Create( seqLabel:"seq04", dept:"IT", requestedstatus:"Approve" );
+GetNotification::CreateTriggered( seqLabel:"seq04", matchIdent:"approved" );
+PayrollStatusUpdate::Create( seqLabel:"seq04", dept:"IT", requestedstatus:"Clear" );
+
+// Use Case UC09
+send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC09" );
+send TESTSEQ::AddStimulusSequence( seqLabel:"seq09" );
+RequestPayroll::Create( seqLabel:"seq09", dept:"IT", holds:False );
+PayrollStatusUpdate::Create( seqLabel:"seq09", dept:"IT", requestedstatus:"FinalSubmit" );
+GetNotification::CreateTriggered( seqLabel:"seq09", matchIdent:"submitted" );
 
 
 bucket.Initialized();

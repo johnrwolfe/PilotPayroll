@@ -12,17 +12,15 @@ INSERT INTO O_TFR
 	"10753813-4435-42b5-b35e-30f6c94ceffb",
 	'Create',
 	'Add an instance of a time advance request to the ''script'' of a test case.',
-	"ba5eda7a-def5-0000-0000-000000000005",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
-	'create object instance ff of FastForward;
-ff.days = param.days;
-ff.hours = param.hours;
+	'create object instance timewarp of FastForward;
+timewarp.days = param.days;
+timewarp.hours = param.hours;
 
 create object instance stimulus of Stimulus;
-relate stimulus to ff across R3;
-stimulus.AddToTest( seqLabel:param.seqLabel );
-return stimulus.stimulusId;
-',
+relate stimulus to timewarp across R3;
+stimulus.AddToTest( seqLabel:param.seqLabel );',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
