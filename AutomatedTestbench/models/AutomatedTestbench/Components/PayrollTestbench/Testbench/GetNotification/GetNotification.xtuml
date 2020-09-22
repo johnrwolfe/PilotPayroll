@@ -44,9 +44,10 @@ create object instance obs of Observation;
 relate verify to obs across R4;
 verify.Ident = param.matchIdent;
 
-obs.AppendTriggered( stimulus:param.stimulus, key:"Notification",
+obs.AppendTriggered( seqLabel:param.seqLabel, key:"Notification",
                    pollInterval:0, 
-                   timeLimit:0 );',
+                   timeLimit:0,
+                   concurrent:True );',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -54,8 +55,8 @@ obs.AppendTriggered( stimulus:param.stimulus, key:"Notification",
 INSERT INTO O_TPARM
 	VALUES ("c9fa781d-bcf8-45d1-b3ce-af45cf73e081",
 	"6765dd76-e26a-460a-b548-8f51743b7cdf",
-	'stimulus',
-	"ba5eda7a-def5-0000-0000-000000000005",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
