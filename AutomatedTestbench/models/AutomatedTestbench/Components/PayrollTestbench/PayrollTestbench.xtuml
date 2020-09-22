@@ -999,7 +999,7 @@ INSERT INTO SPR_RS
 A labelled sequence will be added to the test case currently being constructed.
 These sequences may run in parallel and may interact via assess signals.',
 	'',
-	3,
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("d69685a1-d173-411e-954d-82338177cf09",
@@ -1020,7 +1020,7 @@ INSERT INTO SPR_RS
 	'On this signal, any active observations with matching key value will be canceled.
 This has the effect of completing the observation without a failure penalty.',
 	'',
-	3,
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("ca057380-3763-49be-a902-4f89bd14277c",
@@ -1039,7 +1039,7 @@ INSERT INTO SPR_RS
 	'SetTestBucketResolution',
 	'Test buckets inherit a default resolution from the test suite; this can be overridden.',
 	'',
-	3,
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("de9c9d7b-2d7a-4144-923a-4f0477575d03",
@@ -1057,7 +1057,7 @@ INSERT INTO SPR_RS
 	'SetSequenceResolution',
 	'Test sequences inherit a default resolution from the test bucket; this can be overridden.',
 	'',
-	3,
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("092a77de-9124-470e-9e04-e55568aebdc9",
@@ -1075,7 +1075,7 @@ INSERT INTO SPR_RS
 	'SetTestSuiteResolution',
 	'Set the timer resolution which will be default for the test buckets in this test suite.',
 	'',
-	3,
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("168e2aad-1615-4146-ac35-e977e2dbf6c5",
@@ -1363,11 +1363,13 @@ INSERT INTO SPR_RS
 	'DataSent',
 	'Signal that all of multi-part data stream requested has been sent to6the requesting client.',
 	'LOG::LogInfo( message:"-------- all data received for " + param.Ident );
-if ( param.Ident == "payroll" )
-  send TESTSEQ::Assess( key:"PayrollAvailable" );
+if ( param.Ident == "available" )
+  send TESTSEQ::Assess( key:"DepartmentsSent" );
 end if;
 
-',
+if ( param.Ident == "payroll" )
+  send TESTSEQ::Assess( key:"PayrollAvailable" );
+end if;',
 	1,
 	0);
 INSERT INTO C_EP_PROXY

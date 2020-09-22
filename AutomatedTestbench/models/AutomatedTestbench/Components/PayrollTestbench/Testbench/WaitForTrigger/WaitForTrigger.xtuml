@@ -24,8 +24,8 @@ relate wait to observation across R4;
 
 observation.AppendTriggered( seqLabel:param.seqLabel,
                            key:param.key, pollInterval:param.pollInterval,
-                           timeLimit:param.timeLimit );
-',
+                           timeLimit:param.timeLimit,
+                           concurrent:False );',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
