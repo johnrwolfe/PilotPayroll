@@ -22,7 +22,7 @@ See Observation.AppendTriggered for description.',
 create object instance observation of Observation;
 relate wait to observation across R4;
 
-observation.AppendTriggered( stimulus:param.stimulus, 
+observation.AppendTriggered( seqLabel:param.seqLabel,
                            key:param.key, pollInterval:param.pollInterval,
                            timeLimit:param.timeLimit );
 ',
@@ -33,8 +33,8 @@ observation.AppendTriggered( stimulus:param.stimulus,
 INSERT INTO O_TPARM
 	VALUES ("8b258f40-a1b6-44e7-957c-1da1e142e8ca",
 	"7a39e8c1-54c7-48f1-8e79-4bad5edfd551",
-	'stimulus',
-	"ba5eda7a-def5-0000-0000-000000000005",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
