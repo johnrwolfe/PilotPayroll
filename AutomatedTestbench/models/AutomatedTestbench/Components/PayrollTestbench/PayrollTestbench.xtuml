@@ -787,7 +787,7 @@ INSERT INTO SPR_REP
 INSERT INTO SPR_RS
 	VALUES ("2c76a625-776a-4dce-84a6-427ca4c209dc",
 	'RegisterTestSuite',
-	'A single instance of test suite must be created, to which will be added test bucket(s) containg test case(s).',
+	'A single instance of test suite must be created, to which will be added test bucket(s) containing test case(s).',
 	'',
 	1,
 	0);
@@ -796,7 +796,7 @@ INSERT INTO C_EP_PROXY
 	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	-1,
 	'RegisterTestSuite',
-	'A single instance of test suite must be created, to which will be added test bucket(s) containg test case(s).',
+	'A single instance of test suite must be created, to which will be added test bucket(s) containing test case(s).',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
 	VALUES ("729644d0-9d87-4a2c-b7bd-963d9c5d3e7e",
@@ -844,7 +844,7 @@ INSERT INTO SPR_RS
 	VALUES ("2ddf7195-3994-4115-867f-a9ac5fff9aa4",
 	'TestSuiteComplete',
 	'Signals completion of the test suite.',
-	'::Finish();',
+	'LOG::LogInfo( message:"Test suite complete " );',
 	1,
 	0);
 INSERT INTO C_EP_PROXY
@@ -889,28 +889,6 @@ INSERT INTO C_EP_PROXY
 	-1,
 	'CreateTestCase',
 	'Add an instance of a test case, identified by label, to the indicated test bucket.',
-	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
-INSERT INTO SPR_REP
-	VALUES ("eb447a89-9567-4975-82b5-d178e0a58521",
-	"63e52cd1-3ec8-4352-ade8-ba438a671bd3",
-	"8343e62e-053d-47d5-9e0f-752dd12b137a");
-INSERT INTO SPR_RS
-	VALUES ("eb447a89-9567-4975-82b5-d178e0a58521",
-	'CreateStimulusSequence',
-	'Deprecated: AddStimulusSequence now adds a labelled sequence to the current test case.
-A test case, identified by its label, can have one or more labeled sequences of stimuli.
-These sequences may run in parallel and may interact via assess signals.',
-	'',
-	1,
-	0);
-INSERT INTO C_EP_PROXY
-	VALUES ("63e52cd1-3ec8-4352-ade8-ba438a671bd3",
-	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
-	-1,
-	'CreateStimulusSequence',
-	'Deprecated: AddStimulusSequence now adds a labelled sequence to the current test case.
-A test case, identified by its label, can have one or more labeled sequences of stimuli.
-These sequences may run in parallel and may interact via assess signals.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
 	VALUES ("6dd7fc81-bacc-408a-8497-58d37f91c32c",
@@ -1084,6 +1062,24 @@ INSERT INTO C_EP_PROXY
 	'SetTestSuiteResolution',
 	'Set the timer resolution which will be default for the test buckets in this test suite.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("3c8c913d-8848-44eb-a036-ce7f3acd01f7",
+	"80147fc1-3758-4e4b-b996-66d26cfeffd2",
+	"8343e62e-053d-47d5-9e0f-752dd12b137a");
+INSERT INTO SPR_RS
+	VALUES ("3c8c913d-8848-44eb-a036-ce7f3acd01f7",
+	'SetTestCaseResolution',
+	'Test sequences inherit a default resolution from the test bucket; this can be overridden.',
+	'',
+	1,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("80147fc1-3758-4e4b-b996-66d26cfeffd2",
+	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
+	-1,
+	'SetTestCaseResolution',
+	'Test sequences inherit a default resolution from the test bucket; this can be overridden.',
+	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO C_I_PROXY
 	VALUES ("eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	"00000000-0000-0000-0000-000000000000",
@@ -1247,17 +1243,21 @@ INSERT INTO SPR_RS
 	VALUES ("b4f90f2f-7db5-4003-92c1-5bb08c931a35",
 	'PayrollData',
 	'Data for single payroll payment element for an employee in a department.',
-	'create object instance entry of PayrollElement;
-entry.Label = param.PaymentLabel;
-entry.Amount = param.PaymentAmount;
-entry.Hold = param.HoldStatus; 
-entry.Unapproved = param.UnapprovalStatus;
-entry.HoldUpdated = False;
-entry.ApproveUpdated = False;
-entry.AmountUpdated = False;
-select any payee from instances of Payee
+	'select any payee from instances of Payee
  where ( selected.EmployeeID == param.EmployeeID );
-relate entry to payee across R9.''contributes to'';',
+if ( not_empty payee )
+  create object instance entry of PayrollElement;
+  entry.Label = param.PaymentLabel;
+  entry.Amount = param.PaymentAmount;
+  entry.Hold = param.HoldStatus; 
+  entry.Unapproved = param.UnapprovalStatus;
+  entry.HoldUpdated = False;
+  entry.ApproveUpdated = False;
+  entry.AmountUpdated = False;
+  relate entry to payee across R9.''contributes to'';
+else
+  LOG::LogInfo( message:"Cannot find employee " );
+end if;',
 	1,
 	0);
 INSERT INTO C_EP_PROXY
@@ -1506,7 +1506,7 @@ INSERT INTO SPR_RS
 	VALUES ("c2325554-495d-46b9-9f06-d81288361d17",
 	'InitializationComplete',
 	'',
-	'TestFunctions::RunNominalCases();',
+	'::RunNominalCases();',
 	1,
 	0);
 INSERT INTO C_EP_PROXY

@@ -61,8 +61,7 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one nominal related by self->NominalCaseBucket[R7];
-nominal.RunBucketTests();
-',
+nominal.CreateBucketTests();',
 	1,
 	'',
 	"4309ad42-6054-4416-bd1b-299a4abbe8b2",

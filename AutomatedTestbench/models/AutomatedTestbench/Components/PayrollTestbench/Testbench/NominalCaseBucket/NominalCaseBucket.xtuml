@@ -10,8 +10,8 @@ INSERT INTO O_OBJ
 INSERT INTO O_TFR
 	VALUES ("335acef2-7a9f-427b-b2da-3f2c30504939",
 	"ebb842bc-1283-4528-8f93-563362996b3f",
-	'RunBucketTests',
-	'',
+	'CreateBucketTests',
+	'Configure the test cases in this test bucket: ''script'' sequences of stimuli and onbservations.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'::CreateNotificationString( key:"imminent", msg:"Draft payroll generation imminent for " );
