@@ -1,45 +1,82 @@
--- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO O_OBJ
-	VALUES ("54d84bf0-c310-46ff-8760-ef1f90466aab",
-	'TestFunctions',
-	19,
+INSERT INTO EP_PKG
+	VALUES ("1324d421-80b7-47b9-bd97-34f088a19553",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
 	'TestFunctions',
 	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("12d6b1aa-9cfb-4a04-9ea8-365cb48e2590",
+	112,
+	"1324d421-80b7-47b9-bd97-34f088a19553",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'4.1.17',
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::TestFunctions');
+INSERT INTO DIM_DIA
+	VALUES ("12d6b1aa-9cfb-4a04-9ea8-365cb48e2590",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_TFR
-	VALUES ("4cfb2651-e836-43be-b64d-f22a631db4a7",
-	"54d84bf0-c310-46ff-8760-ef1f90466aab",
+INSERT INTO S_SYNC
+	VALUES ("aa24dd7f-3115-4127-b95a-76788c3616af",
+	"00000000-0000-0000-0000-000000000000",
 	'RunNominalCases',
 	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	0,
-	'
-send TESTSEQ::RegisterTestSuite( suiteLabel:"Payroll Nominal Test Suite", keepAllCases:False ); 
+	'send TESTSEQ::RegisterTestSuite( suiteLabel:"Payroll Nominal Test Suite", keepAllCases:False ); 
 
 create object instance tb1 of NominalCaseBucket;
 tb1.AddBucket();
 
 send TESTSEQ::RunTestSuite();',
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
-	"00000000-0000-0000-0000-000000000000",
 	0);
-INSERT INTO O_ID
-	VALUES (0,
-	"54d84bf0-c310-46ff-8760-ef1f90466aab");
-INSERT INTO O_ID
-	VALUES (1,
-	"54d84bf0-c310-46ff-8760-ef1f90466aab");
-INSERT INTO O_ID
-	VALUES (2,
-	"54d84bf0-c310-46ff-8760-ef1f90466aab");
 INSERT INTO PE_PE
-	VALUES ("54d84bf0-c310-46ff-8760-ef1f90466aab",
+	VALUES ("aa24dd7f-3115-4127-b95a-76788c3616af",
+	1,
+	"1324d421-80b7-47b9-bd97-34f088a19553",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("4cdad5b9-1b5b-40c1-998b-d54fe9363859",
+	"00000000-0000-0000-0000-000000000000",
+	'Initialize',
+	'',
+	'LOG::LogInfo( message:"Testbench initialization function, RunNominalCases()." );
+send TESTAPPSUPPORT::Initialize();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("4cdad5b9-1b5b-40c1-998b-d54fe9363859",
+	1,
+	"1324d421-80b7-47b9-bd97-34f088a19553",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("1324d421-80b7-47b9-bd97-34f088a19553",
 	1,
 	"2af95cb4-1348-4abf-a7fa-72c9872d63cb",
 	"00000000-0000-0000-0000-000000000000",
-	4);
+	7);
 INSERT INTO EP_PKG_PROXY
 	VALUES ("2af95cb4-1348-4abf-a7fa-72c9872d63cb",
 	"00000000-0000-0000-0000-000000000000",
@@ -57,3 +94,8 @@ Each stimulus can be followed by zero or more observations which assess applicat
 A summary report presents test case pass/fail information.',
 	0,
 	'../Testbench.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("254e12da-372d-4f11-ad9a-5b53303407a5",
+	'AutomatedTestbench',
+	1,
+	'../../../../AutomatedTestbench.xtuml');
