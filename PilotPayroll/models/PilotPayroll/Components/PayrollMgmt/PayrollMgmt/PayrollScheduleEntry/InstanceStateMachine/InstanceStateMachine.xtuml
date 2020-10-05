@@ -294,6 +294,10 @@ unrelate self from dept across R4.''is scheduled for'';
 select one payperiod related by self->PayPeriod[R32.''schedules for''];
 unrelate payperiod from self across R32.''specifies dates for'';
 
+// Done with this timer
+monitor = self.MyMonitor;  // for parser glitch
+monitor.Delete();
+
 delete object instance self;',
 	'',
 	0);

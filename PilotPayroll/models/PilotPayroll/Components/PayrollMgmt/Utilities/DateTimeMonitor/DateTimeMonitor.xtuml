@@ -57,10 +57,25 @@ INSERT INTO O_TFR
 	'Stop this countdown timer.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'cancel = TIM::timer_cancel( timer_inst_ref:self.BaseTimer );',
+	'self.ignore_tick = not TIM::timer_cancel( timer_inst_ref:self.BaseTimer );',
 	1,
 	'',
 	"c55169f8-82cc-49a5-bed0-b96352cfbf55",
+	0);
+INSERT INTO O_TFR
+	VALUES ("9647dfcb-87a5-4f66-9f2b-5958053387bd",
+	"5208dd6e-09ad-4170-a392-7ae90f1d9176",
+	'Delete',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'self.Cancel();
+// if the event happens to be ''in-flight'' it is ignored in Final state.
+// but a synchronous delete here might lead to event-in-flight finding no target instance.
+generate DateTimeMonitor2:Kill() to self;',
+	1,
+	'',
+	"64786acb-d197-405a-8a9f-aa9536c0dd2a",
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("8648b1e7-7e62-453f-96fa-cfe904ff6430",
@@ -125,7 +140,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("be200bea-be35-4cd8-be93-102a59d30d4e",
 	"5208dd6e-09ad-4170-a392-7ae90f1d9176",
-	"984ea9d0-3c8d-4e28-b897-6948e8f9d9eb",
+	"d99a98e8-0a55-4240-b1e7-7f3e31da03b3",
 	'current_state',
 	'',
 	'',
@@ -134,6 +149,24 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000006",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("d99a98e8-0a55-4240-b1e7-7f3e31da03b3",
+	"5208dd6e-09ad-4170-a392-7ae90f1d9176");
+INSERT INTO O_BATTR
+	VALUES ("d99a98e8-0a55-4240-b1e7-7f3e31da03b3",
+	"5208dd6e-09ad-4170-a392-7ae90f1d9176");
+INSERT INTO O_ATTR
+	VALUES ("d99a98e8-0a55-4240-b1e7-7f3e31da03b3",
+	"5208dd6e-09ad-4170-a392-7ae90f1d9176",
+	"984ea9d0-3c8d-4e28-b897-6948e8f9d9eb",
+	'ignore_tick',
+	'',
+	'',
+	'ignore_tick',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'false');
 INSERT INTO O_ID
 	VALUES (0,
 	"5208dd6e-09ad-4170-a392-7ae90f1d9176");
