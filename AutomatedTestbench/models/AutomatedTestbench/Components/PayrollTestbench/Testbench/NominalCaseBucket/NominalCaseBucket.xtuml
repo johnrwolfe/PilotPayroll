@@ -44,13 +44,13 @@ GetNotification::CreateTriggered( seqLabel:"seq05", matchIdent:"generated" );
 send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC03" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq03" );
 RequestAvailable::Create( seqLabel:"seq03" );
-WaitForTrigger::CreateTriggered( seqLabel:"seq03", key:"DepartmentsSent", pollInterval:0, timeLimit:0 );
+WaitForTrigger::CreateTriggered( seqLabel:"seq03", key:"DepartmentsSent", pollInterval:0, timeLimit:0, concurrent:False );
 RequestPayroll::Create( seqLabel:"seq03", dept:"IT", holds:False );
-WaitForTrigger::CreateTriggered( seqLabel:"seq03", key:"PayrollAvailable", pollInterval:0, timeLimit:0 );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5 );
+WaitForTrigger::CreateTriggered( seqLabel:"seq03", key:"PayrollAvailable", pollInterval:0, timeLimit:0, concurrent:True );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5, concurrent:True );
 PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"Save" );
 GetNotification::CreateTriggered( seqLabel:"seq03", matchIdent:"reviewed" );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"checkhold", pollInterval:1, timeLimit:5 );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"checkhold", pollInterval:1, timeLimit:5, concurrent:True );
 PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"clear" );
 
 
@@ -58,22 +58,22 @@ PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"clear
 send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC07" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq07" );
 RequestPayroll::Create( seqLabel:"seq07", dept:"IT", holds:True );
-WaitForTrigger::CreateTriggered( seqLabel:"seq07", key:"PayrollAvailable", pollInterval:0, timeLimit:0 );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"clear", pollInterval:1, timeLimit:5 );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10002, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5 );
+WaitForTrigger::CreateTriggered( seqLabel:"seq07", key:"PayrollAvailable", pollInterval:0, timeLimit:0, concurrent:True );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"clear", pollInterval:1, timeLimit:5, concurrent:True );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10002, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5, concurrent:True);
 PayrollStatusUpdate::Create( seqLabel:"seq07", dept:"IT", requestedstatus:"Save" );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"checkclear", pollInterval:1, timeLimit:5 );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"checkclear", pollInterval:1, timeLimit:5, concurrent:True );
 PayrollStatusUpdate::Create( seqLabel:"seq07", dept:"IT", requestedstatus:"Clear" );
 
 // Use Case UC04
 send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC04" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq04" );
 RequestPayroll::Create( seqLabel:"seq04", dept:"IT", holds:False );
-WaitForTrigger::CreateTriggered( seqLabel:"seq04", key:"PayrollAvailable", pollInterval:0, timeLimit:0 );
+WaitForTrigger::CreateTriggered( seqLabel:"seq04", key:"PayrollAvailable", pollInterval:0, timeLimit:0, concurrent:False );
 PayrollStatusUpdate::Create( seqLabel:"seq04", dept:"IT", requestedstatus:"Approve" );
 GetNotification::CreateTriggered( seqLabel:"seq04", matchIdent:"unapproved" );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq04", employee:10002, label:"Monthly salary", action:"checkunapproval", pollInterval:1, timeLimit:5 );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq04", employee:10002, label:"Monthly salary", action:"approve", pollInterval:1, timeLimit:5 );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq04", employee:10002, label:"Monthly salary", action:"checkunapproval", pollInterval:1, timeLimit:5, concurrent:True );
+ReviewPayrollElement::CreatePolling( seqLabel:"seq04", employee:10002, label:"Monthly salary", action:"approve", pollInterval:1, timeLimit:5, concurrent:True );
 PayrollStatusUpdate::Create( seqLabel:"seq04", dept:"IT", requestedstatus:"Approve" );
 GetNotification::CreateTriggered( seqLabel:"seq04", matchIdent:"approved" );
 PayrollStatusUpdate::Create( seqLabel:"seq04", dept:"IT", requestedstatus:"Clear" );

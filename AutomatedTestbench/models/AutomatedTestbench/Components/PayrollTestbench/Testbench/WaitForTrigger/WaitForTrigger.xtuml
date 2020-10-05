@@ -23,9 +23,10 @@ create object instance observation of Observation;
 relate wait to observation across R4;
 
 observation.AppendTriggered( seqLabel:param.seqLabel,
-                           key:param.key, pollInterval:param.pollInterval,
+                           key:param.key, 
+                           pollInterval:param.pollInterval,
                            timeLimit:param.timeLimit,
-                           concurrent:False );',
+                           concurrent:param.concurrent );',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -66,6 +67,15 @@ INSERT INTO O_TPARM
 	'',
 	"21c28c29-2559-423f-bee1-50e125cabb3b",
 	'');
+INSERT INTO O_TPARM
+	VALUES ("a4a2b089-473f-43f9-8d10-e90770f1a70b",
+	"7a39e8c1-54c7-48f1-8e79-4bad5edfd551",
+	'concurrent',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"137c6a02-7d90-4f5f-9114-35ce92e95cc0",
+	'If True, this observation can evaluate concurrently with others following the same stimulus.');
 INSERT INTO O_TFR
 	VALUES ("60b58024-4d21-4733-ab62-3adc011f10ee",
 	"75a87610-8432-46fb-9ae0-5d3096a38d68",

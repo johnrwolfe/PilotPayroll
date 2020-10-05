@@ -26,11 +26,10 @@ rvw.action = param.action;
 create object instance observation of Observation;
 relate rvw to observation across R4;
 
-
 observation.AppendPolling( seqLabel:param.seqLabel, 
                            pollInterval:param.pollInterval, 
-                           timeLimit:param.timeLimit );
-',
+                           timeLimit:param.timeLimit,
+                           concurrent:param.concurrent );',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -89,6 +88,15 @@ INSERT INTO O_TPARM
 	'',
 	"ca79e0bd-2246-403d-b359-32013986dba2",
 	'');
+INSERT INTO O_TPARM
+	VALUES ("8c2a1448-9885-4177-bb78-43a625bacf1c",
+	"fcee4895-9f58-4809-9f34-ed23174fce47",
+	'concurrent',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"4bf497a6-a8bc-481d-a786-ba952e13307b",
+	'If True, this observation can evaluate concurrently with others following the same stimulus.');
 INSERT INTO O_TFR
 	VALUES ("e0ea601a-7528-4a80-b44b-7225f245a558",
 	"d5b7adea-73b0-4cf5-9170-1b778fd5030e",
