@@ -25,7 +25,7 @@ INSERT INTO O_TFR
 
 select one bucket related by self->TestBucket[R7];
 send TESTSEQ::NameTestBucket( bucketId:bucket.bucketId, bucketLabel:"Payroll_Bucket_1" );
-send TESTSEQ::SetTestBucketResolution( bucketId:bucket.bucketId, resolution:timerResolution::second );
+send TESTSEQ::SetTestBucketTimeResolutions( bucketId:bucket.bucketId, timeResolution:timeResolution::second, pollResolution:timeResolution::second );
 
 // Use Case UC06 
 send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC06" ); 
