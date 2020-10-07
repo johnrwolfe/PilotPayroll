@@ -955,7 +955,7 @@ INSERT INTO SPR_REP
 INSERT INTO SPR_RS
 	VALUES ("f5010cb5-1a79-4773-843e-7b883da316d1",
 	'IntervalTimerValue',
-	'',
+	'Respond to a request to read the interval timer on a sequence. The key supplied by the request is echoed back.',
 	'',
 	1,
 	0);
@@ -964,7 +964,7 @@ INSERT INTO C_EP_PROXY
 	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	-1,
 	'IntervalTimerValue',
-	'',
+	'Respond to a request to read the interval timer on a sequence. The key supplied by the request is echoed back.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
 	VALUES ("ec74d567-b44d-4227-b0de-65e056a833f8",
@@ -1014,8 +1014,8 @@ INSERT INTO SPR_REP
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
 INSERT INTO SPR_RS
 	VALUES ("c16a74eb-d867-48ed-bbf1-7edc86839e8a",
-	'SetTestBucketResolution',
-	'Test buckets inherit a default resolution from the test suite; this can be overridden.',
+	'SetTestBucketTimeResolutions',
+	'Test buckets inherit default resolutions from the test suite; these can be overridden.',
 	'',
 	1,
 	0);
@@ -1023,8 +1023,8 @@ INSERT INTO C_EP_PROXY
 	VALUES ("de9c9d7b-2d7a-4144-923a-4f0477575d03",
 	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	-1,
-	'SetTestBucketResolution',
-	'Test buckets inherit a default resolution from the test suite; this can be overridden.',
+	'SetTestBucketTimeResolutions',
+	'Test buckets inherit default resolutions from the test suite; these can be overridden.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
 	VALUES ("e6fd1ea6-ab0b-4083-8ed0-7b498d8d40c2",
@@ -1032,8 +1032,8 @@ INSERT INTO SPR_REP
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
 INSERT INTO SPR_RS
 	VALUES ("e6fd1ea6-ab0b-4083-8ed0-7b498d8d40c2",
-	'SetSequenceResolution',
-	'Test sequences inherit a default resolution from the test bucket; this can be overridden.',
+	'SetSequenceTimeResolutions',
+	'Test sequences inherit default resolutions from the test case they are attatched to; these can be overridden.',
 	'',
 	1,
 	0);
@@ -1041,8 +1041,8 @@ INSERT INTO C_EP_PROXY
 	VALUES ("092a77de-9124-470e-9e04-e55568aebdc9",
 	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	-1,
-	'SetSequenceResolution',
-	'Test sequences inherit a default resolution from the test bucket; this can be overridden.',
+	'SetSequenceTimeResolutions',
+	'Test sequences inherit default resolutions from the test case they are attatched to; these can be overridden.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
 	VALUES ("d6ed7f9b-7131-434e-a079-91b471c76183",
@@ -1050,8 +1050,8 @@ INSERT INTO SPR_REP
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
 INSERT INTO SPR_RS
 	VALUES ("d6ed7f9b-7131-434e-a079-91b471c76183",
-	'SetTestSuiteResolution',
-	'Set the timer resolution which will be default for the test buckets in this test suite.',
+	'SetTestSuiteTimeResolutions',
+	'Set the timer resolutions which will be defaults for the test buckets in this test suite.',
 	'',
 	1,
 	0);
@@ -1059,8 +1059,8 @@ INSERT INTO C_EP_PROXY
 	VALUES ("168e2aad-1615-4146-ac35-e977e2dbf6c5",
 	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	-1,
-	'SetTestSuiteResolution',
-	'Set the timer resolution which will be default for the test buckets in this test suite.',
+	'SetTestSuiteTimeResolutions',
+	'Set the timer resolutions which will be defaults for the test buckets in this test suite.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
 	VALUES ("3c8c913d-8848-44eb-a036-ce7f3acd01f7",
@@ -1068,8 +1068,8 @@ INSERT INTO SPR_REP
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
 INSERT INTO SPR_RS
 	VALUES ("3c8c913d-8848-44eb-a036-ce7f3acd01f7",
-	'SetTestCaseResolution',
-	'Test sequences inherit a default resolution from the test bucket; this can be overridden.',
+	'SetTestCaseTimeResolutions',
+	'Test cases inherit default resolutions from their test bucket; these can be overridden.',
 	'',
 	1,
 	0);
@@ -1077,8 +1077,44 @@ INSERT INTO C_EP_PROXY
 	VALUES ("80147fc1-3758-4e4b-b996-66d26cfeffd2",
 	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	-1,
-	'SetTestCaseResolution',
-	'Test sequences inherit a default resolution from the test bucket; this can be overridden.',
+	'SetTestCaseTimeResolutions',
+	'Test cases inherit default resolutions from their test bucket; these can be overridden.',
+	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("a229e5f9-b222-4232-a00d-ecbff0e69573",
+	"abe4b64e-9b6b-4aa3-a59c-1c6df05a312a",
+	"8343e62e-053d-47d5-9e0f-752dd12b137a");
+INSERT INTO SPR_RS
+	VALUES ("a229e5f9-b222-4232-a00d-ecbff0e69573",
+	'SetSequenceIntervalTimerResolution',
+	'Set a time resolution specific to interval timing measurements on the sequence.',
+	'',
+	1,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("abe4b64e-9b6b-4aa3-a59c-1c6df05a312a",
+	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
+	-1,
+	'SetSequenceIntervalTimerResolution',
+	'Set a time resolution specific to interval timing measurements on the sequence.',
+	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
+INSERT INTO SPR_REP
+	VALUES ("c574fa81-a24c-4f7b-bf15-70dc16c5e2dc",
+	"33169678-f345-469d-ac15-ea1c7322c7a9",
+	"8343e62e-053d-47d5-9e0f-752dd12b137a");
+INSERT INTO SPR_RS
+	VALUES ("c574fa81-a24c-4f7b-bf15-70dc16c5e2dc",
+	'SetObservationTimeResolutions',
+	'Observations inherit default resolutions from the sequence they are added to; these can be overridden.',
+	'',
+	3,
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("33169678-f345-469d-ac15-ea1c7322c7a9",
+	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
+	-1,
+	'SetObservationTimeResolutions',
+	'Observations inherit default resolutions from the sequence they are added to; these can be overridden.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO C_I_PROXY
 	VALUES ("eff7aa83-70b9-46a6-bfc0-08d66d36431e",

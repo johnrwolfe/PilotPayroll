@@ -122,11 +122,11 @@ delete object instance self;',
 INSERT INTO O_TFR
 	VALUES ("0e7044ee-4900-4b80-8bba-167854ec5bb7",
 	"7b139d9e-a4c7-4441-861a-ae1b3f71c89f",
-	'SetSequenceResolution',
+	'SetSequenceIntervalTimerResolution',
 	'Modify the timer resolution of the associated stimulus sequence.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'send TESTSEQ::SetSequenceResolution( seqLabel:param.seqLabel, resolution:param.resolution );',
+	'send TESTSEQ::SetSequenceIntervalTimerResolution( seqLabel:param.seqLabel, timeResolution:param.resolution );',
 	1,
 	'',
 	"948b031e-dc1b-4814-87f8-02317b20e2c1",
@@ -135,18 +135,11 @@ INSERT INTO O_TPARM
 	VALUES ("01dc8d32-fb0c-411b-83b5-dddfd6ab2126",
 	"0e7044ee-4900-4b80-8bba-167854ec5bb7",
 	'resolution',
-	"74e39e3b-eaad-47cb-889d-3ede473b7f8b",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"fbba0873-d2df-4f6b-ae10-97172c7224fb",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("74e39e3b-eaad-47cb-889d-3ede473b7f8b",
-	"00000000-0000-0000-0000-000000000000",
-	'timerResolution',
-	'',
-	'',
-	'../../../../../../../TestFramework/models/TestFramework/SharedDatatypes/SharedDatatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("fbba0873-d2df-4f6b-ae10-97172c7224fb",
 	"0e7044ee-4900-4b80-8bba-167854ec5bb7",
