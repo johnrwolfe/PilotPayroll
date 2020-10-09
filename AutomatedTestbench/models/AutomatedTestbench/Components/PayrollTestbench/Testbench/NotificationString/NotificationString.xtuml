@@ -5,7 +5,8 @@ INSERT INTO O_OBJ
 	'NotificationString',
 	28,
 	'NotificationString',
-	'',
+	'The text strings to be displayed on receipt of notifications from the application.
+Each notification carries a key value which is used to find a matching text string.',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("b98ac337-34a7-4aad-8d76-4c383a20c841",

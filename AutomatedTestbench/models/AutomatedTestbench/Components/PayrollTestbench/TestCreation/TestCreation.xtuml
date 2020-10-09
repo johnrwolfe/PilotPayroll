@@ -1,0 +1,78 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("285694f7-98c9-4004-ad4b-ea9dc1e7e663",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'TestCreation',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("99e24588-f54f-40d2-a9b0-dfada7286c08",
+	112,
+	"285694f7-98c9-4004-ad4b-ea9dc1e7e663",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'AutomatedTestbench::Components::PayrollTestbench::TestCreation');
+INSERT INTO DIM_DIA
+	VALUES ("99e24588-f54f-40d2-a9b0-dfada7286c08",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("58e1ffd7-e968-43bb-b9f7-92c7a89ea8ad",
+	"00000000-0000-0000-0000-000000000000",
+	'RunNominalCases',
+	'',
+	'send TESTSEQ::RegisterTestSuite( suiteLabel:"Payroll Nominal Test Suite", keepAllCases:False ); 
+
+create object instance tb1 of NominalCaseBucket;
+tb1.AddBucket();
+
+send TESTSEQ::RunTestSuite();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("58e1ffd7-e968-43bb-b9f7-92c7a89ea8ad",
+	1,
+	"285694f7-98c9-4004-ad4b-ea9dc1e7e663",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("285694f7-98c9-4004-ad4b-ea9dc1e7e663",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"76e58be0-a1c7-49ea-ba74-f77b1638c4f9",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("76e58be0-a1c7-49ea-ba74-f77b1638c4f9",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'PayrollTestbench',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../PayrollTestbench.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("254e12da-372d-4f11-ad9a-5b53303407a5",
+	'AutomatedTestbench',
+	1,
+	'../../../AutomatedTestbench.xtuml');
