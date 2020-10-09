@@ -5,7 +5,7 @@ INSERT INTO O_OBJ
 	'RequestAvailable',
 	26,
 	'RequestAvailable',
-	'Represents a request to receive identification of thos departments with payrolls available for review.',
+	'Represents a request to receive identification of those departments with payrolls available for review.',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("0445091a-23e5-4086-8398-5882ac33f0bc",
