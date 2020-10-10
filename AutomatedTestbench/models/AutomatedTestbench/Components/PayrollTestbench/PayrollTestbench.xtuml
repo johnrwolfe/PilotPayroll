@@ -41,12 +41,12 @@ INSERT INTO GD_SHP
 INSERT INTO GD_CTR
 	VALUES ("caef5cbb-63c6-4f65-856f-9e3a88731b95");
 INSERT INTO DIM_ND
-	VALUES (754.000000,
-	287.000000,
+	VALUES (5086.000000,
+	3399.000000,
 	"caef5cbb-63c6-4f65-856f-9e3a88731b95");
 INSERT INTO DIM_GE
-	VALUES (4100.000000,
-	3100.000000,
+	VALUES (-12.000000,
+	-12.000000,
 	"caef5cbb-63c6-4f65-856f-9e3a88731b95",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
@@ -55,7 +55,7 @@ INSERT INTO DIM_ELE
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_CON
 	VALUES ("fb2b5db9-50e6-41f1-ad18-d6b305f80092",
-	4854.000000,
+	5074.000000,
 	3258.000000,
 	"caef5cbb-63c6-4f65-856f-9e3a88731b95");
 INSERT INTO DIM_CON
@@ -132,7 +132,7 @@ INSERT INTO DIM_ND
 	0.000000,
 	"4c000288-a166-4ccd-b254-c646c418c6b0");
 INSERT INTO DIM_GE
-	VALUES (4841.000000,
+	VALUES (5061.000000,
 	3218.000000,
 	"4c000288-a166-4ccd-b254-c646c418c6b0",
 	"00000000-0000-0000-0000-000000000000");
@@ -167,14 +167,14 @@ INSERT INTO GD_LS
 	"699f5cfc-308d-4c91-a81c-1f58e00e3c73");
 INSERT INTO DIM_WAY
 	VALUES ("15030ee1-6e09-4895-a6e7-56f0f897a920",
-	4854.000000,
+	5074.000000,
 	3258.000000,
 	"4711e771-61bf-4948-b050-6107abe5d10b",
 	"00000000-0000-0000-0000-000000000000",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_WAY
 	VALUES ("699f5cfc-308d-4c91-a81c-1f58e00e3c73",
-	4929.000000,
+	5149.000000,
 	3258.000000,
 	"4711e771-61bf-4948-b050-6107abe5d10b",
 	"00000000-0000-0000-0000-000000000000",
@@ -416,6 +416,54 @@ INSERT INTO DIM_ED
 	VALUES ("b0fb511a-0372-4d49-910a-ca0601d5f71e",
 	"00000000-0000-0000-0000-000000000000",
 	"e23753c6-6ce0-4a20-9c4f-0a3c624448c0");
+INSERT INTO GD_GE
+	VALUES ("c8cf1876-eb15-48ed-bef0-d91ad8169b27",
+	"f81cf3a2-2229-4a68-bd4a-d44912aca8f1",
+	"285694f7-98c9-4004-ad4b-ea9dc1e7e663",
+	108,
+	0,
+	'AutomatedTestbench::Components::PayrollTestbench::TestCreation');
+INSERT INTO GD_SHP
+	VALUES ("c8cf1876-eb15-48ed-bef0-d91ad8169b27");
+INSERT INTO GD_NCS
+	VALUES ("c8cf1876-eb15-48ed-bef0-d91ad8169b27");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"c8cf1876-eb15-48ed-bef0-d91ad8169b27");
+INSERT INTO DIM_GE
+	VALUES (4862.000000,
+	3225.000000,
+	"c8cf1876-eb15-48ed-bef0-d91ad8169b27",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("c8cf1876-eb15-48ed-bef0-d91ad8169b27",
+	0,
+	"caef5cbb-63c6-4f65-856f-9e3a88731b95");
+INSERT INTO GD_GE
+	VALUES ("725383dd-72be-438c-b6ed-b6ebb2e9783b",
+	"f81cf3a2-2229-4a68-bd4a-d44912aca8f1",
+	"634e393b-0577-4a4c-ba7f-51cdf46d88fa",
+	108,
+	0,
+	'AutomatedTestbench::Components::PayrollTestbench::TestFunctions');
+INSERT INTO GD_SHP
+	VALUES ("725383dd-72be-438c-b6ed-b6ebb2e9783b");
+INSERT INTO GD_NCS
+	VALUES ("725383dd-72be-438c-b6ed-b6ebb2e9783b");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"725383dd-72be-438c-b6ed-b6ebb2e9783b");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"725383dd-72be-438c-b6ed-b6ebb2e9783b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("725383dd-72be-438c-b6ed-b6ebb2e9783b",
+	0,
+	"caef5cbb-63c6-4f65-856f-9e3a88731b95");
 INSERT INTO DIM_DIA
 	VALUES ("f81cf3a2-2229-4a68-bd4a-d44912aca8f1",
 	'',
@@ -994,8 +1042,8 @@ INSERT INTO SPR_REP
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
 INSERT INTO SPR_RS
 	VALUES ("9c95bfc5-838d-4a01-89e6-a7b9a06eb05b",
-	'CancelTriggeredObservation',
-	'On this signal, any active observations with matching key value will be canceled.
+	'RemoveTriggeredObservation',
+	'On this signal, any active observations with matching key value will be deactivated.
 This has the effect of completing the observation without a failure penalty.',
 	'',
 	1,
@@ -1004,8 +1052,8 @@ INSERT INTO C_EP_PROXY
 	VALUES ("ca057380-3763-49be-a902-4f89bd14277c",
 	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	-1,
-	'CancelTriggeredObservation',
-	'On this signal, any active observations with matching key value will be canceled.
+	'RemoveTriggeredObservation',
+	'On this signal, any active observations with matching key value will be deactivated.
 This has the effect of completing the observation without a failure penalty.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
@@ -1107,7 +1155,7 @@ INSERT INTO SPR_RS
 	'SetObservationTimeResolutions',
 	'Observations inherit default resolutions from the sequence they are added to; these can be overridden.',
 	'',
-	3,
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("33169678-f345-469d-ac15-ea1c7322c7a9",
@@ -1120,7 +1168,7 @@ INSERT INTO C_I_PROXY
 	VALUES ("eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	"00000000-0000-0000-0000-000000000000",
 	'TestSequencing',
-	'',
+	'Interface signals for communication with the test service.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO C_PO
 	VALUES ("79aae608-4aab-49dd-9eaa-fc20710e98f4",
@@ -1322,7 +1370,7 @@ select any str from instances of NotificationString
 if ( not_empty str )
   LOG::LogInfo( message:"**** NOTIFICATION: " + str.message + param.Content );
 end if;
-send TESTSEQ::Assess( key:"Notification" );',
+send TESTSEQ::Assess( key:"Notification_" + msg.Ident );',
 	1,
 	0);
 INSERT INTO C_EP_PROXY

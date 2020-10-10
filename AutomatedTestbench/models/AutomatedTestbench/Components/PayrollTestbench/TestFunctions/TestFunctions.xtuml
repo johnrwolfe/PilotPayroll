@@ -1,0 +1,74 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("634e393b-0577-4a4c-ba7f-51cdf46d88fa",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'TestFunctions',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("473a20b2-0ad5-4c8e-867b-207017dc413e",
+	112,
+	"634e393b-0577-4a4c-ba7f-51cdf46d88fa",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'AutomatedTestbench::Components::PayrollTestbench::TestFunctions');
+INSERT INTO DIM_DIA
+	VALUES ("473a20b2-0ad5-4c8e-867b-207017dc413e",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("2954f61d-3429-499e-958d-4a4e7817e6a3",
+	"00000000-0000-0000-0000-000000000000",
+	'InitializeAndRun',
+	'',
+	'LOG::LogInfo( message:"Testbench initialization function, RunNominalCases()." );
+send TESTAPPSUPPORT::Initialize();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("2954f61d-3429-499e-958d-4a4e7817e6a3",
+	1,
+	"634e393b-0577-4a4c-ba7f-51cdf46d88fa",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("634e393b-0577-4a4c-ba7f-51cdf46d88fa",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"76e58be0-a1c7-49ea-ba74-f77b1638c4f9",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("76e58be0-a1c7-49ea-ba74-f77b1638c4f9",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'PayrollTestbench',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../PayrollTestbench.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("254e12da-372d-4f11-ad9a-5b53303407a5",
+	'AutomatedTestbench',
+	1,
+	'../../../AutomatedTestbench.xtuml');

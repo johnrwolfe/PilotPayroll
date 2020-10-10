@@ -23,7 +23,7 @@ if ( not_empty msg )
   delete object instance msg;
   obs.Complete( success:True );
 else
-  success = False;	// @TODO here to allow breakpoint only
+  obs.Complete( success:False );
 end if;
 ',
 	1,
@@ -44,7 +44,7 @@ create object instance obs of Observation;
 relate verify to obs across R4;
 verify.Ident = param.matchIdent;
 
-obs.AppendTriggered( seqLabel:param.seqLabel, key:"Notification",
+obs.AppendTriggered( seqLabel:param.seqLabel, key:"Notification_" + verify.Ident,
                    pollInterval:0, 
                    timeLimit:0,
                    concurrent:True );',
