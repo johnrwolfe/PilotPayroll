@@ -515,7 +515,7 @@ INSERT INTO SPR_REP
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
 INSERT INTO SPR_RS
 	VALUES ("17a2c8ed-b4eb-403c-9b03-78c4cb8b4849",
-	'TriggerObservation',
+	'InvokeObservation',
 	'Invoke evaluation of the identified observation in the test bench.',
 	'select any obs from instances of Observation
   where ( selected.observationId == param.observationId );
@@ -526,7 +526,7 @@ INSERT INTO C_EP_PROXY
 	VALUES ("ed6e0575-1418-4e51-82ef-2f3bf15fbb57",
 	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	-1,
-	'TriggerObservation',
+	'InvokeObservation',
 	'Invoke evaluation of the identified observation in the test bench.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
@@ -556,13 +556,7 @@ INSERT INTO SPR_RS
 	'InitializeTestCase',
 	'Testbench receives notification that a new test case has been selected to run.
 Initialize any pre-conditions and respond when ready for stimulus injection.',
-	'select any cond from instances of PreConditions
- where ( selected.conditionsCaseLabel == param.caseLabel );
-if ( not_empty cond )
-  cond.Establish();
-end if;
-send TESTSEQ::TestCaseInitialized( caseLabel:param.caseLabel );
-',
+	'send TESTSEQ::TestCaseInitialized( caseLabel:param.caseLabel );',
 	1,
 	0);
 INSERT INTO C_EP_PROXY
@@ -767,28 +761,6 @@ INSERT INTO C_EP_PROXY
 	'A stimulus may request start of the interval timer linked to its test sequence.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
-	VALUES ("73871261-4f0a-4b20-a9c7-57c09a88e439",
-	"8dd429c8-69fa-400e-93ff-d0db0ee2302a",
-	"8343e62e-053d-47d5-9e0f-752dd12b137a");
-INSERT INTO SPR_RS
-	VALUES ("73871261-4f0a-4b20-a9c7-57c09a88e439",
-	'DeletePreCondition',
-	'Signals the testbench that the identified precodition instance can be disposed of.',
-	'select any cond from instances of PreConditions
-  where ( selected.conditionsCaseLabel == param.caseLabel );
-if ( not_empty cond )
-  delete object instance cond;
-end if;',
-	1,
-	0);
-INSERT INTO C_EP_PROXY
-	VALUES ("8dd429c8-69fa-400e-93ff-d0db0ee2302a",
-	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
-	-1,
-	'DeletePreCondition',
-	'Signals the testbench that the identified precodition instance can be disposed of.',
-	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
-INSERT INTO SPR_REP
 	VALUES ("d1747805-91fd-4afd-92c8-c80b8f3e340c",
 	"d5a4cf86-3f41-407c-831c-18e679999a67",
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
@@ -867,24 +839,6 @@ INSERT INTO C_EP_PROXY
 	'Signals the testbench that the identified observation sub/supertype can be disposed of.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
-	VALUES ("a85aaa8b-0831-4156-934f-9f281a99c892",
-	"43da9421-f19f-491d-b0de-6d07de88d215",
-	"8343e62e-053d-47d5-9e0f-752dd12b137a");
-INSERT INTO SPR_RS
-	VALUES ("a85aaa8b-0831-4156-934f-9f281a99c892",
-	'NameTestBucket',
-	'Assign an optional arbitrary naming label to a test bucket instance.',
-	'',
-	1,
-	0);
-INSERT INTO C_EP_PROXY
-	VALUES ("43da9421-f19f-491d-b0de-6d07de88d215",
-	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
-	-1,
-	'NameTestBucket',
-	'Assign an optional arbitrary naming label to a test bucket instance.',
-	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
-INSERT INTO SPR_REP
 	VALUES ("2ddf7195-3994-4115-867f-a9ac5fff9aa4",
 	"2ab9bd8f-a044-44bc-b988-74be588a3af7",
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
@@ -926,7 +880,7 @@ INSERT INTO SPR_REP
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
 INSERT INTO SPR_RS
 	VALUES ("82a449d7-5673-49b9-ba76-531c8c5ff8c6",
-	'CreateTestCase',
+	'AddTestCase',
 	'Add an instance of a test case, identified by label, to the indicated test bucket.',
 	'',
 	1,
@@ -935,7 +889,7 @@ INSERT INTO C_EP_PROXY
 	VALUES ("338f43fc-f8fd-4707-98a1-be43d1ec3394",
 	"eff7aa83-70b9-46a6-bfc0-08d66d36431e",
 	-1,
-	'CreateTestCase',
+	'AddTestCase',
 	'Add an instance of a test case, identified by label, to the indicated test bucket.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
