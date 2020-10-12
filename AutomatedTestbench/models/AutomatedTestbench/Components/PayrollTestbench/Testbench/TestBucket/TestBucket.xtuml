@@ -21,7 +21,7 @@ INSERT INTO O_TFR
 	'Add a new instance of test bucket to the test suite.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'send TESTSEQ::AddBucket( ID:self.bucketId );',
+	'send TESTSEQ::AddBucket( bucketId:self.bucketId, bucketLabel:self.name );',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -83,6 +83,24 @@ Used to identify an instance when being invoked by the Test sequencer.',
 	'bucketId',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5521bea8-f51f-40bc-8a0b-a075d9dae4ac",
+	"61cc68fd-3fc9-47d3-8257-f25fb32b68a2");
+INSERT INTO O_BATTR
+	VALUES ("5521bea8-f51f-40bc-8a0b-a075d9dae4ac",
+	"61cc68fd-3fc9-47d3-8257-f25fb32b68a2");
+INSERT INTO O_ATTR
+	VALUES ("5521bea8-f51f-40bc-8a0b-a075d9dae4ac",
+	"61cc68fd-3fc9-47d3-8257-f25fb32b68a2",
+	"407d9785-e89d-4d7e-967a-f3e98b16c2ff",
+	'name',
+	'',
+	'',
+	'name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID

@@ -38,7 +38,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'RunNominalCases',
 	'',
-	'send TESTSEQ::RegisterTestSuite( suiteLabel:"Payroll Nominal Test Suite", keepAllCases:False ); 
+	'send TESTSEQ::RegisterTestSuite( suiteLabel:"Payroll Test Suite", keepAllCases:False ); 
 
 create object instance tb1 of NominalCaseBucket;
 tb1.AddBucket();

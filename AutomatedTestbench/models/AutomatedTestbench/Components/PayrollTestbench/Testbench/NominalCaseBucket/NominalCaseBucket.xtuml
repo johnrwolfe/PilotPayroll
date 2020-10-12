@@ -24,24 +24,23 @@ INSERT INTO O_TFR
 ::CreateNotificationString( key:"overdue", msg:"Payroll submission overdue for " );
 
 select one bucket related by self->TestBucket[R7];
-send TESTSEQ::NameTestBucket( bucketId:bucket.bucketId, bucketLabel:"Payroll_Bucket_1" );
 send TESTSEQ::SetTestBucketTimeResolutions( bucketId:bucket.bucketId, timeResolution:timeResolution::second, pollResolution:timeResolution::second );
 
 // Use Case UC06 
-send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC06" ); 
+send TESTSEQ::AddTestCase( caseLabel:"UC06" ); 
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq06" );
 FastForward::Create( seqLabel:"seq06", days:13, hours:11 );
 GetNotification::CreateTriggered( seqLabel:"seq06", matchIdent:"imminent" );
 
 // Use Case UC05
-send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC05" );
+send TESTSEQ::AddTestCase( caseLabel:"UC05" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq05" );
 FastForward::Create( seqLabel:"seq05", days:1, hours:1 );
 GetNotification::CreateTriggered( seqLabel:"seq05", matchIdent:"generating" );
 GetNotification::CreateTriggered( seqLabel:"seq05", matchIdent:"generated" );
 
 // Use Case UC03
-send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC03" );
+send TESTSEQ::AddTestCase( caseLabel:"UC03" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq03" );
 RequestAvailable::Create( seqLabel:"seq03" );
 WaitForTrigger::CreateTriggered( seqLabel:"seq03", key:"DepartmentsSent", pollInterval:0, timeLimit:0, concurrent:False );
@@ -55,7 +54,7 @@ PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"clear
 
 
 // Use Case UC07
-send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC07" );
+send TESTSEQ::AddTestCase( caseLabel:"UC07" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq07" );
 RequestPayroll::Create( seqLabel:"seq07", dept:"IT", holds:True );
 WaitForTrigger::CreateTriggered( seqLabel:"seq07", key:"PayrollAvailable", pollInterval:0, timeLimit:0, concurrent:True );
@@ -66,7 +65,7 @@ ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10001, label:"Mo
 PayrollStatusUpdate::Create( seqLabel:"seq07", dept:"IT", requestedstatus:"Clear" );
 
 // Use Case UC04
-send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC04" );
+send TESTSEQ::AddTestCase( caseLabel:"UC04" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq04" );
 RequestPayroll::Create( seqLabel:"seq04", dept:"IT", holds:False );
 WaitForTrigger::CreateTriggered( seqLabel:"seq04", key:"PayrollAvailable", pollInterval:0, timeLimit:0, concurrent:False );
@@ -79,7 +78,7 @@ GetNotification::CreateTriggered( seqLabel:"seq04", matchIdent:"approved" );
 PayrollStatusUpdate::Create( seqLabel:"seq04", dept:"IT", requestedstatus:"Clear" );
 
 // Use Case UC09
-send TESTSEQ::CreateTestCase( bucketId:bucket.bucketId, caseLabel:"UC09" );
+send TESTSEQ::AddTestCase( caseLabel:"UC09" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq09" );
 RequestPayroll::Create( seqLabel:"seq09", dept:"IT", holds:False );
 PayrollStatusUpdate::Create( seqLabel:"seq09", dept:"IT", requestedstatus:"FinalSubmit" );
@@ -101,6 +100,7 @@ INSERT INTO O_TFR
 	1,
 	'create object instance bucket of TestBucket;
 relate self to bucket across R7;
+bucket.name = "Payroll nominal test cases";
 bucket.AddToSuite();',
 	1,
 	'',
