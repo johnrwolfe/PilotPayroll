@@ -14,7 +14,18 @@ Each test bucket surfaces an operation which ''scripts'' its test cases.
 A test cases creates one or more sequences of stimuli which are added by the script.
 Each stimulus can be followed by zero or more observations which assess application output.
 
-A summary report presents test case pass/fail information.',
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
 	0);
 INSERT INTO GD_MD
 	VALUES ("53f03c15-416c-440e-a65c-8589d8cd4574",

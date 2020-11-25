@@ -1126,8 +1126,13 @@ INSERT INTO SPR_RS
 	VALUES ("93873dc6-0f15-49f2-a885-3e3e5cce543f",
 	'TestCaseComplete',
 	'Signal completion of a test case.',
-	'',
-	3,
+	'if ( param.success )
+  LOG::LogSuccess( message:"Test case " + param.caseLabel + " passed." );
+else
+  LOG::LogFailure( message:"Test case " + param.caseLabel + " failed." );
+end if;
+LOG::LogInfo( message:" ------------------------------ ");',
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("2e275a42-594f-477a-86c9-6a263a8b1e41",
@@ -1336,12 +1341,9 @@ create object instance msg of ReceivedNotification;
 msg.Ident = param.Ident;
 msg.Content = param.Content;
 
-// now show the notification
+// now act on the notification
 select any str from instances of NotificationString
  where ( selected.key == param.Ident );
-if ( not_empty str )
-  LOG::LogInfo( message:"**** NOTIFICATION: " + str.message + param.Content );
-end if;
 send TESTSEQ::Assess( key:"Notification_" + msg.Ident );',
 	1,
 	0);
@@ -1418,8 +1420,7 @@ INSERT INTO SPR_RS
 	VALUES ("7e160586-e91d-4df7-ab67-291d123d6e83",
 	'DataSent',
 	'Signal that all of multi-part data stream requested has been sent to6the requesting client.',
-	'LOG::LogInfo( message:"-------- all data received for " + param.Ident );
-if ( param.Ident == "available" )
+	'if ( param.Ident == "available" )
   send TESTSEQ::Assess( key:"DepartmentsSent" );
 end if;
 
@@ -1562,7 +1563,7 @@ INSERT INTO SPR_RS
 	VALUES ("c2325554-495d-46b9-9f06-d81288361d17",
 	'InitializationComplete',
 	'',
-	'::RunNominalCases();',
+	'send TESTSEQ::RunTestSuite();',
 	1,
 	0);
 INSERT INTO C_EP_PROXY

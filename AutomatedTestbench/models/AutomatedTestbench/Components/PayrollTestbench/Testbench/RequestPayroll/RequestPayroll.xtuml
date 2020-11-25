@@ -61,8 +61,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'LOG::LogInfo( message:"Requesting payroll for review injected" );
-select any dept from instances of Department
+	'select any dept from instances of Department
  where ( selected.Name == self.dept );
 if ( empty dept )
   LOG::LogFailure( message:"No payroll available for review for " + self.dept );

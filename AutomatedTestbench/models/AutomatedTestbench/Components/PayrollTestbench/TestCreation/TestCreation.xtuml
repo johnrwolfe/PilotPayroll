@@ -36,14 +36,12 @@ INSERT INTO DIM_DIA
 INSERT INTO S_SYNC
 	VALUES ("58e1ffd7-e968-43bb-b9f7-92c7a89ea8ad",
 	"00000000-0000-0000-0000-000000000000",
-	'RunNominalCases',
+	'CreateTestSuite',
 	'',
 	'send TESTSEQ::RegisterTestSuite( suiteLabel:"Payroll Test Suite", keepAllCases:False ); 
 
 create object instance tb1 of NominalCaseBucket;
-tb1.AddBucket();
-
-send TESTSEQ::RunTestSuite();',
+tb1.AddBucket();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',

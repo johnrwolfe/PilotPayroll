@@ -24,8 +24,8 @@ relate wait to observation across R4;
 
 observation.AppendTriggered( seqLabel:param.seqLabel,
                            key:param.key, 
-                           pollInterval:param.pollInterval,
-                           timeLimit:param.timeLimit,
+                           pollInterval:0,
+                           timeLimit:0,
                            concurrent:param.concurrent );',
 	1,
 	'',
@@ -50,31 +50,13 @@ INSERT INTO O_TPARM
 	"8b258f40-a1b6-44e7-957c-1da1e142e8ca",
 	'A string key which will be used to determine when this instance should re-evaluate. ');
 INSERT INTO O_TPARM
-	VALUES ("137c6a02-7d90-4f5f-9114-35ce92e95cc0",
-	"7a39e8c1-54c7-48f1-8e79-4bad5edfd551",
-	'timeLimit',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"57b298df-fcaa-4062-b583-5f974c71ec29",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("57b298df-fcaa-4062-b583-5f974c71ec29",
-	"7a39e8c1-54c7-48f1-8e79-4bad5edfd551",
-	'pollInterval',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"21c28c29-2559-423f-bee1-50e125cabb3b",
-	'');
-INSERT INTO O_TPARM
 	VALUES ("a4a2b089-473f-43f9-8d10-e90770f1a70b",
 	"7a39e8c1-54c7-48f1-8e79-4bad5edfd551",
 	'concurrent',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
-	"137c6a02-7d90-4f5f-9114-35ce92e95cc0",
+	"21c28c29-2559-423f-bee1-50e125cabb3b",
 	'If True, this observation can evaluate concurrently with others following the same stimulus.');
 INSERT INTO O_TFR
 	VALUES ("60b58024-4d21-4733-ab62-3adc011f10ee",
@@ -83,8 +65,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'LOG::LogInfo( message:"---- WaitFor triggered *****" );
-select one obs related by self->Observation[R4];
+	'select one obs related by self->Observation[R4];
 obs.Complete( success:True );
 ',
 	1,
