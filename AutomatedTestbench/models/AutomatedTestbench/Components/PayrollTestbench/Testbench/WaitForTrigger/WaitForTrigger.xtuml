@@ -12,7 +12,7 @@ The testbench, at some point, can invoke an assessment using that key value whiu
 INSERT INTO O_TFR
 	VALUES ("7a39e8c1-54c7-48f1-8e79-4bad5edfd551",
 	"75a87610-8432-46fb-9ae0-5d3096a38d68",
-	'CreateTriggered',
+	'Create',
 	'Add an observation of this type to the ''script'' of a test case.
 See Observation.AppendTriggered for description.',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -24,7 +24,6 @@ relate wait to observation across R4;
 
 observation.AppendTriggered( seqLabel:param.seqLabel,
                            key:param.key, 
-                           pollInterval:0,
                            timeLimit:0,
                            concurrent:param.concurrent );',
 	1,
@@ -101,6 +100,17 @@ Each test bucket surfaces an operation which ''scripts'' its test cases.
 A test cases creates one or more sequences of stimuli which are added by the script.
 Each stimulus can be followed by zero or more observations which assess application output.
 
-A summary report presents test case pass/fail information.',
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
 	0,
 	'../Testbench.xtuml');

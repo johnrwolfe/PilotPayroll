@@ -32,7 +32,7 @@ end if;
 INSERT INTO O_TFR
 	VALUES ("6765dd76-e26a-460a-b548-8f51743b7cdf",
 	"77d6047f-1bcc-4553-92e7-a60486cde93e",
-	'CreateTriggered',
+	'Create',
 	'Add an observation of this type to the ''script'' of a test case.
 See Observation.AppendTriggered for description.',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -43,8 +43,8 @@ create object instance obs of Observation;
 relate verify to obs across R4;
 verify.Ident = param.matchIdent;
 
-obs.AppendTriggered( seqLabel:param.seqLabel, key:"Notification_" + verify.Ident,
-                   pollInterval:0, 
+obs.AppendTriggered( seqLabel:param.seqLabel, 
+                   key:"Notification_" + verify.Ident,
                    timeLimit:0,
                    concurrent:True );',
 	1,

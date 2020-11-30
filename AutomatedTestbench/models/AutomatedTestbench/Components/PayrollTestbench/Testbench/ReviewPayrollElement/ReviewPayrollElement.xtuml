@@ -12,7 +12,7 @@ This is a polling observation because there is no signal defined to initiate rev
 INSERT INTO O_TFR
 	VALUES ("fcee4895-9f58-4809-9f34-ed23174fce47",
 	"d5b7adea-73b0-4cf5-9170-1b778fd5030e",
-	'CreatePolling',
+	'Create',
 	'Add an observation of this type to the ''script'' of a test case.
 See Observation.AppendPolling for description.',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -110,6 +110,7 @@ select any payee from instances of Payee
  where ( selected.EmployeeID == self.payee );
 if ( empty payee )
   LOG::LogFailure( message:"Cannot find Employee with matching ID" );
+//  obs.Complete( success:false ); @TODO
   return;
 end if;
 select any entry related by payee->PayrollElement[R9.''aggregates'']
@@ -140,10 +141,10 @@ if ( not_empty entry )
     success = True;
   end if;
 end if;
-if ( not success )
-  LOG::LogFailure( message:"Review payroll entry with action " + self.action + " failed" );
+if ( success )
+  LOG::LogSuccess( message:"Reviewed payroll entry with action " + self.action );
+  obs.Complete( success:success );
 end if;
-obs.Complete( success:success );
 ',
 	1,
 	'',
