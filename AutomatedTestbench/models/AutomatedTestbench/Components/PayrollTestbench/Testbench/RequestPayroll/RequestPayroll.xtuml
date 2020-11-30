@@ -20,7 +20,7 @@ reqpay.dept = param.dept;
 reqpay.holds = param.holds;
 
 create object instance stimulus of Stimulus;
-relate stimulus to reqpay across R3;
+relate stimulus to reqpay across R300;
 
 stimulus.AddToTest( seqLabel:param.seqLabel );',
 	1,
@@ -70,7 +70,7 @@ end if;
 
 send TESTAPP::RetrievePayrollForReview( Department:self.dept, HoldsOnly:self.holds );
 
-select one stimulus related by self->Stimulus[R3];
+select one stimulus related by self->Stimulus[R300];
 stimulus.Complete();
 ',
 	1,

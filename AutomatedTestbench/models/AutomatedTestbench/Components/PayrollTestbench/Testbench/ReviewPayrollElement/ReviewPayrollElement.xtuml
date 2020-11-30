@@ -24,7 +24,7 @@ rvw.label = param.label;
 rvw.action = param.action;
 
 create object instance observation of Observation;
-relate rvw to observation across R4;
+relate rvw to observation across R400;
 
 observation.AppendPolling( seqLabel:param.seqLabel, 
                            pollInterval:param.pollInterval, 
@@ -104,7 +104,7 @@ INSERT INTO O_TFR
 	'When activated, locate and check or modify the specified pay element.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one obs related by self->Observation[R4];
+	'select one obs related by self->Observation[R400];
 success = False;
 select any payee from instances of Payee
  where ( selected.EmployeeID == self.payee );
