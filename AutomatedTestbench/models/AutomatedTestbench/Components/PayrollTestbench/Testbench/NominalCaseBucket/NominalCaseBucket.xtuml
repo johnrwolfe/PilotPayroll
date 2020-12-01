@@ -30,26 +30,26 @@ send TESTSEQ::SetTestBucketTimeResolutions( bucketId:bucket.bucketId, timeResolu
 send TESTSEQ::AddTestCase( caseLabel:"UC06" ); 
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq06" );
 FastForward::Create( seqLabel:"seq06", days:13, hours:11 );
-GetNotification::CreateTriggered( seqLabel:"seq06", matchIdent:"imminent" );
+GetNotification::Create( seqLabel:"seq06", matchIdent:"imminent" );
 
 // Use Case UC05
 send TESTSEQ::AddTestCase( caseLabel:"UC05" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq05" );
 FastForward::Create( seqLabel:"seq05", days:1, hours:1 );
-GetNotification::CreateTriggered( seqLabel:"seq05", matchIdent:"generating" );
-GetNotification::CreateTriggered( seqLabel:"seq05", matchIdent:"generated" );
+GetNotification::Create( seqLabel:"seq05", matchIdent:"generating" );
+GetNotification::Create( seqLabel:"seq05", matchIdent:"generated" );
 
 // Use Case UC03
 send TESTSEQ::AddTestCase( caseLabel:"UC03" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq03" );
 RequestAvailable::Create( seqLabel:"seq03" );
-WaitForTrigger::CreateTriggered( seqLabel:"seq03", key:"DepartmentsSent", pollInterval:0, timeLimit:0, concurrent:False );
+WaitForTrigger::Create( seqLabel:"seq03", key:"DepartmentsSent", concurrent:False );
 RequestPayroll::Create( seqLabel:"seq03", dept:"IT", holds:False );
-WaitForTrigger::CreateTriggered( seqLabel:"seq03", key:"PayrollAvailable", pollInterval:0, timeLimit:0, concurrent:True );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5, concurrent:True );
+WaitForTrigger::Create( seqLabel:"seq03", key:"PayrollAvailable", concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5, concurrent:False );
 PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"Save" );
-GetNotification::CreateTriggered( seqLabel:"seq03", matchIdent:"reviewed" );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"checkhold", pollInterval:1, timeLimit:5, concurrent:True );
+GetNotification::Create( seqLabel:"seq03", matchIdent:"reviewed" );
+ReviewPayrollElement::Create( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"checkhold", pollInterval:1, timeLimit:5, concurrent:False );
 PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"clear" );
 
 
@@ -57,32 +57,34 @@ PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"clear
 send TESTSEQ::AddTestCase( caseLabel:"UC07" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq07" );
 RequestPayroll::Create( seqLabel:"seq07", dept:"IT", holds:True );
-WaitForTrigger::CreateTriggered( seqLabel:"seq07", key:"PayrollAvailable", pollInterval:0, timeLimit:0, concurrent:True );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"clear", pollInterval:1, timeLimit:5, concurrent:True );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10002, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5, concurrent:True);
+WaitForTrigger::Create( seqLabel:"seq07", key:"PayrollAvailable", concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"clear", pollInterval:1, timeLimit:5, concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq07", employee:10002, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5, concurrent:False);
 PayrollStatusUpdate::Create( seqLabel:"seq07", dept:"IT", requestedstatus:"Save" );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"checkclear", pollInterval:1, timeLimit:5, concurrent:True );
+GetNotification::Create( seqLabel:"seq07", matchIdent:"reviewed" );
+ReviewPayrollElement::Create( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"checkclear", pollInterval:1, timeLimit:5, concurrent:False );
 PayrollStatusUpdate::Create( seqLabel:"seq07", dept:"IT", requestedstatus:"Clear" );
 
 // Use Case UC04
 send TESTSEQ::AddTestCase( caseLabel:"UC04" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq04" );
 RequestPayroll::Create( seqLabel:"seq04", dept:"IT", holds:False );
-WaitForTrigger::CreateTriggered( seqLabel:"seq04", key:"PayrollAvailable", pollInterval:0, timeLimit:0, concurrent:False );
+WaitForTrigger::Create( seqLabel:"seq04", key:"PayrollAvailable", concurrent:False );
 PayrollStatusUpdate::Create( seqLabel:"seq04", dept:"IT", requestedstatus:"Approve" );
-GetNotification::CreateTriggered( seqLabel:"seq04", matchIdent:"unapproved" );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq04", employee:10002, label:"Monthly salary", action:"checkunapproval", pollInterval:1, timeLimit:5, concurrent:True );
-ReviewPayrollElement::CreatePolling( seqLabel:"seq04", employee:10002, label:"Monthly salary", action:"approve", pollInterval:1, timeLimit:5, concurrent:True );
+GetNotification::Create( seqLabel:"seq04", matchIdent:"unapproved" );
+ReviewPayrollElement::Create( seqLabel:"seq04", employee:10002, label:"Monthly salary", action:"checkunapproval", pollInterval:1, timeLimit:5, concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq04", employee:10002, label:"Monthly salary", action:"approve", pollInterval:1, timeLimit:5, concurrent:False );
 PayrollStatusUpdate::Create( seqLabel:"seq04", dept:"IT", requestedstatus:"Approve" );
-GetNotification::CreateTriggered( seqLabel:"seq04", matchIdent:"approved" );
+GetNotification::Create( seqLabel:"seq04", matchIdent:"approved" );
 PayrollStatusUpdate::Create( seqLabel:"seq04", dept:"IT", requestedstatus:"Clear" );
 
 // Use Case UC09
 send TESTSEQ::AddTestCase( caseLabel:"UC09" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq09" );
 RequestPayroll::Create( seqLabel:"seq09", dept:"IT", holds:False );
+WaitForTrigger::Create( seqLabel:"seq09", key:"PayrollAvailable", concurrent:False );
 PayrollStatusUpdate::Create( seqLabel:"seq09", dept:"IT", requestedstatus:"FinalSubmit" );
-GetNotification::CreateTriggered( seqLabel:"seq09", matchIdent:"submitted" );
+GetNotification::Create( seqLabel:"seq09", matchIdent:"submitted" );
 
 
 bucket.Initialized();
@@ -135,6 +137,17 @@ Each test bucket surfaces an operation which ''scripts'' its test cases.
 A test cases creates one or more sequences of stimuli which are added by the script.
 Each stimulus can be followed by zero or more observations which assess application output.
 
-A summary report presents test case pass/fail information.',
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
 	0,
 	'../Testbench.xtuml');

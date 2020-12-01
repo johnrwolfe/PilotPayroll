@@ -14,15 +14,14 @@ INSERT INTO O_TFR
 	'When invoked, search any existing notifications looking for a match.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'LOG::LogInfo( message:" --- Hoping to observe notification for " + self.Ident );
-select one obs related by self->Observation[R4];
-
+	'select one obs related by self->Observation[R4];
 select any msg from instances of ReceivedNotification
  where ( selected.Ident == self.Ident );
 if ( not_empty msg )
   delete object instance msg;
   obs.Complete( success:True );
 else
+  LOG::LogFailure( message:" --- Failed to observe notification for " + self.Ident );
   obs.Complete( success:False );
 end if;
 ',
@@ -33,7 +32,7 @@ end if;
 INSERT INTO O_TFR
 	VALUES ("6765dd76-e26a-460a-b548-8f51743b7cdf",
 	"77d6047f-1bcc-4553-92e7-a60486cde93e",
-	'CreateTriggered',
+	'Create',
 	'Add an observation of this type to the ''script'' of a test case.
 See Observation.AppendTriggered for description.',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -44,8 +43,8 @@ create object instance obs of Observation;
 relate verify to obs across R4;
 verify.Ident = param.matchIdent;
 
-obs.AppendTriggered( seqLabel:param.seqLabel, key:"Notification_" + verify.Ident,
-                   pollInterval:0, 
+obs.AppendTriggered( seqLabel:param.seqLabel, 
+                   key:"Notification_" + verify.Ident,
                    timeLimit:0,
                    concurrent:True );',
 	1,
@@ -117,6 +116,17 @@ Each test bucket surfaces an operation which ''scripts'' its test cases.
 A test cases creates one or more sequences of stimuli which are added by the script.
 Each stimulus can be followed by zero or more observations which assess application output.
 
-A summary report presents test case pass/fail information.',
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
 	0,
 	'../Testbench.xtuml');
