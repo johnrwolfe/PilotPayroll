@@ -88,7 +88,7 @@ relate struct to emp across R27.''has payments specified by'';
 select any payspec from instances of PaymentElementSpec where selected.Label == "Monthly salary";
 relate struct to payspec across R12.''is typed by'';
 struct.EffectiveDate = now - TimeUtilities::DayHourToSeconds(Days:30, Hours:0 );
-struct.NominalValue = 5000;
+struct.NominalValue = 11000;
 
 create object instance struct of PaymentStructureElement;
 relate struct to emp across R27.''has payments specified by'';
@@ -109,7 +109,7 @@ relate struct to emp across R27.''has payments specified by'';
 select any payspec from instances of PaymentElementSpec where selected.Label == "Monthly salary";
 relate struct to payspec across R12.''is typed by'';
 struct.EffectiveDate = now - TimeUtilities::DayHourToSeconds(Days:30, Hours:0 );
-struct.NominalValue = 10000;
+struct.NominalValue = 1200;
 
 create object instance emp of Employee;
 emp.NationalID = 10003;
@@ -122,7 +122,7 @@ relate struct to emp across R27.''has payments specified by'';
 select any payspec from instances of PaymentElementSpec where selected.Label == "Monthly salary";
 relate struct to payspec across R12.''is typed by'';
 struct.EffectiveDate = now;	// new employee
-struct.NominalValue = 5000;
+struct.NominalValue = 13000;
 
 create object instance struct of PaymentStructureElement;
 relate struct to emp across R27.''has payments specified by'';
@@ -143,7 +143,7 @@ relate struct to emp across R27.''has payments specified by'';
 select any payspec from instances of PaymentElementSpec where selected.Label == "Monthly salary";
 relate struct to payspec across R12.''is typed by'';
 struct.EffectiveDate = now - TimeUtilities::DayHourToSeconds(Days:30, Hours:0 );
-struct.NominalValue = 10000;
+struct.NominalValue = 14000;
 
 create object instance struct of PaymentStructureElement;
 relate struct to emp across R27.''has payments specified by'';

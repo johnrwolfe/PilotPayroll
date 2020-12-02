@@ -1124,15 +1124,15 @@ INSERT INTO C_EP_PROXY
 	'Signal completion of a test case.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
-	VALUES ("69c747b4-1697-4e05-8702-f106d5dfccd6",
+	VALUES ("e81c1e80-744c-4c99-a92e-01a328c85c33",
 	"5c356dfd-5197-46e8-8f38-d8d4f740788a",
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
 INSERT INTO SPR_RS
-	VALUES ("69c747b4-1697-4e05-8702-f106d5dfccd6",
+	VALUES ("e81c1e80-744c-4c99-a92e-01a328c85c33",
 	'ObservationIncomplete',
 	'Allow this obbservation to be invoked again, attempting completion.',
 	'',
-	3,
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("5c356dfd-5197-46e8-8f38-d8d4f740788a",
@@ -1142,15 +1142,15 @@ INSERT INTO C_EP_PROXY
 	'Allow this obbservation to be invoked again, attempting completion.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
-	VALUES ("2b68d0fa-b79f-49bf-9117-2f013571bf79",
+	VALUES ("8a4df559-985d-4baf-9e03-c1058c11ce12",
 	"082333f2-efc5-427f-b3e7-f2c296eb4bed",
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
 INSERT INTO SPR_RS
-	VALUES ("2b68d0fa-b79f-49bf-9117-2f013571bf79",
+	VALUES ("8a4df559-985d-4baf-9e03-c1058c11ce12",
 	'AddImmediateObservation',
 	'Add an observation which will evaluate as soon as it becomes eligible following a stimulus.',
 	'',
-	3,
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("082333f2-efc5-427f-b3e7-f2c296eb4bed",
@@ -1160,15 +1160,15 @@ INSERT INTO C_EP_PROXY
 	'Add an observation which will evaluate as soon as it becomes eligible following a stimulus.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
-	VALUES ("f4be2c7b-9a74-4205-a4a3-6e9a74bbeb85",
+	VALUES ("13acfe3b-2f6f-47fa-8893-23ae86b531e0",
 	"09c40bff-dfaf-4ccb-be7c-87e520743fcf",
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
 INSERT INTO SPR_RS
-	VALUES ("f4be2c7b-9a74-4205-a4a3-6e9a74bbeb85",
+	VALUES ("13acfe3b-2f6f-47fa-8893-23ae86b531e0",
 	'AddTriggeredObservation',
 	'Add an observation which will only evaluate in response to signalled trigger occurrence.',
 	'',
-	3,
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("09c40bff-dfaf-4ccb-be7c-87e520743fcf",
@@ -1178,15 +1178,15 @@ INSERT INTO C_EP_PROXY
 	'Add an observation which will only evaluate in response to signalled trigger occurrence.',
 	'../../../../../TestFramework/models/TestFramework/Interfaces/TestSequencing/TestSequencing.xtuml');
 INSERT INTO SPR_REP
-	VALUES ("21df9590-ad1a-4b48-b7a9-f5bd0031ec32",
+	VALUES ("dbafd5f1-bbde-4cc8-999d-e367d9c6674d",
 	"18966c4a-2804-4b67-8933-5275d471cb7c",
 	"8343e62e-053d-47d5-9e0f-752dd12b137a");
 INSERT INTO SPR_RS
-	VALUES ("21df9590-ad1a-4b48-b7a9-f5bd0031ec32",
+	VALUES ("dbafd5f1-bbde-4cc8-999d-e367d9c6674d",
 	'MigrateTriggeredObservation',
 	'Change an existing triggered observation to a polling immediate observation.',
 	'',
-	3,
+	1,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("18966c4a-2804-4b67-8933-5275d471cb7c",
@@ -1369,7 +1369,7 @@ if ( not_empty payee )
   entry.HoldUpdated = False;
   entry.ApproveUpdated = False;
   entry.AmountUpdated = False;
-  relate entry to payee across R9.''contributes to'';
+  relate entry to payee across R90.''contributes to'';
 else
   LOG::LogInfo( message:"Cannot find employee " );
 end if;',
@@ -1396,8 +1396,6 @@ msg.Ident = param.Ident;
 msg.Content = param.Content;
 
 // now act on the notification
-select any str from instances of NotificationString
- where ( selected.key == param.Ident );
 send TESTSEQ::Assess( key:"Notification_" + msg.Ident );',
 	1,
 	0);
@@ -1520,7 +1518,7 @@ INSERT INTO SPR_RS
 payee.EmployeeID = param.EmployeeID;
 select any dept from instances of Department
  where ( selected.Name == param.Department );
-relate payee to dept across R8.''belongs to'';
+relate payee to dept across R80.''belongs to'';
 dept.Reviewing = True;',
 	1,
 	0);

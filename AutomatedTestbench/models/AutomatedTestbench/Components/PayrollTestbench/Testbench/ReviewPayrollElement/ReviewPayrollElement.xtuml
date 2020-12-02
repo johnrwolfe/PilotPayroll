@@ -113,7 +113,7 @@ if ( empty payee )
 //  obs.Complete( success:false ); @TODO
   return;
 end if;
-select any entry related by payee->PayrollElement[R9.''aggregates'']
+select any entry related by payee->PayrollElement[R90.''aggregates'']
  where ( selected.Label == self.label );
 if ( not_empty entry )
   LOG::LogInfo( message:"Reviewing payroll entry with action " + self.action + " for " + self.label );

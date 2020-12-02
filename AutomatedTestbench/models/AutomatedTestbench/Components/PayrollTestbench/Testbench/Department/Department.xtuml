@@ -19,8 +19,8 @@ INSERT INTO O_TFR
 count = 0;
 if ( not_empty entries )
   for each entry in entries
-    select one payee related by entry->Payee[R9.''contributes to''];
-    select one dept related by payee->Department[R8.''belongs to''];
+    select one payee related by entry->Payee[R90.''contributes to''];
+    select one dept related by payee->Department[R80.''belongs to''];
     send TESTAPP::SubmitItemHold( Department:dept.Name, EmployeeID:payee.EmployeeID, PaymentLabel:entry.Label, HoldStatus:entry.Hold );
   end for;
   count = count + 1;
@@ -37,14 +37,14 @@ INSERT INTO O_TFR
 	'Clear all payroll data held in the testbench.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select many payees related by self->Payee[R8.''employs''];
+	'select many payees related by self->Payee[R80.''employs''];
 for each payee in payees
-  select many elements related by payee->PayrollElement[R9.''aggregates''];
+  select many elements related by payee->PayrollElement[R90.''aggregates''];
   for each element in elements
-  	unrelate element from payee across R9.''contributes to'';
+  	unrelate element from payee across R90.''contributes to'';
   	delete object instance element;
   end for;
-  unrelate payee from self across R8.''belongs to'';
+  unrelate payee from self across R80.''belongs to'';
   delete object instance payee;
 end for;
 self.Reviewing = False;',
@@ -64,8 +64,8 @@ INSERT INTO O_TFR
 count = 0;
 if ( not_empty entries )
   for each entry in entries
-    select one payee related by entry->Payee[R9.''contributes to''];
-    select one dept related by payee->Department[R8.''belongs to''];
+    select one payee related by entry->Payee[R90.''contributes to''];
+    select one dept related by payee->Department[R80.''belongs to''];
     send TESTAPP::SubmitItemApproval( Department:dept.Name, EmployeeID:payee.EmployeeID, PaymentLabel:entry.Label );
   end for;
   count = count + 1;
@@ -140,6 +140,17 @@ Each test bucket surfaces an operation which ''scripts'' its test cases.
 A test cases creates one or more sequences of stimuli which are added by the script.
 Each stimulus can be followed by zero or more observations which assess application output.
 
-A summary report presents test case pass/fail information.',
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
 	0,
 	'../Testbench.xtuml');

@@ -61,6 +61,7 @@ INSERT INTO O_TFR
 select any bad related by self->EmployeePaymentElement[R35.''has unapproved''];
 if ( not_empty bad )
   LOG::LogInfo( message:"Payroll for department " + dept.Name + " has unapproved elements!" );
+  LOG::LogInteger( message:bad.Amount );
   send USER::Notification( Ident:"unapproved", Content:dept.Name );
 else
   generate Payroll3:Approved() to self;
