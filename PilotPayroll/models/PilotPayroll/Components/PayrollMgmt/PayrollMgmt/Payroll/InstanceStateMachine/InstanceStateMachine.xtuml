@@ -884,7 +884,6 @@ INSERT INTO SM_ACT
 	"cd4b8730-3d31-42cc-b2a2-c0b6313563f3",
 	1,
 	'select one dept related by self->Department[R34.''is being reviewed for''];
-LOG::LogInfo( message:"Department " + dept.Name + " has been reviewed" ); // @TODO
 send USER::Notification( Ident:"reviewed", Content:dept.Name );',
 	'',
 	0);

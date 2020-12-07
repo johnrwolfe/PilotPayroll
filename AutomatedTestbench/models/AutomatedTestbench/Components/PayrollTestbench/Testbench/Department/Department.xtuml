@@ -18,19 +18,13 @@ INSERT INTO O_TFR
  where selected.HoldUpdated;
 count = 0;
 if ( not_empty entries )
-  LOG::LogInfo( message:"sending hold updates for dept " + self.Name );
-  LOG::LogInteger( message:cardinality entries );	
   for each entry in entries
     select one payee related by entry->Payee[R90.''contributes to''];
     select one dept related by payee->Department[R80.''belongs to''];
     send TESTAPP::SubmitItemHold( Department:dept.Name, EmployeeID:payee.EmployeeID, PaymentLabel:entry.Label, HoldStatus:entry.Hold );
-    LOG::LogInfo( message:"sent update for " + entry.Label );
-    LOG::LogInteger( message:payee.EmployeeID );
     count = count + 1;
   end for;
   send TESTAPP::UpdatesSent( Department:self.Name, Count:count );
-  LOG::LogInfo( message:"All done with hold updates" );
-  LOG::LogInteger( message:count );
 end if;',
 	1,
 	'',
