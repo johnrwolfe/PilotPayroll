@@ -110,7 +110,7 @@ select any payee from instances of Payee
  where ( selected.EmployeeID == self.payee );
 if ( empty payee )
   LOG::LogFailure( message:"Cannot find Employee with matching ID" );
-//  obs.Complete( success:false ); @TODO
+  obs.Complete( success:false );
   return;
 end if;
 select any entry related by payee->PayrollElement[R90.''aggregates'']
@@ -143,8 +143,8 @@ if ( not_empty entry )
 end if;
 if ( success )
   LOG::LogSuccess( message:"Reviewed payroll entry with action " + self.action );
-  obs.Complete( success:success );
 end if;
+obs.Complete( success:success );
 ',
 	1,
 	'',

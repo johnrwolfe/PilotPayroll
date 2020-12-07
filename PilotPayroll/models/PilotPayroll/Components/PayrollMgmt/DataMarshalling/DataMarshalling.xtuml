@@ -139,16 +139,6 @@ if ( empty payroll )
   return;
 end if;
 
-LOG::LogInfo( message:"Unmarshalling hold status items for payroll - dept " + dept.Name );
-select many bads related by payroll->EmployeePaymentElement[R35.''has unapproved''];
-for each bad in bads
-  	select one sp related by bad->PaymentStructureElement[R13.''is current realization of'']
-      	  	                            ->PaymentElementSpec[R12.''is typed by''];
-  	LOG::LogInfo( message:"On entry, found unapproved payroll element " + sp.Label );
- 	LOG::LogInteger( message:bad.Amount );
-end for;
-
-
 select any employee from instances of Employee
  where ( selected.NationalID == param.ID );
 if ( not_empty employee )
@@ -156,20 +146,15 @@ if ( not_empty employee )
   	                                      ->Payroll[R7.''is on''];
   	select many elements related by employee->EmployeePayment[R7]
   	                                        ->EmployeePaymentElement[R15.''is composed of''];
-  	LOG::LogInteger( message:cardinality elements);
     for each elmt in elements
       select one spec related by elmt->PaymentStructureElement[R13.''is current realization of'']
                                     ->PaymentElementSpec[R12.''is typed by''];
-      LOG::LogInfo( message:"Looking at payroll element " +  spec.Label );
-      LOG::LogInteger( message:elmt.Amount );
       if ( spec.Label == param.Label );
       	  select one pr related by elmt->Payroll[R29.''is on hold for''];
       	if ( param.Hold )
       	  if ( empty pr )
       	  	relate elmt to payroll across R29.''is on hold for'';
             relate elmt to payroll across R35.''needs approval for'';
-            LOG::LogInfo( message:"Putting on hold and needs approval status for " + param.Label);  // @TODO
-            LOG::LogInteger( message:elmt.Amount );
       	  end if;
       	else
       	  if ( not_empty pr )
@@ -177,25 +162,12 @@ if ( not_empty employee )
             select one pr related by elmt->Payroll[R35.''needs approval for''];
             if ( not_empty pr )
               unrelate elmt from pr across R35.''needs approval for'';
-              LOG::LogInfo( message:"Removing hold and clearing unapproved for " + param.Label);
-              LOG::LogInteger( message:elmt.Amount );
             end if;
-            
-            
-      	  select many bads related by pr->EmployeePaymentElement[R35.''has unapproved''];
-      	  for each bad in bads
-      	  	select one sp related by bad->PaymentStructureElement[R13.''is current realization of'']
-      	  	                            ->PaymentElementSpec[R12.''is typed by''];
-      	  	LOG::LogInfo( message:"Found still unapproved " + sp.Label );
-      	  	LOG::LogInteger( message:bad.Amount );
-      	  end for;
-            
       	  end if;
       	end if;
       end if;
     end for; 
 end if;
-LOG::LogInfo( message:"Exiting unmarshall hold items" );
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
