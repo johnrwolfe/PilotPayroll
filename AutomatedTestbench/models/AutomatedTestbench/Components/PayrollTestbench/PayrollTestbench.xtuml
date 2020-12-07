@@ -1113,7 +1113,22 @@ INSERT INTO SPR_RS
 else
   LOG::LogFailure( message:"Test case " + param.caseLabel + " failed." );
 end if;
-LOG::LogInfo( message:" ------------------------------ ");',
+LOG::LogInfo( message:" ------------------------------ ");
+
+select many payees from instances of Payee;
+for each payee in payees
+  select many elements related by payee->PayrollElement[R90.''aggregates''];
+  for each element in elements
+  	LOG::LogInfo( message:"deleting an element" );
+  	LOG::LogInteger( message:element.Amount );
+  	unrelate element from payee across R90.''contributes to'';
+  	delete object instance element;
+  end for;
+  select one dept related by payee->Department[R80.''belongs to''];
+  unrelate payee from dept across R80.''belongs to'';
+  delete object instance payee;
+end for;
+',
 	1,
 	0);
 INSERT INTO C_EP_PROXY

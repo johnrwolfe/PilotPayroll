@@ -50,7 +50,7 @@ ReviewPayrollElement::Create( seqLabel:"seq03", employee:10001, label:"Monthly s
 PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"Save" );
 GetNotification::Create( seqLabel:"seq03", matchIdent:"reviewed" );
 ReviewPayrollElement::Create( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"checkhold", pollInterval:1, timeLimit:5, concurrent:False );
-PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"clear" );
+PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"Clear" );
 
 
 // Use Case UC07
