@@ -245,8 +245,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'UnmarshallItemApproval',
 	'',
-	'LOG::LogInfo( message:"In app, approving payroll element " + param.Label );  // @TODO
-select any dept from instances of Department
+	'select any dept from instances of Department
  where ( selected.Name == param.Dept );
 if ( empty dept )
   LOG::LogFailure( message:"Department not found when updating item hold" );
@@ -271,27 +270,7 @@ if ( not_empty employee )
       if ( spec.Label == param.Label );
         select one pr related by elmt->Payroll[R35.''needs approval for''];
         if ( not_empty pr )
-
-          select many bads related by pr->EmployeePaymentElement[R35.''has unapproved''];
-          for each bad in bads
-          	select one sp related by bad->PaymentStructureElement[R13.''is current realization of'']
-                                    ->PaymentElementSpec[R12.''is typed by''];
-          	LOG::LogInfo( message:"Have unapproved to be rectified: " + sp.Label );
-      	  	LOG::LogInteger( message:bad.Amount );
-          end for;
-
       	  unrelate elmt from pr across R35.''needs approval for'';
-      	  LOG::LogInfo( message:"Approving " + spec.Label );  // @TODO
-       	  LOG::LogInteger( message:elmt.Amount );
-     	  
-      	  select many bads related by pr->EmployeePaymentElement[R35.''has unapproved''];
-      	  for each bad in bads
-      	  	select one sp related by bad->PaymentStructureElement[R13.''is current realization of'']
-      	  	                            ->PaymentElementSpec[R12.''is typed by''];
-      	  	LOG::LogInfo( message:"Found still unapproved " + sp.Label );
-      	  	LOG::LogInteger( message:bad.Amount );
-      	  end for;
-      	  
       	end if;
       end if;
     end for; 
