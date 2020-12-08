@@ -23,7 +23,7 @@ INSERT INTO O_TFR
 ::CreateNotificationString( key:"submitted", msg:"Payroll submitted for " );
 ::CreateNotificationString( key:"overdue", msg:"Payroll submission overdue for " );
 
-select one bucket related by self->TestBucket[R7];
+select one bucket related by self->TestBucket[R700];
 send TESTSEQ::SetTestBucketTimeResolutions( bucketId:bucket.bucketId, timeResolution:timeResolution::second, pollResolution:timeResolution::second );
 
 // Use Case UC06 
@@ -50,7 +50,7 @@ ReviewPayrollElement::Create( seqLabel:"seq03", employee:10001, label:"Monthly s
 PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"Save" );
 GetNotification::Create( seqLabel:"seq03", matchIdent:"reviewed" );
 ReviewPayrollElement::Create( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"checkhold", pollInterval:1, timeLimit:5, concurrent:False );
-PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"clear" );
+PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"Clear" );
 
 
 // Use Case UC07
@@ -101,7 +101,7 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'create object instance bucket of TestBucket;
-relate self to bucket across R7;
+relate self to bucket across R700;
 bucket.name = "Payroll nominal test cases";
 bucket.AddToSuite();',
 	1,

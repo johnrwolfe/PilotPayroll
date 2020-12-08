@@ -139,7 +139,7 @@ INSERT INTO GD_GE
 	"b6e82c9c-6067-4e4e-92ac-0211cea44762",
 	36,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R3');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R300');
 INSERT INTO GD_CON
 	VALUES ("d249318e-0561-4c42-a694-bf08aa29fb4e",
 	"00000000-0000-0000-0000-000000000000");
@@ -271,7 +271,7 @@ INSERT INTO GD_GE
 	"48596c10-3539-40cd-8ea1-533f2d06ceaa",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R3::FastForward');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R300::FastForward');
 INSERT INTO GD_CON
 	VALUES ("9fbc3028-1f04-422a-bf88-481105ec7d7e",
 	"00000000-0000-0000-0000-000000000000");
@@ -413,7 +413,7 @@ INSERT INTO GD_GE
 	"7c31c00e-9537-40c5-984c-17504c246579",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R3::RequestPayroll');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R300::RequestPayroll');
 INSERT INTO GD_CON
 	VALUES ("f558e721-57b2-46a2-8f4a-076113865128",
 	"00000000-0000-0000-0000-000000000000");
@@ -526,7 +526,7 @@ INSERT INTO GD_GE
 	"d60190b3-a3ab-498b-8115-02c377210e6f",
 	36,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R4');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R400');
 INSERT INTO GD_CON
 	VALUES ("9b5203fe-64b4-41bf-bd5c-abda55c45cbb",
 	"00000000-0000-0000-0000-000000000000");
@@ -744,7 +744,7 @@ INSERT INTO GD_GE
 	"fbccc9bb-a748-468f-a922-a0856cbb59ce",
 	36,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R7');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R700');
 INSERT INTO GD_CON
 	VALUES ("50928951-921d-47cf-9423-a4de24a08785",
 	"00000000-0000-0000-0000-000000000000");
@@ -881,7 +881,7 @@ INSERT INTO GD_GE
 	"4d4f3fb5-2676-4024-82c2-a3548478ef8e",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R7::NominalCaseBucket');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R700::NominalCaseBucket');
 INSERT INTO GD_CON
 	VALUES ("d0f8fd01-d9ff-4b6c-b2bb-aef6588e15da",
 	"00000000-0000-0000-0000-000000000000");
@@ -1015,7 +1015,7 @@ INSERT INTO GD_GE
 	"d41c5ba9-3c48-41d7-85b2-6a55efc6b75a",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R4::GetNotification');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R400::GetNotification');
 INSERT INTO GD_CON
 	VALUES ("6aaf33c1-a535-4c7f-ba06-6f526c01d291",
 	"00000000-0000-0000-0000-000000000000");
@@ -1220,7 +1220,7 @@ INSERT INTO GD_GE
 	"7dccfb34-f744-4fc6-b175-739104aade65",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R3::PayrollStatusUpdate');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R300::PayrollStatusUpdate');
 INSERT INTO GD_CON
 	VALUES ("549f2504-0233-44f4-93b7-2f8c2408eba9",
 	"00000000-0000-0000-0000-000000000000");
@@ -1454,7 +1454,7 @@ INSERT INTO GD_GE
 	"4d4f3fb5-2676-4024-82c2-a3548478ef8e",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R7::NominalCaseBucket');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R700::NominalCaseBucket');
 INSERT INTO GD_CON
 	VALUES ("434a6838-befe-468a-b12a-4b8eadc98836",
 	"00000000-0000-0000-0000-000000000000");
@@ -1554,7 +1554,7 @@ INSERT INTO GD_GE
 	"30b43ea5-eb4d-47e5-b8d4-20023a62fea3",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R4::WaitForTrigger');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R400::WaitForTrigger');
 INSERT INTO GD_CON
 	VALUES ("5ad827c4-de9d-4af6-a966-42d2b381f057",
 	"00000000-0000-0000-0000-000000000000");
@@ -1696,7 +1696,7 @@ INSERT INTO GD_GE
 	"10f65c09-59bd-4ad0-ad3c-e551d370dff2",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R3::RequestAvailable');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R300::RequestAvailable');
 INSERT INTO GD_CON
 	VALUES ("2a81396c-07ba-440c-89d9-deeac6e9cc9b",
 	"00000000-0000-0000-0000-000000000000");
@@ -1809,7 +1809,7 @@ INSERT INTO GD_GE
 	"df25586d-e5c6-4258-ab4a-3166c584610d",
 	24,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R8');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R80');
 INSERT INTO GD_CON
 	VALUES ("b090b188-9d1e-4db4-9f7c-3341bfdea4c8",
 	"00000000-0000-0000-0000-000000000000");
@@ -1909,7 +1909,7 @@ INSERT INTO GD_GE
 	"de133ebc-6d94-4a8d-a4dc-685982059e32",
 	24,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R9');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R90');
 INSERT INTO GD_CON
 	VALUES ("c0f95f6d-b688-4c8d-800c-00b167106083",
 	"00000000-0000-0000-0000-000000000000");
@@ -2038,7 +2038,7 @@ INSERT INTO GD_GE
 	"545ab856-0cfc-41fa-80c7-2dd86550a04f",
 	35,
 	0,
-	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R4::ReviewPayrollElement');
+	'AutomatedTestbench::Components::PayrollTestbench::Testbench::R400::ReviewPayrollElement');
 INSERT INTO GD_CON
 	VALUES ("035d7ff4-5b24-4257-926a-d87144d53a7b",
 	"00000000-0000-0000-0000-000000000000");
@@ -2167,7 +2167,7 @@ INSERT INTO R_SUBSUP
 	VALUES ("b6e82c9c-6067-4e4e-92ac-0211cea44762");
 INSERT INTO R_REL
 	VALUES ("b6e82c9c-6067-4e4e-92ac-0211cea44762",
-	3,
+	300,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_SUPER
@@ -2287,7 +2287,7 @@ INSERT INTO R_SUBSUP
 	VALUES ("d60190b3-a3ab-498b-8115-02c377210e6f");
 INSERT INTO R_REL
 	VALUES ("d60190b3-a3ab-498b-8115-02c377210e6f",
-	4,
+	400,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_SUPER
@@ -2402,7 +2402,7 @@ INSERT INTO R_SUBSUP
 	VALUES ("fbccc9bb-a748-468f-a922-a0856cbb59ce");
 INSERT INTO R_REL
 	VALUES ("fbccc9bb-a748-468f-a922-a0856cbb59ce",
-	7,
+	700,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_SUPER
@@ -2465,7 +2465,7 @@ INSERT INTO R_SIMP
 	VALUES ("df25586d-e5c6-4258-ab4a-3166c584610d");
 INSERT INTO R_REL
 	VALUES ("df25586d-e5c6-4258-ab4a-3166c584610d",
-	8,
+	80,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_PART
@@ -2529,7 +2529,7 @@ INSERT INTO R_SIMP
 	VALUES ("de133ebc-6d94-4a8d-a4dc-685982059e32");
 INSERT INTO R_REL
 	VALUES ("de133ebc-6d94-4a8d-a4dc-685982059e32",
-	9,
+	90,
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_PART

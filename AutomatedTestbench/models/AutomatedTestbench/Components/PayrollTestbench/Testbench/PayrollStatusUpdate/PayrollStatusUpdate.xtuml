@@ -20,7 +20,7 @@ update.dept = param.dept;
 update.newstatus = param.requestedstatus;
 
 create object instance stimulus of Stimulus;
-relate stimulus to update across R3;
+relate stimulus to update across R300;
 
 stimulus.AddToTest( seqLabel:param.seqLabel );',
 	1,
@@ -95,7 +95,7 @@ if ( self.newstatus == "Accept" )
   send TESTAPP::Accepted( Department:dept.Name );
 end if;
 
-select one stimulus related by self->Stimulus[R3];
+select one stimulus related by self->Stimulus[R300];
 stimulus.Complete();
 ',
 	1,

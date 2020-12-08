@@ -87,15 +87,15 @@ INSERT INTO O_TFR
 	'This operation will be invoked when the counterpart instance is encountered by the sequencing service.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one gn related by self->GetNotification[R4];
+	'select one gn related by self->GetNotification[R400];
 if ( not_empty gn )
   gn.CheckNotification();
 else
-  select one rvw related by self->ReviewPayrollElement[R4]; 
+  select one rvw related by self->ReviewPayrollElement[R400]; 
   if ( not_empty rvw )
   	rvw.ReviewEntry();
   else
-  	select one wft related by self->WaitForTrigger[R4];
+  	select one wft related by self->WaitForTrigger[R400];
   	if ( not_empty wft )
   	  wft.EndWait();
   	end if;
@@ -209,19 +209,19 @@ INSERT INTO O_TFR
 	'Dispose of the client instances when the test sequence service no longer needs them.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one gn related by self->GetNotification[R4];
+	'select one gn related by self->GetNotification[R400];
 if ( not_empty gn )
-  unrelate gn from self across R4;
+  unrelate gn from self across R400;
   delete object instance gn;
 else
-  select one rvw related by self->ReviewPayrollElement[R4];
+  select one rvw related by self->ReviewPayrollElement[R400];
   if ( not_empty rvw )
-  	unrelate rvw from self across R4;
+  	unrelate rvw from self across R400;
   	delete object instance rvw;
   else
-  	select one wft related by self->WaitForTrigger[R4];
+  	select one wft related by self->WaitForTrigger[R400];
   	if ( not_empty wft )
-  	  unrelate wft from self across R4;
+  	  unrelate wft from self across R400;
   	  delete object instance wft;
   	end if;
   end if;

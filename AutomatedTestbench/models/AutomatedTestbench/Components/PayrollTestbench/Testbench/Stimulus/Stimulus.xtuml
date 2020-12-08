@@ -36,19 +36,19 @@ INSERT INTO O_TFR
 	'This operation will be invoked when the stimulus is encountered by the sequencing service.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one ff related by self->FastForward[R3];
+	'select one ff related by self->FastForward[R300];
 if ( not_empty ff )
   ff.Advance();
 else
-  select one rp related by self->RequestPayroll[R3];
+  select one rp related by self->RequestPayroll[R300];
   if ( not_empty rp )
   	rp.MakeRequest();
   else
-  	select one psu related by self->PayrollStatusUpdate[R3];
+  	select one psu related by self->PayrollStatusUpdate[R300];
   	if ( not_empty psu )
   	  psu.SetStatus();
   	else
-      select one ra related by self->RequestAvailable[R3];
+      select one ra related by self->RequestAvailable[R300];
       if ( not_empty ra )
         ra.MakeRequest();
       end if;
@@ -91,24 +91,24 @@ INSERT INTO O_TFR
 	'Dispose of the client instances when the test sequence service no longer needs them.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one ff related by self->FastForward[R3];
+	'select one ff related by self->FastForward[R300];
 if ( not_empty ff )
-  unrelate ff from self across R3;
+  unrelate ff from self across R300;
   delete object instance ff;
 else
-  select one rp related by self->RequestPayroll[R3];
+  select one rp related by self->RequestPayroll[R300];
   if ( not_empty rp )
-  	unrelate rp from self across R3;
+  	unrelate rp from self across R300;
   	delete object instance rp;
   else
-  	select one psu related by self->PayrollStatusUpdate[R3];
+  	select one psu related by self->PayrollStatusUpdate[R300];
   	if ( not_empty psu )
-  	  unrelate psu from self across R3;
+  	  unrelate psu from self across R300;
   	  delete object instance psu;
     else
-      select one ra related by self->RequestAvailable[R3];
+      select one ra related by self->RequestAvailable[R300];
       if ( not_empty ra )
-        unrelate ra from self across R3;
+        unrelate ra from self across R300;
         delete object instance ra;
       end if;
   	end if;

@@ -161,7 +161,7 @@ if ( not_empty employee )
       	  	unrelate elmt from pr across R29.''is on hold for'';
             select one pr related by elmt->Payroll[R35.''needs approval for''];
             if ( not_empty pr )
-              unrelate elmt from pr across R35.''needs approval for'';;
+              unrelate elmt from pr across R35.''needs approval for'';
             end if;
       	  end if;
       	end if;
