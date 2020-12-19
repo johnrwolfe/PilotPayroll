@@ -1,0 +1,295 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("e4cde30b-d158-42e5-8f76-0936fd2d099e",
+	'Observation',
+	3,
+	'Observation',
+	'The supertype for those classes which, when invoked, will measure some change in the application under test.
+
+In general an observation will report on, or evaluate against some criteria, some returned value from the application.
+An observation may fail if it does not satisfy the presented criteria within a time limit, if specified.
+
+A observation may be polling or triggered:
+
+If polling, and an interval is specified, the evaluation will be repeated periodically; again, the time limit applies.
+
+If triggered, an evaluation may be caused at any time by the testbench, when deemed appropriate.
+To do this, the testbench should signal an "assess" with a key value matching that of the observation.
+
+If an observation fails to succeed, the test case is deemed to have failed; all un-executed stimuli and observations are cancelled.
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("533efdeb-9b9c-4238-84f7-aa651a4c1fab",
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e",
+	'AppendPolling',
+	'Add an instance of Observation sub/supertype pair following the specified stimulus.
+A polling observation may be re-evaluated at specified intervals.
+An overall time limit for such re-evaluation may also be specified.
+Failure to signal success within the time limit is considered a time-out failure.
+Any observation failure terminates the entire test case.
+Note: 
+ if both poll interval and time limit are zero, the observation will be invoked once only;
+ this invocation may occur before all events at this time instance have been processed;
+ the ordering of simultaneous event processing may affect success or failure.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'send TESTSEQ::AddImmediateObservation( seqLabel:param.seqLabel,
+                                       observationId:self.observationId,
+                                       pollInterval:param.pollInterval, 
+                                       pollDuration:param.timeLimit, 
+                                       concurrent:param.concurrent );',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("7181c324-0eb1-4bf8-95b0-997731baa239",
+	"533efdeb-9b9c-4238-84f7-aa651a4c1fab",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9e348cde-8f54-4263-80a0-44ff14f69284",
+	"533efdeb-9b9c-4238-84f7-aa651a4c1fab",
+	'timeLimit',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"5b5ed6c3-4466-4869-b5bd-7b8e2aabc4f9",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5b5ed6c3-4466-4869-b5bd-7b8e2aabc4f9",
+	"533efdeb-9b9c-4238-84f7-aa651a4c1fab",
+	'pollInterval',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"7181c324-0eb1-4bf8-95b0-997731baa239",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d8f22c18-766a-4fde-a5ed-c0d866aaa199",
+	"533efdeb-9b9c-4238-84f7-aa651a4c1fab",
+	'concurrent',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"9e348cde-8f54-4263-80a0-44ff14f69284",
+	'If True, this observation can evaluate concurrently with others following the same stimulus.');
+INSERT INTO O_TFR
+	VALUES ("5f67a4e6-856d-440d-a9ff-c105c1b5b7ae",
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e",
+	'Observe',
+	'This operation will be invoked when the counterpart instance is encountered by the sequencing service.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one gn related by self->GetNotification[R400];
+if ( not_empty gn )
+  gn.CheckNotification();
+else
+  select one rvw related by self->ReviewPayrollElement[R400]; 
+  if ( not_empty rvw )
+  	rvw.ReviewEntry();
+  else
+  	select one wft related by self->WaitForTrigger[R400];
+  	if ( not_empty wft )
+  	  wft.EndWait();
+  	end if;
+  end if;
+end if;',
+	1,
+	'',
+	"e508367e-0058-4880-a691-9c57cb218b25",
+	0);
+INSERT INTO O_TFR
+	VALUES ("83ee5979-1852-4f72-a9e4-a623e225cc97",
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e",
+	'Complete',
+	'Respond to the sequencing service with success or failure of the observation subtype.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'send TESTSEQ::ObservationDone( observationId:self.observationId, success:param.success );',
+	1,
+	'',
+	"5f67a4e6-856d-440d-a9ff-c105c1b5b7ae",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("52fbb4d3-3cbe-40ee-852e-96e856a950ba",
+	"83ee5979-1852-4f72-a9e4-a623e225cc97",
+	'success',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e508367e-0058-4880-a691-9c57cb218b25",
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e",
+	'AppendTriggered',
+	'Add an instance of Observation sub/supertype pair following the specified stimulus.
+A triggered observation will be re-evaluated whenever its key value matches that of a assess signal.
+Any observation failure terminates the entire test case.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'send TESTSEQ::AddTriggeredObservation( seqLabel:param.seqLabel, 
+                                       observationId:self.observationId,
+                                       durationLimit:param.timeLimit, 
+                                       eventKey:param.key,
+                                       concurrent:param.concurrent );',
+	1,
+	'',
+	"533efdeb-9b9c-4238-84f7-aa651a4c1fab",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("92763265-6a9c-4542-a098-feef7d22f660",
+	"e508367e-0058-4880-a691-9c57cb218b25",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("389fda97-9c6d-469d-9690-4fae94f9a29d",
+	"e508367e-0058-4880-a691-9c57cb218b25",
+	'timeLimit',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"04438941-b62c-4da6-94f2-94ed7f8fb90b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("04438941-b62c-4da6-94f2-94ed7f8fb90b",
+	"e508367e-0058-4880-a691-9c57cb218b25",
+	'key',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"92763265-6a9c-4542-a098-feef7d22f660",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a1f04a90-f284-47d4-8a4b-7ff6a07d4559",
+	"e508367e-0058-4880-a691-9c57cb218b25",
+	'concurrent',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"389fda97-9c6d-469d-9690-4fae94f9a29d",
+	'If True, this observation can evaluate concurrently with others following the same stimulus.');
+INSERT INTO O_TFR
+	VALUES ("172cbced-663d-4548-8eff-4204e1d50160",
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e",
+	'ReadIntervalTimer',
+	'Request the value of the interval timer associated with the stimulus sequence this observation  belongs to.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'send TESTSEQ::RequestIntervalTimerValue( observationId:self.observationId, key:"", reset:param.reset );
+',
+	1,
+	'',
+	"83ee5979-1852-4f72-a9e4-a623e225cc97",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("ac9d73ba-ebbb-44f2-8224-5971380bc13a",
+	"172cbced-663d-4548-8eff-4204e1d50160",
+	'reset',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("2882d3e2-c1d5-4264-b351-75d76979b461",
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e",
+	'Delete',
+	'Dispose of the client instances when the test sequence service no longer needs them.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one gn related by self->GetNotification[R400];
+if ( not_empty gn )
+  unrelate gn from self across R400;
+  delete object instance gn;
+else
+  select one rvw related by self->ReviewPayrollElement[R400];
+  if ( not_empty rvw )
+  	unrelate rvw from self across R400;
+  	delete object instance rvw;
+  else
+  	select one wft related by self->WaitForTrigger[R400];
+  	if ( not_empty wft )
+  	  unrelate wft from self across R400;
+  	  delete object instance wft;
+  	end if;
+  end if;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"172cbced-663d-4548-8eff-4204e1d50160",
+	0);
+INSERT INTO O_NBATTR
+	VALUES ("7d34485b-5d71-4f32-bb88-8f81634ec1e7",
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e");
+INSERT INTO O_BATTR
+	VALUES ("7d34485b-5d71-4f32-bb88-8f81634ec1e7",
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e");
+INSERT INTO O_ATTR
+	VALUES ("7d34485b-5d71-4f32-bb88-8f81634ec1e7",
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e",
+	"00000000-0000-0000-0000-000000000000",
+	'observationId',
+	'An identifier returned by the Test sequencer service.
+Used to identify an instance when being invoked by the Test sequencer.',
+	'',
+	'observationId',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e");
+INSERT INTO O_ID
+	VALUES (1,
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e");
+INSERT INTO O_ID
+	VALUES (2,
+	"e4cde30b-d158-42e5-8f76-0936fd2d099e");
+INSERT INTO PE_PE
+	VALUES ("e4cde30b-d158-42e5-8f76-0936fd2d099e",
+	1,
+	"39f2bab9-b4aa-4698-a3af-d38383cf2713",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("39f2bab9-b4aa-4698-a3af-d38383cf2713",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'Observations',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
+	0,
+	'../Observations.xtuml');

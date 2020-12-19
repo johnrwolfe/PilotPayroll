@@ -1,0 +1,555 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("41578d57-ceee-4604-8cd6-c0b3916e243e",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'TestSuite',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
+	0);
+INSERT INTO GD_MD
+	VALUES ("462125b0-e766-4b1c-b2db-c03436869bc0",
+	112,
+	"41578d57-ceee-4604-8cd6-c0b3916e243e",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	200,
+	150,
+	0,
+	'4.1.17',
+	'AutomatedTestbench::Components::PayrollTestbench::TestSuite');
+INSERT INTO GD_GE
+	VALUES ("484490f5-aab2-4be9-947f-dd29f8af79ac",
+	"462125b0-e766-4b1c-b2db-c03436869bc0",
+	"d32e9bdb-7c5a-4bf1-92c9-8c99cf522d79",
+	21,
+	0,
+	'AutomatedTestbench::Components::PayrollTestbench::TestSuite::TestBucket');
+INSERT INTO GD_SHP
+	VALUES ("484490f5-aab2-4be9-947f-dd29f8af79ac");
+INSERT INTO GD_NCS
+	VALUES ("484490f5-aab2-4be9-947f-dd29f8af79ac");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	144.000000,
+	"484490f5-aab2-4be9-947f-dd29f8af79ac");
+INSERT INTO DIM_GE
+	VALUES (4908.000000,
+	3325.000000,
+	"484490f5-aab2-4be9-947f-dd29f8af79ac",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("484490f5-aab2-4be9-947f-dd29f8af79ac",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("32cf045c-5d11-455e-8cc9-4dcba7279342",
+	4644.000000,
+	3888.000000,
+	"484490f5-aab2-4be9-947f-dd29f8af79ac");
+INSERT INTO DIM_CON
+	VALUES ("dedf21c7-86f9-4b77-9e0b-ca6e90aa330b",
+	4692.000000,
+	4033.000000,
+	"484490f5-aab2-4be9-947f-dd29f8af79ac");
+INSERT INTO DIM_CON
+	VALUES ("17191105-231b-4fab-a556-3bac214521fc",
+	4644.000000,
+	4008.000000,
+	"484490f5-aab2-4be9-947f-dd29f8af79ac");
+INSERT INTO DIM_CON
+	VALUES ("6287e16e-72ee-4b63-9d0f-3b5d71e322a7",
+	5003.000000,
+	3469.000000,
+	"484490f5-aab2-4be9-947f-dd29f8af79ac");
+INSERT INTO DIM_CON
+	VALUES ("f7695902-7461-4929-9256-db4648269b87",
+	4644.000000,
+	3930.000000,
+	"484490f5-aab2-4be9-947f-dd29f8af79ac");
+INSERT INTO GD_GE
+	VALUES ("eb24c99e-0eaf-45b5-beb3-8c3d1d12219d",
+	"462125b0-e766-4b1c-b2db-c03436869bc0",
+	"de6ef837-97f0-46e0-896a-681f4c6be608",
+	36,
+	0,
+	'AutomatedTestbench::Components::PayrollTestbench::TestSuite::R700');
+INSERT INTO GD_CON
+	VALUES ("eb24c99e-0eaf-45b5-beb3-8c3d1d12219d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("1642a43d-f172-4b90-86c6-2792befd0a4d",
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d",
+	0,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"1642a43d-f172-4b90-86c6-2792befd0a4d");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"1642a43d-f172-4b90-86c6-2792befd0a4d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("1642a43d-f172-4b90-86c6-2792befd0a4d",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("94e3c8db-270f-48ae-96a6-b49413129736",
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"94e3c8db-270f-48ae-96a6-b49413129736");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"94e3c8db-270f-48ae-96a6-b49413129736",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("94e3c8db-270f-48ae-96a6-b49413129736",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("1af2be06-d739-4d56-881f-a73f2bdb3687",
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"1af2be06-d739-4d56-881f-a73f2bdb3687");
+INSERT INTO DIM_GE
+	VALUES (5013.000000,
+	3490.000000,
+	"1af2be06-d739-4d56-881f-a73f2bdb3687",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("1af2be06-d739-4d56-881f-a73f2bdb3687",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("4d7e24af-287d-4b58-880d-97019dacfecd",
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d",
+	"00000000-0000-0000-0000-000000000000",
+	"19867a66-93fa-4ea2-a1d4-acd2f4168e63",
+	"351fa205-709a-46ca-818a-8eeaee24ee5a");
+INSERT INTO GD_AOS
+	VALUES ("8d4fde38-075a-4a70-92e2-e1a87180cf31",
+	"4d7e24af-287d-4b58-880d-97019dacfecd");
+INSERT INTO GD_AOS
+	VALUES ("d449fb77-21c6-45f9-b52e-ebe84719b405",
+	"4d7e24af-287d-4b58-880d-97019dacfecd");
+INSERT INTO GD_AOS
+	VALUES ("7a63b6af-8141-4004-b8ea-d375651ebfd7",
+	"4d7e24af-287d-4b58-880d-97019dacfecd");
+INSERT INTO GD_AOS
+	VALUES ("2d6c7abd-63ee-463c-9f00-5e11ff7eaa5f",
+	"4d7e24af-287d-4b58-880d-97019dacfecd");
+INSERT INTO DIM_WAY
+	VALUES ("19867a66-93fa-4ea2-a1d4-acd2f4168e63",
+	5003.000000,
+	3469.000000,
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("351fa205-709a-46ca-818a-8eeaee24ee5a",
+	5003.000000,
+	3515.000000,
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d",
+	"00000000-0000-0000-0000-000000000000",
+	"19867a66-93fa-4ea2-a1d4-acd2f4168e63");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("eb24c99e-0eaf-45b5-beb3-8c3d1d12219d",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("8d4fde38-075a-4a70-92e2-e1a87180cf31",
+	5003.000000,
+	3515.000000,
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d");
+INSERT INTO DIM_CON
+	VALUES ("d449fb77-21c6-45f9-b52e-ebe84719b405",
+	4774.000000,
+	4103.000000,
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d");
+INSERT INTO DIM_CON
+	VALUES ("7a63b6af-8141-4004-b8ea-d375651ebfd7",
+	5028.000000,
+	3527.000000,
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d");
+INSERT INTO DIM_CON
+	VALUES ("2d6c7abd-63ee-463c-9f00-5e11ff7eaa5f",
+	5028.000000,
+	3527.000000,
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d");
+INSERT INTO DIM_CON
+	VALUES ("81cb87a7-35d5-4542-ad84-6bbe29738aa1",
+	5003.000000,
+	3515.000000,
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d");
+INSERT INTO DIM_ED
+	VALUES ("6287e16e-72ee-4b63-9d0f-3b5d71e322a7",
+	"00000000-0000-0000-0000-000000000000",
+	"eb24c99e-0eaf-45b5-beb3-8c3d1d12219d");
+INSERT INTO GD_GE
+	VALUES ("a3dc7fbc-826a-49b9-a3c1-4076694ea8ff",
+	"462125b0-e766-4b1c-b2db-c03436869bc0",
+	"ba615c39-78cb-40db-8cec-0775f152492f",
+	35,
+	0,
+	'AutomatedTestbench::Components::PayrollTestbench::TestSuite::R700::NominalCaseBucket');
+INSERT INTO GD_CON
+	VALUES ("a3dc7fbc-826a-49b9-a3c1-4076694ea8ff",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("75018036-a470-4c10-b11d-63440a44bda8",
+	"a3dc7fbc-826a-49b9-a3c1-4076694ea8ff",
+	0,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"75018036-a470-4c10-b11d-63440a44bda8");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"75018036-a470-4c10-b11d-63440a44bda8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("75018036-a470-4c10-b11d-63440a44bda8",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("e5c27338-0222-46ff-84e5-2142ba5b594b",
+	"a3dc7fbc-826a-49b9-a3c1-4076694ea8ff",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"e5c27338-0222-46ff-84e5-2142ba5b594b");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"e5c27338-0222-46ff-84e5-2142ba5b594b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("e5c27338-0222-46ff-84e5-2142ba5b594b",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("8787a7ea-507c-47a1-b215-c283585d11ba",
+	"a3dc7fbc-826a-49b9-a3c1-4076694ea8ff",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"8787a7ea-507c-47a1-b215-c283585d11ba");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"8787a7ea-507c-47a1-b215-c283585d11ba",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("8787a7ea-507c-47a1-b215-c283585d11ba",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("9fac7016-dc72-45fc-9167-67bb6d70539e",
+	"a3dc7fbc-826a-49b9-a3c1-4076694ea8ff",
+	"00000000-0000-0000-0000-000000000000",
+	"3ccf1732-b582-4920-a0af-82fbbc6b079e",
+	"0f1b30a1-b9b6-400f-b135-9f19d5b2d2c9");
+INSERT INTO DIM_WAY
+	VALUES ("3ccf1732-b582-4920-a0af-82fbbc6b079e",
+	5003.000000,
+	3528.000000,
+	"a3dc7fbc-826a-49b9-a3c1-4076694ea8ff",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("0f1b30a1-b9b6-400f-b135-9f19d5b2d2c9",
+	5003.000000,
+	3515.000000,
+	"a3dc7fbc-826a-49b9-a3c1-4076694ea8ff",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"a3dc7fbc-826a-49b9-a3c1-4076694ea8ff",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("a3dc7fbc-826a-49b9-a3c1-4076694ea8ff",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("00000000-0000-0000-0000-000000000000",
+	"8d4fde38-075a-4a70-92e2-e1a87180cf31",
+	"a3dc7fbc-826a-49b9-a3c1-4076694ea8ff");
+INSERT INTO GD_GE
+	VALUES ("6f7ace84-3a6d-421f-8bd4-4a7a5ff8f55d",
+	"462125b0-e766-4b1c-b2db-c03436869bc0",
+	"7ffb2d89-c669-4a28-9fee-cab6b5e5d89c",
+	21,
+	0,
+	'AutomatedTestbench::Components::PayrollTestbench::TestSuite::NominalCaseBucket');
+INSERT INTO GD_SHP
+	VALUES ("6f7ace84-3a6d-421f-8bd4-4a7a5ff8f55d");
+INSERT INTO GD_NCS
+	VALUES ("6f7ace84-3a6d-421f-8bd4-4a7a5ff8f55d");
+INSERT INTO DIM_ND
+	VALUES (192.000000,
+	150.000000,
+	"6f7ace84-3a6d-421f-8bd4-4a7a5ff8f55d");
+INSERT INTO DIM_GE
+	VALUES (4908.000000,
+	3540.000000,
+	"6f7ace84-3a6d-421f-8bd4-4a7a5ff8f55d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("6f7ace84-3a6d-421f-8bd4-4a7a5ff8f55d",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("85a121b0-d205-424b-91a6-3db5b84e2de4",
+	5004.000000,
+	3540.000000,
+	"6f7ace84-3a6d-421f-8bd4-4a7a5ff8f55d");
+INSERT INTO GD_GE
+	VALUES ("b0d842dd-083a-4070-8384-9a843c624e5d",
+	"462125b0-e766-4b1c-b2db-c03436869bc0",
+	"ba615c39-78cb-40db-8cec-0775f152492f",
+	35,
+	0,
+	'AutomatedTestbench::Components::PayrollTestbench::TestSuite::R700::NominalCaseBucket');
+INSERT INTO GD_CON
+	VALUES ("b0d842dd-083a-4070-8384-9a843c624e5d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("f458093c-4dda-4ad4-9273-6b96fecb4755",
+	"b0d842dd-083a-4070-8384-9a843c624e5d",
+	0,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"f458093c-4dda-4ad4-9273-6b96fecb4755");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"f458093c-4dda-4ad4-9273-6b96fecb4755",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("f458093c-4dda-4ad4-9273-6b96fecb4755",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("f2c66d14-576b-4922-9b87-92f48c02eee0",
+	"b0d842dd-083a-4070-8384-9a843c624e5d",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"f2c66d14-576b-4922-9b87-92f48c02eee0");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"f2c66d14-576b-4922-9b87-92f48c02eee0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("f2c66d14-576b-4922-9b87-92f48c02eee0",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("6dde4a37-dd7c-4233-b52f-1c690266f63f",
+	"b0d842dd-083a-4070-8384-9a843c624e5d",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"6dde4a37-dd7c-4233-b52f-1c690266f63f");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"6dde4a37-dd7c-4233-b52f-1c690266f63f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("6dde4a37-dd7c-4233-b52f-1c690266f63f",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("784b3203-1c34-4560-aed5-4e15ddd265fe",
+	"b0d842dd-083a-4070-8384-9a843c624e5d",
+	"00000000-0000-0000-0000-000000000000",
+	"a41ed7de-21aa-4c0a-b90b-578ae8cab41d",
+	"1afc82c4-b09e-4bdc-917a-5daa4d4e3688");
+INSERT INTO DIM_WAY
+	VALUES ("a41ed7de-21aa-4c0a-b90b-578ae8cab41d",
+	5004.000000,
+	3540.000000,
+	"b0d842dd-083a-4070-8384-9a843c624e5d",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("1afc82c4-b09e-4bdc-917a-5daa4d4e3688",
+	5003.000000,
+	3515.000000,
+	"b0d842dd-083a-4070-8384-9a843c624e5d",
+	"00000000-0000-0000-0000-000000000000",
+	"a41ed7de-21aa-4c0a-b90b-578ae8cab41d");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"b0d842dd-083a-4070-8384-9a843c624e5d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("b0d842dd-083a-4070-8384-9a843c624e5d",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("85a121b0-d205-424b-91a6-3db5b84e2de4",
+	"81cb87a7-35d5-4542-ad84-6bbe29738aa1",
+	"b0d842dd-083a-4070-8384-9a843c624e5d");
+INSERT INTO DIM_DIA
+	VALUES ("462125b0-e766-4b1c-b2db-c03436869bc0",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUBSUP
+	VALUES ("de6ef837-97f0-46e0-896a-681f4c6be608");
+INSERT INTO R_REL
+	VALUES ("de6ef837-97f0-46e0-896a-681f4c6be608",
+	700,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("d32e9bdb-7c5a-4bf1-92c9-8c99cf522d79",
+	"de6ef837-97f0-46e0-896a-681f4c6be608",
+	"b8ff1999-5aff-48da-92e7-fb3ef3029b78");
+INSERT INTO R_RTO
+	VALUES ("d32e9bdb-7c5a-4bf1-92c9-8c99cf522d79",
+	"de6ef837-97f0-46e0-896a-681f4c6be608",
+	"b8ff1999-5aff-48da-92e7-fb3ef3029b78",
+	-1);
+INSERT INTO R_OIR
+	VALUES ("d32e9bdb-7c5a-4bf1-92c9-8c99cf522d79",
+	"de6ef837-97f0-46e0-896a-681f4c6be608",
+	"b8ff1999-5aff-48da-92e7-fb3ef3029b78",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("d32e9bdb-7c5a-4bf1-92c9-8c99cf522d79",
+	'TestBucket',
+	14,
+	'TestBucket',
+	'A test bucket is used to group related test cases; every test case must belong to a bucket.
+This supertype uses the test sequencer to manage the order of execution of test cases.
+This mechanism allows for postponment of instantiation of test case components.
+Each test bucket subtype is activated, in sequence, by the test sequencing service.
+Each subtype surfaces an operation which instantiates its stimuli or observations.
+These stimuli/observations are instantiated as each test bucket is activated.
+They may be deleted when the test bucket completes, dependent on configuration choice.
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./TestBucket/TestBucket.xtuml');
+INSERT INTO R_SUB
+	VALUES ("7ffb2d89-c669-4a28-9fee-cab6b5e5d89c",
+	"de6ef837-97f0-46e0-896a-681f4c6be608",
+	"ba615c39-78cb-40db-8cec-0775f152492f");
+INSERT INTO R_RGO
+	VALUES ("7ffb2d89-c669-4a28-9fee-cab6b5e5d89c",
+	"de6ef837-97f0-46e0-896a-681f4c6be608",
+	"ba615c39-78cb-40db-8cec-0775f152492f");
+INSERT INTO R_OIR
+	VALUES ("7ffb2d89-c669-4a28-9fee-cab6b5e5d89c",
+	"de6ef837-97f0-46e0-896a-681f4c6be608",
+	"ba615c39-78cb-40db-8cec-0775f152492f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("7ffb2d89-c669-4a28-9fee-cab6b5e5d89c",
+	'NominalCaseBucket',
+	15,
+	'NominalCaseBucket',
+	'A test bucket which runs a number of tests based on Use Cases for the Payroll application.',
+	"00000000-0000-0000-0000-000000000000",
+	'./NominalCaseBucket/NominalCaseBucket.xtuml');
+INSERT INTO PE_PE
+	VALUES ("de6ef837-97f0-46e0-896a-681f4c6be608",
+	1,
+	"41578d57-ceee-4604-8cd6-c0b3916e243e",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO PE_PE
+	VALUES ("41578d57-ceee-4604-8cd6-c0b3916e243e",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"76e58be0-a1c7-49ea-ba74-f77b1638c4f9",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("76e58be0-a1c7-49ea-ba74-f77b1638c4f9",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'PayrollTestbench',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../PayrollTestbench.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("254e12da-372d-4f11-ad9a-5b53303407a5",
+	'AutomatedTestbench',
+	1,
+	'../../../AutomatedTestbench.xtuml');

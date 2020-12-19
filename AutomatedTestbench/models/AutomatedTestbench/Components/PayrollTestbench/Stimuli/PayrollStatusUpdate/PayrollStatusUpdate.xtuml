@@ -1,0 +1,183 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("1be50c88-0410-4781-8162-f43994c7846f",
+	'PayrollStatusUpdate',
+	23,
+	'PayrollStatusUpdate',
+	'This represents a request to update the status of the payroll. ',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("56d85ff6-bb54-4274-80ca-e1fdda7ae5e3",
+	"1be50c88-0410-4781-8162-f43994c7846f",
+	'Create',
+	'Add an stimulus of this type to the ''script of a test case.
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'create object instance update of PayrollStatusUpdate;
+update.dept = param.dept;
+update.newstatus = param.requestedstatus;
+
+create object instance stimulus of Stimulus;
+relate stimulus to update across R300;
+
+stimulus.AddToTest( seqLabel:param.seqLabel );',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("a0fa8a50-c902-4fed-aec5-4575ff1ced12",
+	"56d85ff6-bb54-4274-80ca-e1fdda7ae5e3",
+	'dept',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"4b1ad2c3-8d49-4dea-b659-a4c6d0591b0b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c84ecb09-49d8-4d02-8800-cc6eb66e6f0a",
+	"56d85ff6-bb54-4274-80ca-e1fdda7ae5e3",
+	'requestedstatus',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"a0fa8a50-c902-4fed-aec5-4575ff1ced12",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4b1ad2c3-8d49-4dea-b659-a4c6d0591b0b",
+	"56d85ff6-bb54-4274-80ca-e1fdda7ae5e3",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0fdc53a1-c51a-49f5-b702-b1e57e6e5b82",
+	"1be50c88-0410-4781-8162-f43994c7846f",
+	'SetStatus',
+	'When activated, update the payroll status according to the configured attribute value.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'LOG::LogInfo( message:"Requesting payroll status update: "  + self.newstatus );
+select any dept from instances of Department
+ where ( selected.Name == self.dept );
+
+if ( not dept.Reviewing )
+  LOG::LogInfo( message:"Requested department payroll for update not under review" );
+end if;
+
+if ( self.newstatus == "Cancel" )
+  dept.ClearElements();
+end if;
+
+if ( self.newstatus == "Save" )
+  dept.SendHoldUpdates();
+end if;
+
+if ( self.newstatus == "Approve" )
+  dept.SendApprovalUpdates();
+  send TESTAPP::SubmitPayrollApproval( Department:dept.Name );
+end if;
+
+if ( self.newstatus == "FinalSubmit" )
+  dept.ClearElements();
+  send TESTAPP::SubmitToFinance( Department:dept.Name );
+end if;
+
+if ( self.newstatus == "Clear" )
+  dept.ClearElements();
+end if;
+
+if ( self.newstatus == "Accept" )
+  send TESTAPP::Accepted( Department:dept.Name );
+end if;
+
+select one stimulus related by self->Stimulus[R300];
+stimulus.Complete();
+',
+	1,
+	'',
+	"56d85ff6-bb54-4274-80ca-e1fdda7ae5e3",
+	0);
+INSERT INTO O_NBATTR
+	VALUES ("348527d0-9df0-4631-95c6-b610f3de2711",
+	"1be50c88-0410-4781-8162-f43994c7846f");
+INSERT INTO O_BATTR
+	VALUES ("348527d0-9df0-4631-95c6-b610f3de2711",
+	"1be50c88-0410-4781-8162-f43994c7846f");
+INSERT INTO O_ATTR
+	VALUES ("348527d0-9df0-4631-95c6-b610f3de2711",
+	"1be50c88-0410-4781-8162-f43994c7846f",
+	"00000000-0000-0000-0000-000000000000",
+	'dept',
+	'',
+	'',
+	'dept',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("6edb31ea-2460-48b0-9d26-518d72cf7c94",
+	"1be50c88-0410-4781-8162-f43994c7846f");
+INSERT INTO O_BATTR
+	VALUES ("6edb31ea-2460-48b0-9d26-518d72cf7c94",
+	"1be50c88-0410-4781-8162-f43994c7846f");
+INSERT INTO O_ATTR
+	VALUES ("6edb31ea-2460-48b0-9d26-518d72cf7c94",
+	"1be50c88-0410-4781-8162-f43994c7846f",
+	"348527d0-9df0-4631-95c6-b610f3de2711",
+	'newstatus',
+	'',
+	'',
+	'newstatus',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"1be50c88-0410-4781-8162-f43994c7846f");
+INSERT INTO O_ID
+	VALUES (1,
+	"1be50c88-0410-4781-8162-f43994c7846f");
+INSERT INTO O_ID
+	VALUES (2,
+	"1be50c88-0410-4781-8162-f43994c7846f");
+INSERT INTO PE_PE
+	VALUES ("1be50c88-0410-4781-8162-f43994c7846f",
+	1,
+	"b72dbe08-254b-4c89-8fbc-0aceed160244",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b72dbe08-254b-4c89-8fbc-0aceed160244",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'Stimuli',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
+	0,
+	'../Stimuli.xtuml');

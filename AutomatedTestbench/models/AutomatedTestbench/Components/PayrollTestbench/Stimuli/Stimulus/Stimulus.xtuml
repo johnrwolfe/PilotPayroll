@@ -1,0 +1,213 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("48801178-af63-43fc-adee-8abd2c8994ad",
+	'Stimulus',
+	2,
+	'Stimulus',
+	'The supertype for those classes which, when invoked, will effect some change in the application under test.
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("bc255167-b200-4f2d-91bd-293b7e1e77d6",
+	"48801178-af63-43fc-adee-8abd2c8994ad",
+	'AddToTest',
+	'Add a newly-created instance of Stimulus to the specified sequence of stimuli associated with a test case.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'send TESTSEQ::AddStimulus( seqLabel:param.seqLabel, stimulusId:self.stimulusId );',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("2b1b2f51-fbf5-4025-9549-5f7b4948fe52",
+	"bc255167-b200-4f2d-91bd-293b7e1e77d6",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'The identifier for the stimulus sequence to which this stimulus is to be added.');
+INSERT INTO O_TFR
+	VALUES ("4128b241-d31b-49af-bdbe-23d01bbf9267",
+	"48801178-af63-43fc-adee-8abd2c8994ad",
+	'Inject',
+	'This operation will be invoked when the stimulus is encountered by the sequencing service.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one ff related by self->FastForward[R300];
+if ( not_empty ff )
+  ff.Advance();
+else
+  select one rp related by self->RequestPayroll[R300];
+  if ( not_empty rp )
+  	rp.MakeRequest();
+  else
+  	select one psu related by self->PayrollStatusUpdate[R300];
+  	if ( not_empty psu )
+  	  psu.SetStatus();
+  	else
+      select one ra related by self->RequestAvailable[R300];
+      if ( not_empty ra )
+        ra.MakeRequest();
+      end if;
+    end if;
+  end if;
+end if;',
+	1,
+	'',
+	"bc255167-b200-4f2d-91bd-293b7e1e77d6",
+	0);
+INSERT INTO O_TFR
+	VALUES ("11ec8b14-86ca-4297-a903-dc77b93a533a",
+	"48801178-af63-43fc-adee-8abd2c8994ad",
+	'Complete',
+	'Invoke this operation to signal completion of stimulus injection.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'send TESTSEQ::StimulusDone( stimulusId:self.stimulusId );',
+	1,
+	'',
+	"4128b241-d31b-49af-bdbe-23d01bbf9267",
+	0);
+INSERT INTO O_TFR
+	VALUES ("464d626f-5041-4a63-8d8b-31be981d79a1",
+	"48801178-af63-43fc-adee-8abd2c8994ad",
+	'StartIntervalTimer',
+	'Start/reset the interval timer associated with the stimulus sequence to which this stimulus belongs.
+The value of the interval timer may be read by subsequent observations on this stimulus sequence.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'send TESTSEQ::StartIntervalTimer( stimulusId:self.stimulusId );',
+	1,
+	'',
+	"11ec8b14-86ca-4297-a903-dc77b93a533a",
+	0);
+INSERT INTO O_TFR
+	VALUES ("82feb7f3-ff6c-4318-b5fd-6d43031c3e77",
+	"48801178-af63-43fc-adee-8abd2c8994ad",
+	'Delete',
+	'Dispose of the client instances when the test sequence service no longer needs them.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one ff related by self->FastForward[R300];
+if ( not_empty ff )
+  unrelate ff from self across R300;
+  delete object instance ff;
+else
+  select one rp related by self->RequestPayroll[R300];
+  if ( not_empty rp )
+  	unrelate rp from self across R300;
+  	delete object instance rp;
+  else
+  	select one psu related by self->PayrollStatusUpdate[R300];
+  	if ( not_empty psu )
+  	  unrelate psu from self across R300;
+  	  delete object instance psu;
+    else
+      select one ra related by self->RequestAvailable[R300];
+      if ( not_empty ra )
+        unrelate ra from self across R300;
+        delete object instance ra;
+      end if;
+  	end if;
+  end if;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"ecf51281-bfa5-4f40-a9d6-dbab4aab42a8",
+	0);
+INSERT INTO O_TFR
+	VALUES ("ecf51281-bfa5-4f40-a9d6-dbab4aab42a8",
+	"48801178-af63-43fc-adee-8abd2c8994ad",
+	'SetSequenceIntervalTimerResolution',
+	'Modify the timer resolution of the associated stimulus sequence.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'send TESTSEQ::SetSequenceIntervalTimerResolution( seqLabel:param.seqLabel, timeResolution:param.resolution );',
+	1,
+	'',
+	"464d626f-5041-4a63-8d8b-31be981d79a1",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("831f6c8f-86c3-4daf-b665-ad6f960cb3ea",
+	"ecf51281-bfa5-4f40-a9d6-dbab4aab42a8",
+	'resolution',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"3ae08875-9a96-47e7-bdab-e6fdf5381e1b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("3ae08875-9a96-47e7-bdab-e6fdf5381e1b",
+	"ecf51281-bfa5-4f40-a9d6-dbab4aab42a8",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("a84cae4d-3af3-4f49-81a3-2a5de6d8a1a3",
+	"48801178-af63-43fc-adee-8abd2c8994ad");
+INSERT INTO O_BATTR
+	VALUES ("a84cae4d-3af3-4f49-81a3-2a5de6d8a1a3",
+	"48801178-af63-43fc-adee-8abd2c8994ad");
+INSERT INTO O_ATTR
+	VALUES ("a84cae4d-3af3-4f49-81a3-2a5de6d8a1a3",
+	"48801178-af63-43fc-adee-8abd2c8994ad",
+	"00000000-0000-0000-0000-000000000000",
+	'stimulusId',
+	'An identifier returned by the Test sequencer service.
+Used to identify an instance when being invoked by the Test sequencer.',
+	'',
+	'stimulusId',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"48801178-af63-43fc-adee-8abd2c8994ad");
+INSERT INTO O_ID
+	VALUES (1,
+	"48801178-af63-43fc-adee-8abd2c8994ad");
+INSERT INTO O_ID
+	VALUES (2,
+	"48801178-af63-43fc-adee-8abd2c8994ad");
+INSERT INTO PE_PE
+	VALUES ("48801178-af63-43fc-adee-8abd2c8994ad",
+	1,
+	"b72dbe08-254b-4c89-8fbc-0aceed160244",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b72dbe08-254b-4c89-8fbc-0aceed160244",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'Stimuli',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
+	0,
+	'../Stimuli.xtuml');
