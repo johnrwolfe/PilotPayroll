@@ -96,7 +96,7 @@ bucket.Initialized();
 INSERT INTO O_TFR
 	VALUES ("21aa3693-a0da-4dc9-ad62-142e4898d206",
 	"7ffb2d89-c669-4a28-9fee-cab6b5e5d89c",
-	'AddBucket',
+	'AddBucketToSuite',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
