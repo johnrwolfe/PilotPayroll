@@ -1091,7 +1091,7 @@ else
 end if;
 LOG::LogInfo( message:" ------------------------------ ");
 
-/*
+// Clean up anything possibly left by a previous failed test case - and warn!
 select many payees from instances of Payee;
 for each payee in payees
   select many elements related by payee->PayrollElement[R90.''aggregates''];
@@ -1105,7 +1105,7 @@ for each payee in payees
   unrelate payee from dept across R80.''belongs to'';
   delete object instance payee;
 end for;
-*/',
+',
 	1,
 	0);
 INSERT INTO C_EP_PROXY
