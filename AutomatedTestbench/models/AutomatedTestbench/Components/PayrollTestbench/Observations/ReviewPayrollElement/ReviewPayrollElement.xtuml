@@ -1,0 +1,271 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("e03b53b0-4577-49dc-abf1-ecec2a797c5a",
+	'ReviewPayrollElement',
+	27,
+	'ReviewPayrollElement',
+	'Find a payroll element and act upon it according to parameters.
+To succeed, this observation must locate the element and successfully accomplish the configured action.
+This is a polling observation because there is no signal defined to initiate review of possibly multiple elements.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("5e8207f4-f86f-45af-a366-cb9990cba0a9",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a",
+	'Create',
+	'Add an observation of this type to the ''script'' of a test case.
+See Observation.AppendPolling for description.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'create object instance rvw of ReviewPayrollElement;
+
+rvw.payee = param.employee;
+rvw.label = param.label;
+rvw.action = param.action;
+
+create object instance observation of Observation;
+relate rvw to observation across R400;
+
+observation.AppendPolling( seqLabel:param.seqLabel, 
+                           pollInterval:param.pollInterval, 
+                           timeLimit:param.timeLimit,
+                           concurrent:param.concurrent );',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("296427af-09b9-4bed-b3c9-da58f8d6c739",
+	"5e8207f4-f86f-45af-a366-cb9990cba0a9",
+	'employee',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"536a7b6c-f8cc-4b7c-a8f9-fe55ddc77bd2",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("95159eb4-2fb6-49fa-8f89-b881016c0976",
+	"5e8207f4-f86f-45af-a366-cb9990cba0a9",
+	'pollInterval',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"57ab6300-3a2f-4bc6-8ca2-5651ba400886",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2a54a990-ddbc-4c59-b67f-de84af78a21e",
+	"5e8207f4-f86f-45af-a366-cb9990cba0a9",
+	'timeLimit',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"95159eb4-2fb6-49fa-8f89-b881016c0976",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("536a7b6c-f8cc-4b7c-a8f9-fe55ddc77bd2",
+	"5e8207f4-f86f-45af-a366-cb9990cba0a9",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("67a63479-289d-4037-8d2a-0942595d2138",
+	"5e8207f4-f86f-45af-a366-cb9990cba0a9",
+	'label',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"296427af-09b9-4bed-b3c9-da58f8d6c739",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("57ab6300-3a2f-4bc6-8ca2-5651ba400886",
+	"5e8207f4-f86f-45af-a366-cb9990cba0a9",
+	'action',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"67a63479-289d-4037-8d2a-0942595d2138",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8398b4e6-008d-453a-aff7-e278d32d57be",
+	"5e8207f4-f86f-45af-a366-cb9990cba0a9",
+	'concurrent',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"2a54a990-ddbc-4c59-b67f-de84af78a21e",
+	'If True, this observation can evaluate concurrently with others following the same stimulus.');
+INSERT INTO O_TFR
+	VALUES ("a8042c05-5179-4acb-b708-bf09cf591211",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a",
+	'ReviewEntry',
+	'When activated, locate and check or modify the specified pay element.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one obs related by self->Observation[R400];
+success = False;
+select any payee from instances of Payee
+ where ( selected.EmployeeID == self.payee );
+if ( empty payee )
+  LOG::LogFailure( message:"Cannot find Employee with matching ID" );
+  obs.Complete( success:false );
+  return;
+end if;
+select any entry related by payee->PayrollElement[R90.''aggregates'']
+ where ( selected.Label == self.label );
+if ( not_empty entry )
+  LOG::LogInfo( message:"Reviewing payroll entry with action " + self.action + " for " + self.label );
+  if ( self.action == "hold" ) and ( entry.Hold == False )
+  	entry.Hold = True;
+  	entry.HoldUpdated = True;
+    success = True;
+  end if;
+  if ( self.action == "clear" ) and ( entry.Hold == True );
+  	entry.Hold = False;
+  	entry.HoldUpdated = True;
+    success = True;
+  end if;
+  if ( self.action == "checkhold" ) and ( entry.Hold == True );
+    success = True;
+  end if;
+  if ( self.action == "checkclear" ) and ( entry.Hold == False );
+    success = True;
+  end if;
+  if ( self.action == "checkunapproval" ) 
+    if ( entry.Unapproved == True );
+     success = True;
+    end if;
+  end if;
+  if ( self.action == "approve" );
+    entry.ApproveUpdated = True;
+    success = True;
+  end if;
+end if;
+if ( success )
+  LOG::LogSuccess( message:"Reviewed payroll entry with action " + self.action );
+end if;
+obs.Complete( success:success );
+',
+	1,
+	'',
+	"5e8207f4-f86f-45af-a366-cb9990cba0a9",
+	0);
+INSERT INTO O_NBATTR
+	VALUES ("6f85c49c-d6ed-4a8e-9870-44ea10832d2c",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a");
+INSERT INTO O_BATTR
+	VALUES ("6f85c49c-d6ed-4a8e-9870-44ea10832d2c",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a");
+INSERT INTO O_ATTR
+	VALUES ("6f85c49c-d6ed-4a8e-9870-44ea10832d2c",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a",
+	"77776fac-6065-4418-b278-8cad689fe0f5",
+	'label',
+	'A token value that might affect asn observations success/failure.
+See the observe state action.
+Read the observation description.',
+	'',
+	'label',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("c58c3bed-8d72-41fa-9b98-f124aa2c712e",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a");
+INSERT INTO O_BATTR
+	VALUES ("c58c3bed-8d72-41fa-9b98-f124aa2c712e",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a");
+INSERT INTO O_ATTR
+	VALUES ("c58c3bed-8d72-41fa-9b98-f124aa2c712e",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a",
+	"6f85c49c-d6ed-4a8e-9870-44ea10832d2c",
+	'amount',
+	'A token expected value for some measurement from the test application.',
+	'',
+	'amount',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000003",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("dce92366-044a-479e-b19a-9f62f249a590",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a");
+INSERT INTO O_BATTR
+	VALUES ("dce92366-044a-479e-b19a-9f62f249a590",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a");
+INSERT INTO O_ATTR
+	VALUES ("dce92366-044a-479e-b19a-9f62f249a590",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a",
+	"c58c3bed-8d72-41fa-9b98-f124aa2c712e",
+	'action',
+	'',
+	'',
+	'action',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("77776fac-6065-4418-b278-8cad689fe0f5",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a");
+INSERT INTO O_BATTR
+	VALUES ("77776fac-6065-4418-b278-8cad689fe0f5",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a");
+INSERT INTO O_ATTR
+	VALUES ("77776fac-6065-4418-b278-8cad689fe0f5",
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a",
+	"00000000-0000-0000-0000-000000000000",
+	'payee',
+	'',
+	'',
+	'payee',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a");
+INSERT INTO O_ID
+	VALUES (1,
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a");
+INSERT INTO O_ID
+	VALUES (2,
+	"e03b53b0-4577-49dc-abf1-ecec2a797c5a");
+INSERT INTO PE_PE
+	VALUES ("e03b53b0-4577-49dc-abf1-ecec2a797c5a",
+	1,
+	"39f2bab9-b4aa-4698-a3af-d38383cf2713",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("39f2bab9-b4aa-4698-a3af-d38383cf2713",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'Observations',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
+	0,
+	'../Observations.xtuml');

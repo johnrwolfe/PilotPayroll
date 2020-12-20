@@ -1,0 +1,96 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("4bf777b8-2617-47f3-93c7-038415d17d8e",
+	'RequestAvailable',
+	26,
+	'RequestAvailable',
+	'Represents a request to receive identification of those departments with payrolls available for review.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("f9ac0075-632f-4b41-8007-c3b7fcdda2a9",
+	"4bf777b8-2617-47f3-93c7-038415d17d8e",
+	'Create',
+	'Add a stimulus of this type to the ''script of a test case.
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'create object instance request of RequestAvailable;
+
+create object instance stimulus of Stimulus;
+relate stimulus to request across R300;
+
+stimulus.AddToTest( seqLabel:param.seqLabel );',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("7ff8d8ff-9d44-4502-8e6f-55270ac03b3b",
+	"f9ac0075-632f-4b41-8007-c3b7fcdda2a9",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6e945e5c-aa49-4c9e-9a82-099468dc9856",
+	"4bf777b8-2617-47f3-93c7-038415d17d8e",
+	'MakeRequest',
+	'When activated, signal the application to send the requested data.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'LOG::LogInfo( message:"Requesting available payrolls" );
+send TESTAPP::AvailablePayrolls();
+
+select one stimulus related by self->Stimulus[R300];
+stimulus.Complete();
+',
+	1,
+	'',
+	"f9ac0075-632f-4b41-8007-c3b7fcdda2a9",
+	0);
+INSERT INTO O_ID
+	VALUES (0,
+	"4bf777b8-2617-47f3-93c7-038415d17d8e");
+INSERT INTO O_ID
+	VALUES (1,
+	"4bf777b8-2617-47f3-93c7-038415d17d8e");
+INSERT INTO O_ID
+	VALUES (2,
+	"4bf777b8-2617-47f3-93c7-038415d17d8e");
+INSERT INTO PE_PE
+	VALUES ("4bf777b8-2617-47f3-93c7-038415d17d8e",
+	1,
+	"b72dbe08-254b-4c89-8fbc-0aceed160244",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b72dbe08-254b-4c89-8fbc-0aceed160244",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'Stimuli',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
+	0,
+	'../Stimuli.xtuml');

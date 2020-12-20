@@ -1,0 +1,148 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("020a3844-9d2d-4bd9-af88-8c1f086be968",
+	'FastForward',
+	5,
+	'FastForward',
+	'A stimulus which advances the perceived current time in the application.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("51f705fe-fa25-4c47-9667-06ab9bd2acdb",
+	"020a3844-9d2d-4bd9-af88-8c1f086be968",
+	'Create',
+	'Add an instance of a time advance request to the ''script'' of a test case.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'create object instance timewarp of FastForward;
+timewarp.days = param.days;
+timewarp.hours = param.hours;
+
+create object instance stimulus of Stimulus;
+relate stimulus to timewarp across R300;
+stimulus.AddToTest( seqLabel:param.seqLabel );',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("27d44b0d-32fe-4180-80c2-5bdae3d72a36",
+	"51f705fe-fa25-4c47-9667-06ab9bd2acdb",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("630ad04e-54d5-4dd5-8e48-33ab3038f828",
+	"51f705fe-fa25-4c47-9667-06ab9bd2acdb",
+	'days',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"27d44b0d-32fe-4180-80c2-5bdae3d72a36",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("17a9924c-fad5-4e82-88b3-ff7f5c91821a",
+	"51f705fe-fa25-4c47-9667-06ab9bd2acdb",
+	'hours',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"630ad04e-54d5-4dd5-8e48-33ab3038f828",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0ff00ca6-64e2-4c7b-ab02-d726beebf019",
+	"020a3844-9d2d-4bd9-af88-8c1f086be968",
+	'Advance',
+	'When activated, advance the perceived time in the application.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one stimulus related by self->Stimulus[R300];
+ts = TimeUtilities::AdvanceTime( days: self.days, hours:self.hours, minutes:0 );
+
+stimulus.Complete();',
+	1,
+	'',
+	"51f705fe-fa25-4c47-9667-06ab9bd2acdb",
+	0);
+INSERT INTO O_NBATTR
+	VALUES ("0ce9dd47-560d-4b22-9ec0-842fea5831ec",
+	"020a3844-9d2d-4bd9-af88-8c1f086be968");
+INSERT INTO O_BATTR
+	VALUES ("0ce9dd47-560d-4b22-9ec0-842fea5831ec",
+	"020a3844-9d2d-4bd9-af88-8c1f086be968");
+INSERT INTO O_ATTR
+	VALUES ("0ce9dd47-560d-4b22-9ec0-842fea5831ec",
+	"020a3844-9d2d-4bd9-af88-8c1f086be968",
+	"00000000-0000-0000-0000-000000000000",
+	'days',
+	'',
+	'',
+	'days',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("3cedca52-cea6-482f-8e73-add3b1c08a1d",
+	"020a3844-9d2d-4bd9-af88-8c1f086be968");
+INSERT INTO O_BATTR
+	VALUES ("3cedca52-cea6-482f-8e73-add3b1c08a1d",
+	"020a3844-9d2d-4bd9-af88-8c1f086be968");
+INSERT INTO O_ATTR
+	VALUES ("3cedca52-cea6-482f-8e73-add3b1c08a1d",
+	"020a3844-9d2d-4bd9-af88-8c1f086be968",
+	"0ce9dd47-560d-4b22-9ec0-842fea5831ec",
+	'hours',
+	'',
+	'',
+	'hours',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"020a3844-9d2d-4bd9-af88-8c1f086be968");
+INSERT INTO O_ID
+	VALUES (1,
+	"020a3844-9d2d-4bd9-af88-8c1f086be968");
+INSERT INTO O_ID
+	VALUES (2,
+	"020a3844-9d2d-4bd9-af88-8c1f086be968");
+INSERT INTO PE_PE
+	VALUES ("020a3844-9d2d-4bd9-af88-8c1f086be968",
+	1,
+	"b72dbe08-254b-4c89-8fbc-0aceed160244",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b72dbe08-254b-4c89-8fbc-0aceed160244",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'Stimuli',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
+	0,
+	'../Stimuli.xtuml');

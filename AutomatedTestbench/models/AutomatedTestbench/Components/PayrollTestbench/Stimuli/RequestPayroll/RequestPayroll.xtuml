@@ -1,0 +1,158 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("958b62f1-331f-4d58-b3ce-c86d76dfe90f",
+	'RequestPayroll',
+	6,
+	'RequestPayroll',
+	'This requests that payroll data be retrieved from the application for review.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("d697c777-c4eb-4010-ad3e-0f25e1d2ff62",
+	"958b62f1-331f-4d58-b3ce-c86d76dfe90f",
+	'Create',
+	'Add a stimulus of this type to the ''script of a test case.
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'create object instance reqpay of RequestPayroll;
+reqpay.dept = param.dept;
+reqpay.holds = param.holds;
+
+create object instance stimulus of Stimulus;
+relate stimulus to reqpay across R300;
+
+stimulus.AddToTest( seqLabel:param.seqLabel );',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("17c2c52d-3100-4ad7-bd6d-8b2d15bfe7ab",
+	"d697c777-c4eb-4010-ad3e-0f25e1d2ff62",
+	'dept',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"5c10f541-4e24-414a-81aa-91500669a3e2",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("72436c29-e424-4ff1-beac-14c2decef3af",
+	"d697c777-c4eb-4010-ad3e-0f25e1d2ff62",
+	'holds',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"17c2c52d-3100-4ad7-bd6d-8b2d15bfe7ab",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5c10f541-4e24-414a-81aa-91500669a3e2",
+	"d697c777-c4eb-4010-ad3e-0f25e1d2ff62",
+	'seqLabel',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0c7ad75f-031f-4a76-93af-c91ae1aeed17",
+	"958b62f1-331f-4d58-b3ce-c86d76dfe90f",
+	'MakeRequest',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any dept from instances of Department
+ where ( selected.Name == self.dept );
+if ( empty dept )
+  LOG::LogFailure( message:"No payroll available for review for " + self.dept );
+  return;
+end if;
+
+send TESTAPP::RetrievePayrollForReview( Department:self.dept, HoldsOnly:self.holds );
+
+select one stimulus related by self->Stimulus[R300];
+stimulus.Complete();
+',
+	1,
+	'',
+	"d697c777-c4eb-4010-ad3e-0f25e1d2ff62",
+	0);
+INSERT INTO O_NBATTR
+	VALUES ("fe3fee11-f086-4bb3-adc3-f99f65172aa1",
+	"958b62f1-331f-4d58-b3ce-c86d76dfe90f");
+INSERT INTO O_BATTR
+	VALUES ("fe3fee11-f086-4bb3-adc3-f99f65172aa1",
+	"958b62f1-331f-4d58-b3ce-c86d76dfe90f");
+INSERT INTO O_ATTR
+	VALUES ("fe3fee11-f086-4bb3-adc3-f99f65172aa1",
+	"958b62f1-331f-4d58-b3ce-c86d76dfe90f",
+	"00000000-0000-0000-0000-000000000000",
+	'dept',
+	'',
+	'',
+	'dept',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("13e869c8-6529-4a46-862d-650e82aa982a",
+	"958b62f1-331f-4d58-b3ce-c86d76dfe90f");
+INSERT INTO O_BATTR
+	VALUES ("13e869c8-6529-4a46-862d-650e82aa982a",
+	"958b62f1-331f-4d58-b3ce-c86d76dfe90f");
+INSERT INTO O_ATTR
+	VALUES ("13e869c8-6529-4a46-862d-650e82aa982a",
+	"958b62f1-331f-4d58-b3ce-c86d76dfe90f",
+	"fe3fee11-f086-4bb3-adc3-f99f65172aa1",
+	'holds',
+	'',
+	'',
+	'holds',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"958b62f1-331f-4d58-b3ce-c86d76dfe90f");
+INSERT INTO O_ID
+	VALUES (1,
+	"958b62f1-331f-4d58-b3ce-c86d76dfe90f");
+INSERT INTO O_ID
+	VALUES (2,
+	"958b62f1-331f-4d58-b3ce-c86d76dfe90f");
+INSERT INTO PE_PE
+	VALUES ("958b62f1-331f-4d58-b3ce-c86d76dfe90f",
+	1,
+	"b72dbe08-254b-4c89-8fbc-0aceed160244",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b72dbe08-254b-4c89-8fbc-0aceed160244",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'Stimuli',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
+	0,
+	'../Stimuli.xtuml');

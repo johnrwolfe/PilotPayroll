@@ -1,0 +1,156 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("7ab39b34-fd7a-404b-8780-719eb8be8a17",
+	'Department',
+	25,
+	'Department',
+	'Represents a department with a payroll available for review.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("637e5f80-bbad-4f46-92bb-2c1f2400bbdb",
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17",
+	'SendHoldUpdates',
+	'Transmit any on-hold status updates to the payroll application.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many entries from instances of PayrollElement
+ where selected.HoldUpdated;
+count = 0;
+if ( not_empty entries )
+  for each entry in entries
+    select one payee related by entry->Payee[R90.''contributes to''];
+    select one dept related by payee->Department[R80.''belongs to''];
+    send TESTAPP::SubmitItemHold( Department:dept.Name, EmployeeID:payee.EmployeeID, PaymentLabel:entry.Label, HoldStatus:entry.Hold );
+    count = count + 1;
+  end for;
+  send TESTAPP::UpdatesSent( Department:self.Name, Count:count );
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TFR
+	VALUES ("ec82031d-6eea-4d52-8760-2aa5690852d8",
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17",
+	'ClearElements',
+	'Clear all payroll data held in the testbench.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many payees related by self->Payee[R80.''employs''];
+for each payee in payees
+  select many elements related by payee->PayrollElement[R90.''aggregates''];
+  for each element in elements
+  	unrelate element from payee across R90.''contributes to'';
+  	delete object instance element;
+  end for;
+  unrelate payee from self across R80.''belongs to'';
+  delete object instance payee;
+end for;
+self.Reviewing = False;',
+	1,
+	'',
+	"637e5f80-bbad-4f46-92bb-2c1f2400bbdb",
+	0);
+INSERT INTO O_TFR
+	VALUES ("84daf5ef-a9a0-41be-90bf-b974ad8e471c",
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17",
+	'SendApprovalUpdates',
+	'Transmit any approval status updates to the payroll application.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many entries from instances of PayrollElement
+ where selected.ApproveUpdated;
+count = 0;
+if ( not_empty entries )
+  for each entry in entries
+    select one payee related by entry->Payee[R90.''contributes to''];
+    select one dept related by payee->Department[R80.''belongs to''];
+    send TESTAPP::SubmitItemApproval( Department:dept.Name, EmployeeID:payee.EmployeeID, PaymentLabel:entry.Label );
+  end for;
+  count = count + 1;
+  send TESTAPP::UpdatesSent( Department:self.Name, Count:count );
+end if;',
+	1,
+	'',
+	"ec82031d-6eea-4d52-8760-2aa5690852d8",
+	0);
+INSERT INTO O_NBATTR
+	VALUES ("c0821f99-0707-4c95-a2d1-6e69d7b19fa8",
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17");
+INSERT INTO O_BATTR
+	VALUES ("c0821f99-0707-4c95-a2d1-6e69d7b19fa8",
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17");
+INSERT INTO O_ATTR
+	VALUES ("c0821f99-0707-4c95-a2d1-6e69d7b19fa8",
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17",
+	"00000000-0000-0000-0000-000000000000",
+	'Name',
+	'',
+	'',
+	'Name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("a7b7331f-62f6-49a6-bb94-09a8e87ae944",
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17");
+INSERT INTO O_BATTR
+	VALUES ("a7b7331f-62f6-49a6-bb94-09a8e87ae944",
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17");
+INSERT INTO O_ATTR
+	VALUES ("a7b7331f-62f6-49a6-bb94-09a8e87ae944",
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17",
+	"c0821f99-0707-4c95-a2d1-6e69d7b19fa8",
+	'Reviewing',
+	'True if the payroll for this department is being reviewed.',
+	'',
+	'Reviewing',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17");
+INSERT INTO O_ID
+	VALUES (1,
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17");
+INSERT INTO O_ID
+	VALUES (2,
+	"7ab39b34-fd7a-404b-8780-719eb8be8a17");
+INSERT INTO PE_PE
+	VALUES ("7ab39b34-fd7a-404b-8780-719eb8be8a17",
+	1,
+	"2af95cb4-1348-4abf-a7fa-72c9872d63cb",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("2af95cb4-1348-4abf-a7fa-72c9872d63cb",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'PayrollData',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
+	0,
+	'../PayrollData.xtuml');

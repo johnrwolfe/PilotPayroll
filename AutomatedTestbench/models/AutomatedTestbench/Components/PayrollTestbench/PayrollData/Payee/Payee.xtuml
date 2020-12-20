@@ -1,0 +1,71 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("9c63482d-b58f-4f87-a87e-03a71788d08f",
+	'Payee',
+	22,
+	'Payee',
+	'An instance of an employee on the payroll currently under client review.
+Note that only an ID is required for testbench purposes.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("86521c02-af48-4956-9790-04135daac291",
+	"9c63482d-b58f-4f87-a87e-03a71788d08f");
+INSERT INTO O_BATTR
+	VALUES ("86521c02-af48-4956-9790-04135daac291",
+	"9c63482d-b58f-4f87-a87e-03a71788d08f");
+INSERT INTO O_ATTR
+	VALUES ("86521c02-af48-4956-9790-04135daac291",
+	"9c63482d-b58f-4f87-a87e-03a71788d08f",
+	"00000000-0000-0000-0000-000000000000",
+	'EmployeeID',
+	'',
+	'',
+	'EmployeeID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"9c63482d-b58f-4f87-a87e-03a71788d08f");
+INSERT INTO O_ID
+	VALUES (1,
+	"9c63482d-b58f-4f87-a87e-03a71788d08f");
+INSERT INTO O_ID
+	VALUES (2,
+	"9c63482d-b58f-4f87-a87e-03a71788d08f");
+INSERT INTO PE_PE
+	VALUES ("9c63482d-b58f-4f87-a87e-03a71788d08f",
+	1,
+	"2af95cb4-1348-4abf-a7fa-72c9872d63cb",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("2af95cb4-1348-4abf-a7fa-72c9872d63cb",
+	"00000000-0000-0000-0000-000000000000",
+	"254e12da-372d-4f11-ad9a-5b53303407a5",
+	'PayrollData',
+	'An application-specific testbench which will run a series of test cases and report success or failure.
+Controlled by an application-independent utility the testbench injects stimuli and observes results.
+
+Test cases are grouped into one or more test buckets which are added to a singleton test suite.
+Testing is initiated by a function which registers a test suite with the utility and adds test buckets.
+Each test bucket surfaces an operation which ''scripts'' its test cases.
+A test cases creates one or more sequences of stimuli which are added by the script.
+Each stimulus can be followed by zero or more observations which assess application output.
+
+A summary report presents test case pass/fail information.
+
+To run the nominal cases in Verifier:
+
+    Create a debug configuration of type "xtUML eXecute Application" and name it Payroll_test
+    Disable "Log model execution activity"
+    Disable "Run deterministically"
+    Disable "Enable simulated time"
+    Select the SimulationConfiguration within the AutomatedTesting project
+    Run Verifier using this debug configuration
+    Execute InitializeAndRun function in TestFunctions in AutomatedTesting
+',
+	0,
+	'../PayrollData.xtuml');
