@@ -23,7 +23,7 @@ for each employee in employees
   LOG::LogReal( message:"Total pay this period: ", r: payment.Amount );
   select many payelements related by payment->EmployeePaymentElement[R15.''is composed of''];
   for each elem in payelements
-  	select one spec related by elem->PaymentStructureElement[R13.''is current realization of'']
+  	select one spec related by elem->PaymentStructureElement[R13.''is template for'']
   	                               ->PaymentElementSpec[R12.''is typed by''];
   	LOG::LogReal( message:spec.Label, r:elem.Amount );
   end for;

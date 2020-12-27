@@ -17,14 +17,14 @@ INSERT INTO O_TFR
 	'// traverse the structure elements and populate the pay element values.
 select one payperiod related by self->Payroll[R7.''is on'']
                                     ->PayPeriod[R33.''is for''];
-select many structElements related by self->PaymentStructureElement[R27.''specifies a payment contribution for'']
+select many structElements related by self->PaymentStructureElement[R27.''has payments specified by'']
   where selected.EffectiveDate < payperiod.PayPeriodEnd;
 // Pass 1 - evaluate non-dependent elements
 for each structElement in structElements
   select one elementSpec related by structElement->PaymentElementSpec[R12.''is typed by''];
   select one target related by elementSpec->PaymentElementSpec[R30.''is a modifier for''];
   if ( empty target )	// this is not a modifier - proceed
-  	select one payElement related by structElement->EmployeePaymentElement[R13.''is template for''];
+  	select one payElement related by structElement->EmployeePaymentElement[R13.''is current realization of''];
   	if ( empty payElement )	// payment structure has been edited: @TODO decide: create new element on the fly?
   	  break;
   	end if;
@@ -42,13 +42,13 @@ for each structElement in structElements
   	for each targetElement in structElements
   	  select one targetElementSpec related by targetElement->PaymentElementSpec[R12.''is typed by''];
   	  if ( target == targetElementSpec )	// found our man...
-  	    select one tgtElement related by targetElement->EmployeePaymentElement[R13.''is template for''];
+  	    select one tgtElement related by targetElement->EmployeePaymentElement[R13.''is current realization of''];
     	if ( empty tgtElement )	// payment structure has been edited: @TODO decide: create new element on the fly?
     	  break;
     	end if;
     	select one payroll related by tgtElement->Payroll[R31.''has been modified for''];
   	    if ( empty payroll )
-          select one payElement related by structElement->EmployeePaymentElement[R13.''is template for''];
+          select one payElement related by structElement->EmployeePaymentElement[R13.''is current realization of''];
           payElement.Amount = structElement.Modify( TargetValue:tgtElement.Amount,
                                                     TargetEffectiveDate:targetElement.EffectiveDate );
  	    end if;

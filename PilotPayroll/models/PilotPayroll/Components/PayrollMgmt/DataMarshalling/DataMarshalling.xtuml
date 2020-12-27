@@ -59,7 +59,7 @@ if ( empty dept )
   return;
 end if;
 count = 0;
-select many employees related by dept->Employee[R6.''employs''];
+select many employees related by dept->Payroll[R34.''has under review'']->Employee[R7.''has payments for''];
 for each emp in employees
   empsent = False;			// Don''t send until sure he is needed
   
@@ -83,7 +83,7 @@ for each emp in employees
                               EmployeeFirstName:emp.FirstName, EmployeeLastName:emp.LastName );
         empsent = True;
       end if;
-  	  select one spec related by payment->PaymentStructureElement[R13.''is current realization of'']
+  	  select one spec related by payment->PaymentStructureElement[R13.''is template for'']
   	                                    ->PaymentElementSpec[R12.''is typed by''];
       send USER::PayrollData( EmployeeID:emp.NationalID,
                               PaymentLabel:spec.Label, 
@@ -125,7 +125,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("1e4bfa68-bb78-4314-90ca-c3a1dd322805",
 	"00000000-0000-0000-0000-000000000000",
-	'UnmarshallitemHold',
+	'UnmarshallitemHoldX',
 	'',
 	'select any dept from instances of Department
  where ( selected.Name == param.Dept );
@@ -147,7 +147,7 @@ if ( not_empty employee )
   	select many elements related by employee->EmployeePayment[R7]
   	                                        ->EmployeePaymentElement[R15.''is composed of''];
     for each elmt in elements
-      select one spec related by elmt->PaymentStructureElement[R13.''is current realization of'']
+      select one spec related by elmt->PaymentStructureElement[R13.''is template for'']
                                     ->PaymentElementSpec[R12.''is typed by''];
       if ( spec.Label == param.Label );
       	  select one pr related by elmt->Payroll[R29.''is on hold for''];
@@ -243,7 +243,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("8cea7871-a98d-4740-ae4a-2f81be632c39",
 	"00000000-0000-0000-0000-000000000000",
-	'UnmarshallItemApproval',
+	'UnmarshallItemApprovalX',
 	'',
 	'select any dept from instances of Department
  where ( selected.Name == param.Dept );
@@ -265,7 +265,7 @@ if ( not_empty employee )
   	select many elements related by employee->EmployeePayment[R7]
   	                                        ->EmployeePaymentElement[R15.''is composed of''];
     for each elmt in elements
-      select one spec related by elmt->PaymentStructureElement[R13.''is current realization of'']
+      select one spec related by elmt->PaymentStructureElement[R13.''is template for'']
                                     ->PaymentElementSpec[R12.''is typed by''];
       if ( spec.Label == param.Label );
         select one pr related by elmt->Payroll[R35.''needs approval for''];

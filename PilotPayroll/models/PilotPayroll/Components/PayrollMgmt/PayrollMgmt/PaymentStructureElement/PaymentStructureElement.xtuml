@@ -18,7 +18,7 @@ The value will be pro-rated if creation falls within the current pay period.
 ',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'select one payperiod related by self->Employee[R27.''has payments specified by'']
+	'select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
                                     ->Payroll[R7.''is on'']
                                     ->PayPeriod[R33.''is for''];
 if ( self.EffectiveDate > payperiod.PayPeriodStart )
@@ -38,7 +38,7 @@ The modification may be pro-rated depending on creation dates of both elements.
 ',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'select one payperiod related by self->Employee[R27.''has payments specified by'']
+	'select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
                                     ->Payroll[R7.''is on'']
                                     ->PayPeriod[R33.''is for''];
 if ( self.EffectiveDate > payperiod.PayPeriodStart )
@@ -76,7 +76,7 @@ INSERT INTO O_TFR
 	'If this element is not in play for the entire pay period it mist be prorated.',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'select one payperiod related by self->Employee[R27.''has payments specified by'']
+	'select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
                                     ->Payroll[R7.''is on'']
                                     ->PayPeriod[R33.''is for''];
 if ( self.EffectiveDate > payperiod.PayPeriodStart )	// becomes effective within period
@@ -97,7 +97,7 @@ INSERT INTO O_TFR
 	'If this element is not in play for the entire pay period it mist be prorated.',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'select one payperiod related by self->Employee[R27.''has payments specified by'']
+	'select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
                                     ->Payroll[R7.''is on'']
                                     ->PayPeriod[R33.''is for''];
 if ( self.EffectiveDate > payperiod.PayPeriodStart )		// becomes effective within period..

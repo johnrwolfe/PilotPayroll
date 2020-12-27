@@ -47,6 +47,9 @@ WaitForTrigger::Create( seqLabel:"seq03", key:"DepartmentsSent", concurrent:Fals
 RequestPayroll::Create( seqLabel:"seq03", dept:"IT", holds:False );
 WaitForTrigger::Create( seqLabel:"seq03", key:"PayrollAvailable", concurrent:False );
 ReviewPayrollElement::Create( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5, concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq03", employee:10001, label:"Fractional bonus", action:"hold", pollInterval:1, timeLimit:5, concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq03", employee:10001, label:"Reimbursement", action:"hold", pollInterval:1, timeLimit:5, concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq03", employee:10002, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5, concurrent:False);
 PayrollStatusUpdate::Create( seqLabel:"seq03", dept:"IT", requestedstatus:"Save" );
 GetNotification::Create( seqLabel:"seq03", matchIdent:"reviewed" );
 ReviewPayrollElement::Create( seqLabel:"seq03", employee:10001, label:"Monthly salary", action:"checkhold", pollInterval:1, timeLimit:5, concurrent:False );
@@ -59,10 +62,13 @@ send TESTSEQ::AddStimulusSequence( seqLabel:"seq07" );
 RequestPayroll::Create( seqLabel:"seq07", dept:"IT", holds:True );
 WaitForTrigger::Create( seqLabel:"seq07", key:"PayrollAvailable", concurrent:False );
 ReviewPayrollElement::Create( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"clear", pollInterval:1, timeLimit:5, concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq07", employee:10001, label:"Fractional bonus", action:"clear", pollInterval:1, timeLimit:5, concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq07", employee:10001, label:"Reimbursement", action:"clear", pollInterval:1, timeLimit:5, concurrent:False );
 ReviewPayrollElement::Create( seqLabel:"seq07", employee:10002, label:"Monthly salary", action:"hold", pollInterval:1, timeLimit:5, concurrent:False);
 PayrollStatusUpdate::Create( seqLabel:"seq07", dept:"IT", requestedstatus:"Save" );
 GetNotification::Create( seqLabel:"seq07", matchIdent:"reviewed" );
 ReviewPayrollElement::Create( seqLabel:"seq07", employee:10001, label:"Monthly salary", action:"checkclear", pollInterval:1, timeLimit:5, concurrent:False );
+PayrollStatusUpdate::Create( seqLabel:"seq07", dept:"IT", requestedstatus:"Save" );
 PayrollStatusUpdate::Create( seqLabel:"seq07", dept:"IT", requestedstatus:"Clear" );
 
 // Use Case UC04
@@ -70,6 +76,9 @@ send TESTSEQ::AddTestCase( caseLabel:"UC04" );
 send TESTSEQ::AddStimulusSequence( seqLabel:"seq04" );
 RequestPayroll::Create( seqLabel:"seq04", dept:"IT", holds:False );
 WaitForTrigger::Create( seqLabel:"seq04", key:"PayrollAvailable", concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq04", employee:10001, label:"Fractional bonus", action:"approve", pollInterval:1, timeLimit:5, concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq04", employee:10001, label:"Monthly salary", action:"approve", pollInterval:1, timeLimit:5, concurrent:False );
+ReviewPayrollElement::Create( seqLabel:"seq04", employee:10001, label:"Reimbursement", action:"approve", pollInterval:1, timeLimit:5, concurrent:False );
 PayrollStatusUpdate::Create( seqLabel:"seq04", dept:"IT", requestedstatus:"Approve" );
 GetNotification::Create( seqLabel:"seq04", matchIdent:"unapproved" );
 ReviewPayrollElement::Create( seqLabel:"seq04", employee:10002, label:"Monthly salary", action:"checkunapproval", pollInterval:1, timeLimit:5, concurrent:False );
