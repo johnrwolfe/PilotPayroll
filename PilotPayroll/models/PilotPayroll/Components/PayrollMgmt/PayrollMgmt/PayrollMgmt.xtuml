@@ -3310,6 +3310,46 @@ INSERT INTO DIM_DIA
 	0.000000,
 	0.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("0f2e542f-20f1-4e29-aca3-75f5218aca55",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Employee>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("0f2e542f-20f1-4e29-aca3-75f5218aca55",
+	0,
+	"f228e204-e0aa-481c-adb6-27e960fc359c");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("f228e204-e0aa-481c-adb6-27e960fc359c",
+	'Employee',
+	2,
+	'Employee',
+	'A paid worker in the organization.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Employee/Employee.xtuml');
+INSERT INTO PE_PE
+	VALUES ("0f2e542f-20f1-4e29-aca3-75f5218aca55",
+	1,
+	"66af3a6e-b969-4d52-8331-503fed93597c",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("4e279fab-fc34-49a9-a51a-cafff6c10b7f",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Employee>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("4e279fab-fc34-49a9-a51a-cafff6c10b7f",
+	1,
+	"f228e204-e0aa-481c-adb6-27e960fc359c");
+INSERT INTO PE_PE
+	VALUES ("4e279fab-fc34-49a9-a51a-cafff6c10b7f",
+	1,
+	"66af3a6e-b969-4d52-8331-503fed93597c",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("12fc0e6c-15ce-44f7-9f7a-df5c04b6d412");
 INSERT INTO R_REL
@@ -3477,14 +3517,6 @@ INSERT INTO R_OIR
 	"78a99d11-15f7-46cc-8f5b-f8301d576efe",
 	"f2d2ce21-912d-40a6-993b-9b56548f9729",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("f228e204-e0aa-481c-adb6-27e960fc359c",
-	'Employee',
-	2,
-	'Employee',
-	'A paid worker in the organization.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Employee/Employee.xtuml');
 INSERT INTO PE_PE
 	VALUES ("78a99d11-15f7-46cc-8f5b-f8301d576efe",
 	1,
@@ -4503,7 +4535,7 @@ INSERT INTO R_REL
 	35,
 	'An element that is modified during a review is marked ( by this association ) as needing approval.
 A payroll with any associated unapproved elements cannot be submitted to Finance.
-( Unless the entirwe payment of which it is a part is on hold status ).
+( Unless the entire payment of which it is a part is on hold status ).
 Such an element must be either approved or else put on hold ( see a separate association )',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_PART

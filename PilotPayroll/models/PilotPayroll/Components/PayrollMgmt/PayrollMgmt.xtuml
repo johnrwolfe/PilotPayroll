@@ -753,7 +753,9 @@ INSERT INTO SPR_PS
 	VALUES ("8185cb14-1495-4f74-aba2-96daf97f3cbf",
 	'UpdatesSent',
 	'Signal that all payroll updates for a department have been submitted by client.',
-	'select any dept from instances of Department
+	'// Attempt to reflect ''reviewed'' status to User Interface.
+
+select any dept from instances of Department
  where ( selected.Name == param.Department );
 if ( empty dept )
   LOG::LogFailure( message:"Department not found when updating payroll review status" );

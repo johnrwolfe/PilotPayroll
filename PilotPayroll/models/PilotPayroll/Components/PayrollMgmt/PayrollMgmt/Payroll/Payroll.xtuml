@@ -204,7 +204,8 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select many employees from instances of Employee;
+	'// Prepare to send employee payment data for review.
+select many employees from instances of Employee where ( false ); // decl.
 if ( param.HoldsOnly )
   select many employees related by self->EmployeePaymentElement[R29.''has placed on hold'']
                                        ->EmployeePayment[R15.''contributes to'']
@@ -213,8 +214,10 @@ else
   select many employees related by self->Employee[R7.''has payments for''];                                       
 end if;
 
-select one dept related by self->Department[R34.''is being reviewed for''];
-::MarshalPayroll( Dept:dept.Name, Holds:param.HoldsOnly );',
+if ( not_empty employees )
+  select one dept related by self->Department[R34.''is being reviewed for''];
+  ::MarshalPayroll( DeptName:dept.Name, Employees: employees, HoldsOnly:param.HoldsOnly );
+end if;',
 	1,
 	'',
 	"13169ada-0f02-4c17-929e-36f0e770dac9",

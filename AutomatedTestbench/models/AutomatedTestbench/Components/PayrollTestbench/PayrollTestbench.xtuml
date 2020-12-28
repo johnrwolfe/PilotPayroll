@@ -1464,11 +1464,28 @@ INSERT INTO SPR_RS
 	VALUES ("7e160586-e91d-4df7-ab67-291d123d6e83",
 	'DataSent',
 	'Signal that all of multi-part data stream requested has been sent to6the requesting client.',
-	'if ( param.Ident == "available" )
+	'// Check received data count; trigger observation if appropriate.
+
+if ( param.Ident == "available" )
+  select many depts from instances of Department;
+  if ( cardinality depts != param.Count )
+    LOG::LogFailure( message:"Bad count of available payrolls" );
+  end if;
   send TESTSEQ::Assess( key:"DepartmentsSent" );
 end if;
 
+if ( param.Ident == "employees" )
+  select many payees from instances of Payee;
+  if ( cardinality payees != param.Count )
+    LOG::LogFailure( message:"Bad count of employees sent" );
+  end if;
+end if;
+
 if ( param.Ident == "payroll" )
+  select many elements from instances of PayrollElement;
+  if ( cardinality elements != param.Count )
+    LOG::LogFailure( message:"Bad count of pay elements sent" );
+  end if;
   send TESTSEQ::Assess( key:"PayrollAvailable" );
 end if;',
 	1,

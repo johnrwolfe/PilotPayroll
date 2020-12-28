@@ -53,17 +53,21 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'MarshalPayroll',
 	'Send department employee and payment element data on request.',
-	'select any dept from instances of Department where ( selected.Name == param.Dept );
-if ( empty dept )
-  LOG::LogFailure( message:"Department name not matched in Send Payroll" );
-  return;
-end if;
+	'// Send a record for each employeee; then send payment data.
+
 count = 0;
-select many employees related by dept->Payroll[R34.''has under review'']->Employee[R7.''has payments for''];
-for each emp in employees
-  empsent = False;			// Don''t send until sure he is needed
-  
-  select many payments related by emp->EmployeePayment[R7]
+employees = param.Employees;
+for each employee in employees
+  send USER::PayeeData( Department:param.DeptName, 
+                        EmployeeID:employee.NationalID, 
+                        EmployeeFirstName:employee.FirstName, EmployeeLastName:employee.LastName );
+  count = count + 1;
+end for;
+send USER::DataSent( Ident:"employees", Count:count );
+
+count = 0;
+for each employee in employees
+  select many payments related by employee->EmployeePayment[R7]
                                      ->EmployeePaymentElement[R15.''is composed of''];
   for each payment in payments
 	hold = False;
@@ -76,21 +80,13 @@ for each emp in employees
 	if ( not_empty payroll )
 	  unapproved = True;
 	end if;  	
-    if ( param.Holds == False ) or ( hold == True )
-      if ( not empsent )		// time to send
-        send USER::PayeeData( Department:dept.Name, 
-                              EmployeeID:emp.NationalID, 
-                              EmployeeFirstName:emp.FirstName, EmployeeLastName:emp.LastName );
-        empsent = True;
-      end if;
-  	  select one spec related by payment->PaymentStructureElement[R13.''is template for'']
-  	                                    ->PaymentElementSpec[R12.''is typed by''];
-      send USER::PayrollData( EmployeeID:emp.NationalID,
-                              PaymentLabel:spec.Label, 
-                              PaymentAmount:payment.Amount, 
-                              HoldStatus:hold, UnapprovalStatus: unapproved  );
-      count = count + 1;
-    end if;	
+    select one spec related by payment->PaymentStructureElement[R13.''is template for'']
+  	                                  ->PaymentElementSpec[R12.''is typed by''];
+    send USER::PayrollData( EmployeeID:employee.NationalID,
+                            PaymentLabel:spec.Label, 
+                            PaymentAmount:payment.Amount, 
+                            HoldStatus:hold, UnapprovalStatus: unapproved  );
+    count = count + 1;
   end for;
 end for;
 send USER::DataSent( Ident:"payroll", Count:count );',
@@ -101,7 +97,7 @@ send USER::DataSent( Ident:"payroll", Count:count );',
 INSERT INTO S_SPARM
 	VALUES ("01898846-dc9a-4a4c-b295-fb92bf20c24c",
 	"d02f6ae0-5a9d-4e8d-b2ba-0f4897ccd9a4",
-	'Dept',
+	'DeptName',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
@@ -110,107 +106,30 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("bc5c13e4-7ef7-47c2-a3f0-ec73fc370f24",
 	"d02f6ae0-5a9d-4e8d-b2ba-0f4897ccd9a4",
-	'Holds',
+	'HoldsOnly',
 	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"279e1dbc-8789-45f2-af5a-3798e395d26d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("279e1dbc-8789-45f2-af5a-3798e395d26d",
+	"d02f6ae0-5a9d-4e8d-b2ba-0f4897ccd9a4",
+	'Employees',
+	"4e279fab-fc34-49a9-a51a-cafff6c10b7f",
 	0,
 	'',
 	"01898846-dc9a-4a4c-b295-fb92bf20c24c",
 	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("4e279fab-fc34-49a9-a51a-cafff6c10b7f",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Employee>',
+	'',
+	'',
+	'../PayrollMgmt/PayrollMgmt.xtuml');
 INSERT INTO PE_PE
 	VALUES ("d02f6ae0-5a9d-4e8d-b2ba-0f4897ccd9a4",
-	1,
-	"42385522-1c5f-4df9-9de6-3cd5ff2b1211",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("1e4bfa68-bb78-4314-90ca-c3a1dd322805",
-	"00000000-0000-0000-0000-000000000000",
-	'UnmarshallitemHoldX',
-	'',
-	'select any dept from instances of Department
- where ( selected.Name == param.Dept );
-if ( empty dept )
-  LOG::LogFailure( message:"Department not found when updating item hold" );
-  return;
-end if;
-select one payroll related by dept->Payroll[R34.''has under review''];
-if ( empty payroll )
-  LOG::LogFailure( message:"Payroll not found when updating item hold" );
-  return;
-end if;
-
-select any employee from instances of Employee
- where ( selected.NationalID == param.ID );
-if ( not_empty employee )
-  	select one payroll related by employee->EmployeePayment[R7]
-  	                                      ->Payroll[R7.''is on''];
-  	select many elements related by employee->EmployeePayment[R7]
-  	                                        ->EmployeePaymentElement[R15.''is composed of''];
-    for each elmt in elements
-      select one spec related by elmt->PaymentStructureElement[R13.''is template for'']
-                                    ->PaymentElementSpec[R12.''is typed by''];
-      if ( spec.Label == param.Label );
-      	  select one pr related by elmt->Payroll[R29.''is on hold for''];
-      	if ( param.Hold )
-      	  if ( empty pr )
-      	  	relate elmt to payroll across R29.''is on hold for'';
-            relate elmt to payroll across R35.''needs approval for'';
-      	  end if;
-      	else
-      	  if ( not_empty pr )
-      	  	unrelate elmt from pr across R29.''is on hold for'';
-            select one pr related by elmt->Payroll[R35.''needs approval for''];
-            if ( not_empty pr )
-              unrelate elmt from pr across R35.''needs approval for'';
-            end if;
-      	  end if;
-      	end if;
-      end if;
-    end for; 
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("6951c3a2-c510-407f-a5cc-1d3760839074",
-	"1e4bfa68-bb78-4314-90ca-c3a1dd322805",
-	'ID',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"4c8dcbb8-e388-4f74-950f-7fb30a7bfc4d",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("8a0d4aae-73eb-4f5f-8a4a-114b3a4f9d68",
-	"1e4bfa68-bb78-4314-90ca-c3a1dd322805",
-	'Label',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"6951c3a2-c510-407f-a5cc-1d3760839074",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("8210bdea-8369-4fb9-90a3-96c2230f44ce",
-	"1e4bfa68-bb78-4314-90ca-c3a1dd322805",
-	'Hold',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"8a0d4aae-73eb-4f5f-8a4a-114b3a4f9d68",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("4c8dcbb8-e388-4f74-950f-7fb30a7bfc4d",
-	"1e4bfa68-bb78-4314-90ca-c3a1dd322805",
-	'Dept',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("1e4bfa68-bb78-4314-90ca-c3a1dd322805",
 	1,
 	"42385522-1c5f-4df9-9de6-3cd5ff2b1211",
 	"00000000-0000-0000-0000-000000000000",
@@ -236,79 +155,6 @@ send USER::DataSent( Ident:"available", Count:count );',
 	0);
 INSERT INTO PE_PE
 	VALUES ("b71aad5b-341a-499a-8d47-a5b5f86a6927",
-	1,
-	"42385522-1c5f-4df9-9de6-3cd5ff2b1211",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("8cea7871-a98d-4740-ae4a-2f81be632c39",
-	"00000000-0000-0000-0000-000000000000",
-	'UnmarshallItemApprovalX',
-	'',
-	'select any dept from instances of Department
- where ( selected.Name == param.Dept );
-if ( empty dept )
-  LOG::LogFailure( message:"Department not found when updating item hold" );
-  return;
-end if;
-select one payroll related by dept->Payroll[R34.''has under review''];
-if ( empty payroll )
-  LOG::LogFailure( message:"Payroll not found when updating item hold" );
-  return;
-end if;
-
-select any employee from instances of Employee
- where ( selected.NationalID == param.ID );
-if ( not_empty employee )
-  	select one payroll related by employee->EmployeePayment[R7]
-  	                                      ->Payroll[R7.''is on''];
-  	select many elements related by employee->EmployeePayment[R7]
-  	                                        ->EmployeePaymentElement[R15.''is composed of''];
-    for each elmt in elements
-      select one spec related by elmt->PaymentStructureElement[R13.''is template for'']
-                                    ->PaymentElementSpec[R12.''is typed by''];
-      if ( spec.Label == param.Label );
-        select one pr related by elmt->Payroll[R35.''needs approval for''];
-        if ( not_empty pr )
-      	  unrelate elmt from pr across R35.''needs approval for'';
-      	end if;
-      end if;
-    end for; 
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("5b9ee512-a862-49cc-95a9-c6c28362b866",
-	"8cea7871-a98d-4740-ae4a-2f81be632c39",
-	'Dept',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("7ee0157a-adb0-457b-acb7-b8e8fff4bd42",
-	"8cea7871-a98d-4740-ae4a-2f81be632c39",
-	'ID',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"5b9ee512-a862-49cc-95a9-c6c28362b866",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("afc92c5b-cc1b-4455-a37a-10fd008a4a5d",
-	"8cea7871-a98d-4740-ae4a-2f81be632c39",
-	'Label',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"7ee0157a-adb0-457b-acb7-b8e8fff4bd42",
-	'');
-INSERT INTO PE_PE
-	VALUES ("8cea7871-a98d-4740-ae4a-2f81be632c39",
 	1,
 	"42385522-1c5f-4df9-9de6-3cd5ff2b1211",
 	"00000000-0000-0000-0000-000000000000",
