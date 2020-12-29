@@ -142,7 +142,10 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select any employee related by self->Employee[R7.''has payments for'']
+	'// Update the ''hold'' status for a payment element.
+// Placing a hold automatically assigns an explicit ''needs approval'' status.
+
+select any employee related by self->Employee[R7.''has payments for'']
  where ( selected.NationalID == param.ID );
 if ( not_empty employee )
   	select many elements related by employee->EmployeePayment[R7]
@@ -205,12 +208,22 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Prepare to send employee payment data for review.
+// The reviewer has the option to select only data with ''on-hold'' status.
+// This option is interpreted as:
+// "all data for each employee that has any on-hold/needs-approval item".
+
 select many employees from instances of Employee where ( false ); // decl.
+
 if ( param.HoldsOnly )
-  select many employees related by self->EmployeePaymentElement[R29.''has placed on hold'']
-                                       ->EmployeePayment[R15.''contributes to'']
-                                       ->Employee[R7.''has payments for''];
+  select many hasHolds related by self->EmployeePaymentElement[R29.''has placed on hold'']
+                                      ->EmployeePayment[R15.''contributes to'']
+                                      ->Employee[R7.''has payments for''];
+  select many needsOk related by self->EmployeePaymentElement[R35.''has unapproved'']
+                                      ->EmployeePayment[R15.''contributes to'']
+                                      ->Employee[R7.''has payments for''];
+  employees = hasHolds + needsOk;
 else
+  // send data for all employees on payroll.
   select many employees related by self->Employee[R7.''has payments for''];                                       
 end if;
 

@@ -61,7 +61,10 @@ INSERT INTO O_TFR
 	'When activated, update the payroll status according to the configured attribute value.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'LOG::LogInfo( message:"Requesting payroll status update: "  + self.newstatus );
+	'// Update the status of the payroll under review.
+// If appropriate send updates to the application.
+
+LOG::LogInfo( message:"Requesting payroll status update: "  + self.newstatus );
 select any dept from instances of Department
  where ( selected.Name == self.dept );
 
@@ -74,11 +77,19 @@ if ( self.newstatus == "Cancel" )
 end if;
 
 if ( self.newstatus == "Save" )
-  dept.SendHoldUpdates();
+  holds = dept.SendHoldUpdates();
+  approvals = dept.SendApprovalUpdates();
+  count = holds + approvals;
+  if ( count > 0 )
+    send TESTAPP::UpdatesSent( Department:self.dept, Count:count );
+  end if;
 end if;
 
 if ( self.newstatus == "Approve" )
-  dept.SendApprovalUpdates();
+  approvals = dept.SendApprovalUpdates();
+  if ( approvals > 0 )
+    send TESTAPP::UpdatesSent( Department:self.dept, Count: approvals );
+  end if;
   send TESTAPP::SubmitPayrollApproval( Department:dept.Name );
 end if;
 
@@ -91,7 +102,7 @@ if ( self.newstatus == "Clear" )
   dept.ClearElements();
 end if;
 
-if ( self.newstatus == "Accept" )
+if ( self.newstatus == "Accept" ) // This should really be sent from Finance.
   send TESTAPP::Accepted( Department:dept.Name );
 end if;
 

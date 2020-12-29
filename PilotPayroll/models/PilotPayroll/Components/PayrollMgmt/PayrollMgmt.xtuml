@@ -757,17 +757,17 @@ INSERT INTO SPR_PS
 
 select any dept from instances of Department
  where ( selected.Name == param.Department );
-if ( empty dept )
+if ( not_empty dept )
+  select one payroll related by dept->Payroll[R34.''has under review''];
+  if ( not_empty payroll )
+    generate Payroll7:Reviewed() to payroll; 	                                      
+  else
+    LOG::LogFailure( message:"Payroll not found when updating payroll review status" );
+  end if;
+else
   LOG::LogFailure( message:"Department not found when updating payroll review status" );
-  return;
-end if;
-select one payroll related by dept->Payroll[R34.''has under review''];
-if ( empty payroll )
-  LOG::LogFailure( message:"Payroll not found when updating payroll review status" );
-  return;
 end if;
 
-generate Payroll7:Reviewed() to payroll; 	                                      
 ',
 	1,
 	0);
