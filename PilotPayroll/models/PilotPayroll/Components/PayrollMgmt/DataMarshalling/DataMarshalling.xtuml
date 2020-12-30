@@ -69,16 +69,16 @@ for each employee in employees
   select many payments related by employee->EmployeePayment[R7]
                                           ->EmployeePaymentElement[R15.''is composed of''];
   for each payment in payments
-	hold = False;
+	  hold = False;
     unapproved = False;
-	select one payroll related by payment->Payroll[R29.''is on hold for''];
-	if ( not_empty payroll )
-	  hold = True;
-	end if;  	
-	select one payroll related by payment->Payroll[R35.''needs approval for''];
-	if ( not_empty payroll )
-	  unapproved = True;
-	end if;  	
+	  select one payroll related by payment->Payroll[R29.''is on hold for''];
+	  if ( not_empty payroll )
+	    hold = True;
+	  end if;  	
+	  select one payroll related by payment->Payroll[R35.''needs approval for''];
+	  if ( not_empty payroll )
+	    unapproved = True;
+	  end if;  	
     select one spec related by payment->PaymentStructureElement[R13.''is a realization of'']
   	                                  ->PaymentElementSpec[R12.''is typed by''];
     send USER::PayrollData( EmployeeID:employee.NationalID,
