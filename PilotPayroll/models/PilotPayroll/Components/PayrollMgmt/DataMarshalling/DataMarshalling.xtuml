@@ -79,7 +79,7 @@ for each employee in employees
 	if ( not_empty payroll )
 	  unapproved = True;
 	end if;  	
-    select one spec related by payment->PaymentStructureElement[R13.''is template for'']
+    select one spec related by payment->PaymentStructureElement[R13.''is a realization of'']
   	                                  ->PaymentElementSpec[R12.''is typed by''];
     send USER::PayrollData( EmployeeID:employee.NationalID,
                             PaymentLabel:spec.Label, 

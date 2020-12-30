@@ -804,8 +804,8 @@ INSERT INTO DIM_ND
 	40.000000,
 	"bfd37067-da47-4d95-9795-d944d4a65bb0");
 INSERT INTO DIM_GE
-	VALUES (1014.000000,
-	323.000000,
+	VALUES (1013.000000,
+	321.000000,
 	"bfd37067-da47-4d95-9795-d944d4a65bb0",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
@@ -3863,7 +3863,7 @@ INSERT INTO R_PART
 	"0322b292-a430-4d1e-a614-1f8a3fb4e504",
 	0,
 	0,
-	'is template for');
+	'is a realization of');
 INSERT INTO R_RTO
 	VALUES ("8705371c-e3aa-4840-b680-68cee4da6b5b",
 	"3d465420-cc4a-49ac-9629-39f80b711702",
@@ -3878,9 +3878,9 @@ INSERT INTO R_PART
 	VALUES ("4dc385b2-4064-4e1a-9f67-b4ce8b44434b",
 	"3d465420-cc4a-49ac-9629-39f80b711702",
 	"b71165ab-e4a7-4c5c-a6e4-d23f1a79811f",
-	0,
 	1,
-	'is current realization of');
+	1,
+	'is template for');
 INSERT INTO R_RTO
 	VALUES ("4dc385b2-4064-4e1a-9f67-b4ce8b44434b",
 	"3d465420-cc4a-49ac-9629-39f80b711702",
@@ -4183,7 +4183,7 @@ INSERT INTO R_PART
 	"3e0e1f26-2096-4460-80f7-874626ee617f",
 	1,
 	0,
-	'has payments specified by');
+	'has payment contributions specified by');
 INSERT INTO R_RTO
 	VALUES ("8705371c-e3aa-4840-b680-68cee4da6b5b",
 	"6f0c2c04-c59f-4bb6-b2b6-3a6a0c675ee4",

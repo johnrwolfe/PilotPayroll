@@ -23,7 +23,7 @@ for each employee in employees
   LOG::LogReal( message:"Total pay this period: ", r: payment.Amount );
   select many payelements related by payment->EmployeePaymentElement[R15.''is composed of''];
   for each elem in payelements
-  	select one spec related by elem->PaymentStructureElement[R13.''is template for'']
+  	select one spec related by elem->PaymentStructureElement[R13.''is a realization of'']
   	                               ->PaymentElementSpec[R12.''is typed by''];
   	LOG::LogReal( message:spec.Label, r:elem.Amount );
   end for;
@@ -75,6 +75,20 @@ INSERT INTO EP_PKG_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	"5713191d-1d3c-41cb-add1-1cce3729acf2",
 	'PayrollMgmt',
-	'',
+	'This is an incomplete rendering of an ERP component representing basic payroll management.
+For current demonstration purposes, only some basic functionality is implemented.
+
+An employee''s total compensation may be composed of a number of payment types.
+This is represented by a set of ''payment structure'' entities which carry a nominal value.
+Some payment types represent multipliers which apply to other types - e.g. bonus as percentage of salary.
+
+When payroll is generated for a pay period, a corresponding set of editable values is created.
+These values may be viewed, held, approved; at present, there is no support for editing values.
+
+Note:
+There is no support for accepting changes to a department''s staff.
+There is no support for modifying the structure of an employee''s compensation.
+There are some placeholder actions where interaction with a Finance component would occur.
+',
 	0,
 	'../PayrollMgmt.xtuml');

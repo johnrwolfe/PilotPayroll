@@ -16,44 +16,43 @@ INSERT INTO O_TFR
 	1,
 	'// (Re)evaluate the current payroll elements for this employee.
 // For each element, (re)calculate its value - if it has not been edited in a review.
+// (No value should be re-evaluated after it has been edited by a reviewer)
 // Navigate to the element specification to understand how to evaluate the element.
 // Non-dependent values are calculated first; they may just pro-rate based on nominal value.
 // Then, modifier-type elements (multipliers) evaluate based on their specified ''target''.
 // 
-// Note: There is currently no support for editing values in a review; this is evaluated once.
+// Note: There is currently no support for editing values in a review; this evaluates once.
 
-select many elements related by self->PaymentStructureElement[R27.''has payments specified by'']
-                                    ->EmployeePaymentElement[R13.''is current realization of''];
+select many elements related by self->EmployeePayment[R7]->EmployeePaymentElement[R15.''is composed of''];
 
 // Pass 1 - evaluate non-dependent elements that have not been edited by a reviewer.
 for each element in elements
   select one payroll related by element->Payroll[R31.''has been edited for''];
   if ( empty payroll )
-    select one structElement related by element->PaymentStructureElement[R13.''is template for''];
+    select one structElement related by element->PaymentStructureElement[R13.''is a realization of''];
     select one targetSpec related by structElement->PaymentElementSpec[R12.''is typed by'']
-                                                ->PaymentElementSpec[R30.''is a modifier for''];
-    if ( empty targetSpec )	// this is not a modifier - proceed
+                                                  ->PaymentElementSpec[R30.''is a modifier for''];
+    if ( empty targetSpec )	// this is not a modifier - proceed to evaluate
       element.Amount = structElement.Evaluate();
  	end if;
   end if;
 end for;
 
-// Pass 2 - evaluate any modifier elements: e.g. multiply base pay (''target'') by bonus percentage ("modifier'')
+// Pass 2 - evaluate any modifier elements: e.g. amount = base pay (''target'') by bonus percentage (''modifier'')
 for each element in  elements
   select one payroll related by element->Payroll[R31.''has been edited for''];
   if ( empty payroll )
-    select one structElement related by element->PaymentStructureElement[R13.''is template for''];
+    select one structElement related by element->PaymentStructureElement[R13.''is a realization of''];
     select one targetSpec related by structElement->PaymentElementSpec[R12.''is typed by'']
-                                                ->PaymentElementSpec[R30.''is a modifier for''];
+                                                  ->PaymentElementSpec[R30.''is a modifier for''];
     if ( not empty targetSpec )	  // this element is a modifier - proceed to identify its ''target''
-      select many structElements related by self->PaymentStructureElement[R27.''has payments specified by''];
-  	  for each targetElement in structElements
-  	    select one targetElementSpec related by targetElement->PaymentElementSpec[R12.''is typed by'']
+  	  for each targetElement in elements
+  	    select one targetStructElement related by targetElement->PaymentStructureElement[R13.''is a realization of''];
+        select one targetElementSpec related by targetStructElement->PaymentElementSpec[R12.''is typed by'']
          where ( selected.Label == targetSpec.Label );
   	    if ( not_empty targetElementSpec )	// this is the target element''s specification
-  	      select one payElement related by targetElement->EmployeePaymentElement[R13.''is current realization of''];
-          element.Amount = structElement.Modify( TargetValue:payElement.Amount,
-                                                 TargetEffectiveDate:targetElement.EffectiveDate );
+          element.Amount = structElement.Modify( TargetValue:targetElement.Amount,
+                                                 TargetEffectiveDate:targetStructElement.EffectiveDate );
           break;
  	    end if;
  	  end for;
@@ -163,6 +162,20 @@ INSERT INTO EP_PKG_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	"5713191d-1d3c-41cb-add1-1cce3729acf2",
 	'PayrollMgmt',
-	'',
+	'This is an incomplete rendering of an ERP component representing basic payroll management.
+For current demonstration purposes, only some basic functionality is implemented.
+
+An employee''s total compensation may be composed of a number of payment types.
+This is represented by a set of ''payment structure'' entities which carry a nominal value.
+Some payment types represent multipliers which apply to other types - e.g. bonus as percentage of salary.
+
+When payroll is generated for a pay period, a corresponding set of editable values is created.
+These values may be viewed, held, approved; at present, there is no support for editing values.
+
+Note:
+There is no support for accepting changes to a department''s staff.
+There is no support for modifying the structure of an employee''s compensation.
+There are some placeholder actions where interaction with a Finance component would occur.
+',
 	0,
 	'../PayrollMgmt.xtuml');
