@@ -11,10 +11,13 @@ INSERT INTO O_TFR
 	VALUES ("637e5f80-bbad-4f46-92bb-2c1f2400bbdb",
 	"7ab39b34-fd7a-404b-8780-719eb8be8a17",
 	'SendHoldUpdates',
-	'Transmit any on-hold status updates to the payroll application.',
-	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many entries from instances of PayrollElement
+	'// Send any updates to ''hold'' status of payroll elements.
+// Return the count of the number of updates sent.
+
+select many entries from instances of PayrollElement
  where selected.HoldUpdated;
 count = 0;
 if ( not_empty entries )
@@ -24,8 +27,8 @@ if ( not_empty entries )
     send TESTAPP::SubmitItemHold( Department:dept.Name, EmployeeID:payee.EmployeeID, PaymentLabel:entry.Label, HoldStatus:entry.Hold );
     count = count + 1;
   end for;
-  send TESTAPP::UpdatesSent( Department:self.Name, Count:count );
-end if;',
+end if;
+return count;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -56,10 +59,13 @@ INSERT INTO O_TFR
 	VALUES ("84daf5ef-a9a0-41be-90bf-b974ad8e471c",
 	"7ab39b34-fd7a-404b-8780-719eb8be8a17",
 	'SendApprovalUpdates',
-	'Transmit any approval status updates to the payroll application.',
-	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many entries from instances of PayrollElement
+	'// Send any updates to ''approved'' status of payroll elements.
+// Return the count of the number of updates sent.
+
+select many entries from instances of PayrollElement
  where selected.ApproveUpdated;
 count = 0;
 if ( not_empty entries )
@@ -69,8 +75,8 @@ if ( not_empty entries )
     send TESTAPP::SubmitItemApproval( Department:dept.Name, EmployeeID:payee.EmployeeID, PaymentLabel:entry.Label );
   end for;
   count = count + 1;
-  send TESTAPP::UpdatesSent( Department:self.Name, Count:count );
-end if;',
+end if;
+return count;',
 	1,
 	'',
 	"ec82031d-6eea-4d52-8760-2aa5690852d8",

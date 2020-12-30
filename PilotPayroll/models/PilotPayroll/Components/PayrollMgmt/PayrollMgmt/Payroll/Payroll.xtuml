@@ -16,17 +16,22 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// create payment contributiuon elements from the payment structure ''template''
+	'// Create payment contribution elements from the payment structure ''template''
+// This is done once, for all department employees, at initial payroll generation.
+// For each employee structure element, an editable value element is constructed.
+// It is these editable values which are presented for review.
+// These values will be totalled to calculate each employee''s payment in a pay period.
+
 select many employees related by self->Department[R34.''is being reviewed for'']
                                      ->Employee[R6.''employs''];
 for each employee in employees
   create object instance payment of EmployeePayment;
   relate employee to self across R7.''is on'' using payment;
   select many structureElements related by employee
-              ->PaymentStructureElement[R27.''specifies a payment contribution for''];
+              ->PaymentStructureElement[R27.''has payment contributions specified by''];
   for each structElem in structureElements
   	create object instance payElement of EmployeePaymentElement;
-  	relate payElement to structElem across R13.''is current realization of'';
+  	relate payElement to structElem across R13.''is a realization of'';
   	relate payElement to payment across R15.''contributes to'';
   end for;
 end for;	',
@@ -41,7 +46,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select many employees related by self->Employee[R7.''has payments for''];
+	'// Calculate each employee''s total payment for the current pay period.
+
+select many employees related by self->Employee[R7.''has payments for''];
 for each employee in employees
   employee.EvaluatePaymentElements();
   employee.CalculateTotalPayment();
@@ -57,9 +64,11 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one dept related by self->Department[R34.''is being reviewed for''];
-select any bad related by self->EmployeePaymentElement[R35.''has unapproved''];
-if ( not_empty bad )
+	'// If there are still unapproved items, a payroll cannot be approved.
+
+select one dept related by self->Department[R34.''is being reviewed for''];
+select any unapproved related by self->EmployeePaymentElement[R35.''has unapproved''];
+if ( not_empty unapproved )
   LOG::LogInfo( message:"Payroll for department " + dept.Name + " has unapproved elements!" );
   send USER::Notification( Ident:"unapproved", Content:dept.Name );
 else
@@ -76,9 +85,11 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one dept related by self->Department[R34.''is being reviewed for''];
-select any bad related by self->EmployeePaymentElement[R35.''has unapproved''];
-if ( not_empty bad )
+	'// If there are any unapproved items, a payroll may not be submitted to Finance.
+
+select one dept related by self->Department[R34.''is being reviewed for''];
+select any unapproved related by self->EmployeePaymentElement[R35.''has unapproved''];
+if ( not_empty unapproved )
   LOG::LogFailure( message:"Unable to submit payroll for department " + dept.Name );
   return;
 end if;
@@ -88,6 +99,165 @@ generate Payroll6:Submit() to self;
 	'',
 	"e96b22b1-1d1b-4f8b-b903-28e6cf7b8860",
 	0);
+INSERT INTO O_TFR
+	VALUES ("7046a9ff-d151-4c4d-9c54-a7cb829f8b9f",
+	"082d7012-4ccd-4f69-8aac-c0d1f9d5d21c",
+	'ApproveItem',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Locate an element by matching its label to the employee''s structure element specification.
+// If needed, approve it.
+
+select any employee related by self->Employee[R7.''has payments for'']
+ where ( selected.NationalID == param.ID );
+if ( not_empty employee )
+  	select many elements related by employee->EmployeePayment[R7]
+  	                                        ->EmployeePaymentElement[R15.''is composed of''];
+    for each elmt in elements
+      select one spec related by elmt->PaymentStructureElement[R13.''is a realization of'']
+                                    ->PaymentElementSpec[R12.''is typed by''];
+      if ( spec.Label == param.Label );
+        select one pr related by elmt->Payroll[R35.''needs approval for'']; // verify approval needed.
+        if ( not_empty pr )
+      	  unrelate elmt from pr across R35.''needs approval for'';
+      	end if;
+      end if;
+    end for; 
+end if;
+',
+	1,
+	'',
+	"f0138969-611f-456f-8810-ac882a357505",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("3ac940ca-f4ab-4fd1-9c69-0f3cadae9e26",
+	"7046a9ff-d151-4c4d-9c54-a7cb829f8b9f",
+	'ID',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("11610370-b7f2-4cfd-8378-071b7084f6af",
+	"7046a9ff-d151-4c4d-9c54-a7cb829f8b9f",
+	'Label',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"3ac940ca-f4ab-4fd1-9c69-0f3cadae9e26",
+	'');
+INSERT INTO O_TFR
+	VALUES ("13169ada-0f02-4c17-929e-36f0e770dac9",
+	"082d7012-4ccd-4f69-8aac-c0d1f9d5d21c",
+	'UpdateItemHold',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Locate an element by matching its label to the employee''s structure element specification.
+// Placing a hold automatically assigns an explicit ''needs approval'' status.
+// Removing a hold does NOT remove the need for explicit approal.
+
+select any employee related by self->Employee[R7.''has payments for'']
+ where ( selected.NationalID == param.ID );
+if ( not_empty employee )
+  	select many elements related by employee->EmployeePayment[R7]
+  	                                        ->EmployeePaymentElement[R15.''is composed of''];
+    for each elmt in elements
+      select one spec related by elmt->PaymentStructureElement[R13.''is a realization of'']
+                                    ->PaymentElementSpec[R12.''is typed by''];
+      if ( spec.Label == param.Label );
+      	  select one pr related by elmt->Payroll[R29.''is on hold for''];
+      	if ( param.Hold )
+      	  if ( empty pr )
+      	  	relate elmt to self across R29.''is on hold for'';
+            relate elmt to self across R35.''needs approval for'';
+      	  end if;
+      	else
+      	  if ( not_empty pr )
+      	  	unrelate elmt from pr across R29.''is on hold for'';
+      	  end if;
+      	end if;
+      end if;
+    end for; 
+end if;
+',
+	1,
+	'',
+	"7046a9ff-d151-4c4d-9c54-a7cb829f8b9f",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("789d43c9-fca7-4fd1-9fe1-05dd8c059156",
+	"13169ada-0f02-4c17-929e-36f0e770dac9",
+	'ID',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a4349bb9-2235-4c47-af03-3b8f76e84c00",
+	"13169ada-0f02-4c17-929e-36f0e770dac9",
+	'Label',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"789d43c9-fca7-4fd1-9fe1-05dd8c059156",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("fa6192b0-0a66-43c2-93b0-8dc48e05cf7e",
+	"13169ada-0f02-4c17-929e-36f0e770dac9",
+	'Hold',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"a4349bb9-2235-4c47-af03-3b8f76e84c00",
+	'');
+INSERT INTO O_TFR
+	VALUES ("329ed630-f642-49e4-8f15-10c4d29fe3eb",
+	"082d7012-4ccd-4f69-8aac-c0d1f9d5d21c",
+	'SendPayrollForReview',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Prepare to send employee payment data for review.
+// The reviewer has the option to select only data with ''on-hold'' status.
+// This option is interpreted as:
+// "all data for each employee that has any on-hold/needs-approval item".
+
+select many employees from instances of Employee where ( false ); // decl.
+
+if ( param.HoldsOnly )
+  select many hasHolds related by self->EmployeePaymentElement[R29.''has placed on hold'']
+                                      ->EmployeePayment[R15.''contributes to'']
+                                      ->Employee[R7.''has payments for''];
+  select many needsOk related by self->EmployeePaymentElement[R35.''has unapproved'']
+                                      ->EmployeePayment[R15.''contributes to'']
+                                      ->Employee[R7.''has payments for''];
+  employees = hasHolds + needsOk;
+else
+  // send data for all employees on payroll.
+  select many employees related by self->Employee[R7.''has payments for''];                                       
+end if;
+
+if ( not_empty employees )
+  select one dept related by self->Department[R34.''is being reviewed for''];
+  ::MarshalPayroll( DeptName:dept.Name, Employees: employees, HoldsOnly:param.HoldsOnly );
+end if;',
+	1,
+	'',
+	"13169ada-0f02-4c17-929e-36f0e770dac9",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("40cfecea-e7b3-4045-8c39-e0f81363ade1",
+	"329ed630-f642-49e4-8f15-10c4d29fe3eb",
+	'HoldsOnly',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'If true, only send items that have on-hold status.');
 INSERT INTO O_NBATTR
 	VALUES ("f91b8c26-ac41-4670-9727-93b0fa1d498e",
 	"082d7012-4ccd-4f69-8aac-c0d1f9d5d21c");
@@ -126,6 +296,20 @@ INSERT INTO EP_PKG_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	"5713191d-1d3c-41cb-add1-1cce3729acf2",
 	'PayrollMgmt',
-	'',
+	'This is an incomplete rendering of an ERP component representing basic payroll management.
+For current demonstration purposes, only some basic functionality is implemented.
+
+An employee''s total compensation may be composed of a number of payment types.
+This is represented by a set of ''payment structure'' entities which carry a nominal value.
+Some payment types represent multipliers which apply to other types - e.g. bonus as percentage of salary.
+
+When payroll is generated for a pay period, a corresponding set of editable values is created.
+These values may be viewed, held, approved; at present, there is no support for editing values.
+
+Note:
+There is no support for accepting changes to a department''s staff.
+There is no support for modifying the structure of an employee''s compensation.
+There are some placeholder actions where interaction with a Finance component would occur.
+',
 	0,
 	'../PayrollMgmt.xtuml');

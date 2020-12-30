@@ -5,7 +5,21 @@ INSERT INTO EP_PKG
 	"00000000-0000-0000-0000-000000000000",
 	"5713191d-1d3c-41cb-add1-1cce3729acf2",
 	'PayrollMgmt',
-	'',
+	'This is an incomplete rendering of an ERP component representing basic payroll management.
+For current demonstration purposes, only some basic functionality is implemented.
+
+An employee''s total compensation may be composed of a number of payment types.
+This is represented by a set of ''payment structure'' entities which carry a nominal value.
+Some payment types represent multipliers which apply to other types - e.g. bonus as percentage of salary.
+
+When payroll is generated for a pay period, a corresponding set of editable values is created.
+These values may be viewed, held, approved; at present, there is no support for editing values.
+
+Note:
+There is no support for accepting changes to a department''s staff.
+There is no support for modifying the structure of an employee''s compensation.
+There are some placeholder actions where interaction with a Finance component would occur.
+',
 	0);
 INSERT INTO GD_MD
 	VALUES ("3b9efbba-f941-4675-b603-b48c16c6d6d9",
@@ -790,8 +804,8 @@ INSERT INTO DIM_ND
 	40.000000,
 	"bfd37067-da47-4d95-9795-d944d4a65bb0");
 INSERT INTO DIM_GE
-	VALUES (1014.000000,
-	323.000000,
+	VALUES (1013.000000,
+	321.000000,
 	"bfd37067-da47-4d95-9795-d944d4a65bb0",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
@@ -1666,8 +1680,8 @@ INSERT INTO GD_CTXT
 	0.000000,
 	0.000000);
 INSERT INTO DIM_ND
-	VALUES (0.000000,
-	0.000000,
+	VALUES (78.000000,
+	40.000000,
 	"96a33e92-46f4-4291-abc4-d893c8a1f3bb");
 INSERT INTO DIM_GE
 	VALUES (1139.000000,
@@ -1770,8 +1784,8 @@ INSERT INTO DIM_ND
 	0.000000,
 	"f914891e-fe78-4713-8d34-98aade22e924");
 INSERT INTO DIM_GE
-	VALUES (1248.000000,
-	567.000000,
+	VALUES (1218.000000,
+	596.000000,
 	"f914891e-fe78-4713-8d34-98aade22e924",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
@@ -3310,6 +3324,46 @@ INSERT INTO DIM_DIA
 	0.000000,
 	0.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("0f2e542f-20f1-4e29-aca3-75f5218aca55",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Employee>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("0f2e542f-20f1-4e29-aca3-75f5218aca55",
+	0,
+	"f228e204-e0aa-481c-adb6-27e960fc359c");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("f228e204-e0aa-481c-adb6-27e960fc359c",
+	'Employee',
+	2,
+	'Employee',
+	'A paid worker in the organization.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Employee/Employee.xtuml');
+INSERT INTO PE_PE
+	VALUES ("0f2e542f-20f1-4e29-aca3-75f5218aca55",
+	1,
+	"66af3a6e-b969-4d52-8331-503fed93597c",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("4e279fab-fc34-49a9-a51a-cafff6c10b7f",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Employee>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("4e279fab-fc34-49a9-a51a-cafff6c10b7f",
+	1,
+	"f228e204-e0aa-481c-adb6-27e960fc359c");
+INSERT INTO PE_PE
+	VALUES ("4e279fab-fc34-49a9-a51a-cafff6c10b7f",
+	1,
+	"66af3a6e-b969-4d52-8331-503fed93597c",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("12fc0e6c-15ce-44f7-9f7a-df5c04b6d412");
 INSERT INTO R_REL
@@ -3477,14 +3531,6 @@ INSERT INTO R_OIR
 	"78a99d11-15f7-46cc-8f5b-f8301d576efe",
 	"f2d2ce21-912d-40a6-993b-9b56548f9729",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("f228e204-e0aa-481c-adb6-27e960fc359c",
-	'Employee',
-	2,
-	'Employee',
-	'A paid worker in the organization.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Employee/Employee.xtuml');
 INSERT INTO PE_PE
 	VALUES ("78a99d11-15f7-46cc-8f5b-f8301d576efe",
 	1,
@@ -3817,7 +3863,7 @@ INSERT INTO R_PART
 	"0322b292-a430-4d1e-a614-1f8a3fb4e504",
 	0,
 	0,
-	'is current realization of');
+	'is a realization of');
 INSERT INTO R_RTO
 	VALUES ("8705371c-e3aa-4840-b680-68cee4da6b5b",
 	"3d465420-cc4a-49ac-9629-39f80b711702",
@@ -3832,7 +3878,7 @@ INSERT INTO R_PART
 	VALUES ("4dc385b2-4064-4e1a-9f67-b4ce8b44434b",
 	"3d465420-cc4a-49ac-9629-39f80b711702",
 	"b71165ab-e4a7-4c5c-a6e4-d23f1a79811f",
-	0,
+	1,
 	1,
 	'is template for');
 INSERT INTO R_RTO
@@ -4120,7 +4166,7 @@ INSERT INTO R_PART
 	"3d6c343e-4689-40dc-b913-26fe537d3c1e",
 	0,
 	0,
-	'has payments specified by');
+	'specifies a payment contribution for');
 INSERT INTO R_RTO
 	VALUES ("f228e204-e0aa-481c-adb6-27e960fc359c",
 	"6f0c2c04-c59f-4bb6-b2b6-3a6a0c675ee4",
@@ -4137,7 +4183,7 @@ INSERT INTO R_PART
 	"3e0e1f26-2096-4460-80f7-874626ee617f",
 	1,
 	0,
-	'specifies a payment contribution for');
+	'has payment contributions specified by');
 INSERT INTO R_RTO
 	VALUES ("8705371c-e3aa-4840-b680-68cee4da6b5b",
 	"6f0c2c04-c59f-4bb6-b2b6-3a6a0c675ee4",
@@ -4159,7 +4205,10 @@ INSERT INTO R_SIMP
 INSERT INTO R_REL
 	VALUES ("28cd0b6f-3629-45dd-a71a-1a43bc9f8c1c",
 	28,
-	'',
+	'It is not clear from the Use Case document whether a capability to put an entire payment on hold is required.
+This association represents such a capabilty.
+However, the application interfaces to support this - and several other capabilities are not implemented.
+It was initially required only to support a minimal set of capabilities for demonstration purposes.',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_PART
 	VALUES ("21b3f00e-5083-45c8-92be-24d44a0e0927",
@@ -4310,7 +4359,7 @@ INSERT INTO R_PART
 	"38446885-a2cb-4961-970e-7fe0f3a64407",
 	0,
 	1,
-	'has been modified for');
+	'has been edited for');
 INSERT INTO R_RTO
 	VALUES ("082d7012-4ccd-4f69-8aac-c0d1f9d5d21c",
 	"9ea59452-9c3f-4447-984c-e611397b9e2c",
@@ -4327,7 +4376,7 @@ INSERT INTO R_PART
 	"631d3939-0fa1-48a2-950e-5700a0c68c80",
 	1,
 	1,
-	'has modified');
+	'has edited');
 INSERT INTO R_RTO
 	VALUES ("4dc385b2-4064-4e1a-9f67-b4ce8b44434b",
 	"9ea59452-9c3f-4447-984c-e611397b9e2c",
@@ -4500,7 +4549,7 @@ INSERT INTO R_REL
 	35,
 	'An element that is modified during a review is marked ( by this association ) as needing approval.
 A payroll with any associated unapproved elements cannot be submitted to Finance.
-( Unless the entirwe payment of which it is a part is on hold status ).
+( Unless the entire payment of which it is a part is on hold status ).
 Such an element must be either approved or else put on hold ( see a separate association )',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_PART

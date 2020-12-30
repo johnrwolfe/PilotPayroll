@@ -465,7 +465,15 @@ INSERT INTO SPR_PS
 	'Request from client to get department payroll data for review.
 Some reviewers request only those items with on-hold status.
 ',
-	'::MarshalPayroll( Dept:param.Department, Holds:False );',
+	'select any dept from instances of Department
+ where ( selected.Name == param.Department );
+if ( not_empty dept )
+  select one payroll related by dept->Payroll[R34.''has under review''];
+  if ( not_empty payroll )
+  	payroll.SendPayrollForReview( HoldsOnly:param.HoldsOnly );
+  end if;
+end if;
+',
 	1,
 	0);
 INSERT INTO C_EP_PROXY
@@ -506,10 +514,20 @@ INSERT INTO SPR_PEP
 INSERT INTO SPR_PS
 	VALUES ("2d2951f1-f7bf-4ff2-91bf-5d9b221a1528",
 	'SubmitItemApproval',
-	'Approve a payment element amount for an employee on a department payroll.
-Not used for preliminary Use Cases.
+	'Approve a payment element for an employee on a department payroll.
+Preliminary Use Cases only approve hold status.
 ',
-	'::UnmarshallItemApproval( Dept:param.Department, ID:param.EmployeeID, Label:param.PaymentLabel );',
+	'// Find the payroll under review; approve the submitted item.
+select any dept from instances of Department
+ where ( selected.Name == param.Department );
+if ( not_empty dept )
+  select one payroll related by dept->Payroll[R34.''has under review''];
+  if ( not_empty payroll )
+  	payroll.ApproveItem( ID:param.EmployeeID, Label:param.PaymentLabel );
+  else
+    LOG::LogFailure( message:"Payroll not found when updating item approval" );
+  end if;
+end if;',
 	1,
 	0);
 INSERT INTO C_EP_PROXY
@@ -517,8 +535,8 @@ INSERT INTO C_EP_PROXY
 	"cbed0e18-6775-4be9-b1f9-61714edc73e6",
 	-1,
 	'SubmitItemApproval',
-	'Approve a payment element amount for an employee on a department payroll.
-Not used for preliminary Use Cases.
+	'Approve a payment element for an employee on a department payroll.
+Preliminary Use Cases only approve hold status.
 ',
 	'../../Interfaces/HumanResources/HumanResources.xtuml');
 INSERT INTO SPR_PEP
@@ -531,8 +549,17 @@ INSERT INTO SPR_PS
 	'Update the on-hold status of a payment element for an employee on a department payroll.
 
 ',
-	'::UnmarshallitemHold( Dept:param.Department, ID:param.EmployeeID, Label:param.PaymentLabel, Hold:param.HoldStatus );
-',
+	'// Find the payroll being reviewed; update the hold status (on/off) of the submitted item.
+select any dept from instances of Department
+ where ( selected.Name == param.Department );
+if ( not_empty dept )
+  select one payroll related by dept->Payroll[R34.''has under review''];
+  if ( not_empty payroll )
+  	payroll.UpdateItemHold( ID:param.EmployeeID, Label:param.PaymentLabel, Hold:param.HoldStatus );
+  else
+    LOG::LogFailure( message:"Payroll not found when updating item approval" );
+  end if;
+end if;',
 	1,
 	0);
 INSERT INTO C_EP_PROXY
@@ -632,15 +659,17 @@ INSERT INTO SPR_PS
 	VALUES ("8be019a9-e027-42fd-810b-bd39356e51a2",
 	'SubmitPayrollApproval',
 	'Signal that the payroll for a department has been approved by a client user.',
-	'select any dept from instances of Department
+	'// Find payroll under review and attempt to set approved status.
+select any dept from instances of Department
  where ( selected.Name == param.Department );
-select one payroll related by dept->Payroll[R34.''has under review''];
-if ( empty payroll )
-  LOG::LogFailure( message:"Department not matched for payroll approval" );
-  return;
-end if;
-payroll.AssessForApproval();
-',
+if ( not_empty dept )
+  select one payroll related by dept->Payroll[R34.''has under review''];
+  if ( not_empty payroll )
+    payroll.AssessForApproval();
+  else
+    LOG::LogFailure( message:"Payroll not found for approval" );
+  end if;
+end if;',
 	1,
 	0);
 INSERT INTO C_EP_PROXY
@@ -724,19 +753,21 @@ INSERT INTO SPR_PS
 	VALUES ("8185cb14-1495-4f74-aba2-96daf97f3cbf",
 	'UpdatesSent',
 	'Signal that all payroll updates for a department have been submitted by client.',
-	'select any dept from instances of Department
+	'// Attempt to reflect ''reviewed'' status to User Interface.
+
+select any dept from instances of Department
  where ( selected.Name == param.Department );
-if ( empty dept )
+if ( not_empty dept )
+  select one payroll related by dept->Payroll[R34.''has under review''];
+  if ( not_empty payroll )
+    generate Payroll7:Reviewed() to payroll; 	                                      
+  else
+    LOG::LogFailure( message:"Payroll not found when updating payroll review status" );
+  end if;
+else
   LOG::LogFailure( message:"Department not found when updating payroll review status" );
-  return;
-end if;
-select one payroll related by dept->Payroll[R34.''has under review''];
-if ( empty payroll )
-  LOG::LogFailure( message:"Payroll not found when updating payroll review status" );
-  return;
 end if;
 
-generate Payroll7:Reviewed() to payroll; 	                                      
 ',
 	1,
 	0);

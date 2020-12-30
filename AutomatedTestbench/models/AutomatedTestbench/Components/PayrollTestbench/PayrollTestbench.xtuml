@@ -41,7 +41,7 @@ INSERT INTO GD_SHP
 INSERT INTO GD_CTR
 	VALUES ("caef5cbb-63c6-4f65-856f-9e3a88731b95");
 INSERT INTO DIM_ND
-	VALUES (5086.000000,
+	VALUES (5526.000000,
 	3399.000000,
 	"caef5cbb-63c6-4f65-856f-9e3a88731b95");
 INSERT INTO DIM_GE
@@ -55,7 +55,7 @@ INSERT INTO DIM_ELE
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_CON
 	VALUES ("fb2b5db9-50e6-41f1-ad18-d6b305f80092",
-	5074.000000,
+	5514.000000,
 	3258.000000,
 	"caef5cbb-63c6-4f65-856f-9e3a88731b95");
 INSERT INTO DIM_CON
@@ -132,7 +132,7 @@ INSERT INTO DIM_ND
 	0.000000,
 	"4c000288-a166-4ccd-b254-c646c418c6b0");
 INSERT INTO DIM_GE
-	VALUES (5061.000000,
+	VALUES (5501.000000,
 	3218.000000,
 	"4c000288-a166-4ccd-b254-c646c418c6b0",
 	"00000000-0000-0000-0000-000000000000");
@@ -167,14 +167,14 @@ INSERT INTO GD_LS
 	"699f5cfc-308d-4c91-a81c-1f58e00e3c73");
 INSERT INTO DIM_WAY
 	VALUES ("15030ee1-6e09-4895-a6e7-56f0f897a920",
-	5074.000000,
+	5514.000000,
 	3258.000000,
 	"4711e771-61bf-4948-b050-6107abe5d10b",
 	"00000000-0000-0000-0000-000000000000",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_WAY
 	VALUES ("699f5cfc-308d-4c91-a81c-1f58e00e3c73",
-	5149.000000,
+	5589.000000,
 	3258.000000,
 	"4711e771-61bf-4948-b050-6107abe5d10b",
 	"00000000-0000-0000-0000-000000000000",
@@ -438,6 +438,78 @@ INSERT INTO DIM_GE
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
 	VALUES ("725383dd-72be-438c-b6ed-b6ebb2e9783b",
+	0,
+	"caef5cbb-63c6-4f65-856f-9e3a88731b95");
+INSERT INTO GD_GE
+	VALUES ("a6158053-ba91-4498-858e-f3d46bd3979b",
+	"f81cf3a2-2229-4a68-bd4a-d44912aca8f1",
+	"41578d57-ceee-4604-8cd6-c0b3916e243e",
+	108,
+	0,
+	'AutomatedTestbench::Components::PayrollTestbench::TestSuite');
+INSERT INTO GD_SHP
+	VALUES ("a6158053-ba91-4498-858e-f3d46bd3979b");
+INSERT INTO GD_NCS
+	VALUES ("a6158053-ba91-4498-858e-f3d46bd3979b");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"a6158053-ba91-4498-858e-f3d46bd3979b");
+INSERT INTO DIM_GE
+	VALUES (4862.000000,
+	3225.000000,
+	"a6158053-ba91-4498-858e-f3d46bd3979b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("a6158053-ba91-4498-858e-f3d46bd3979b",
+	0,
+	"caef5cbb-63c6-4f65-856f-9e3a88731b95");
+INSERT INTO GD_GE
+	VALUES ("4ca8c0ad-578c-4314-a613-c140b6baa4b7",
+	"f81cf3a2-2229-4a68-bd4a-d44912aca8f1",
+	"b72dbe08-254b-4c89-8fbc-0aceed160244",
+	108,
+	0,
+	'AutomatedTestbench::Components::PayrollTestbench::Stimuli');
+INSERT INTO GD_SHP
+	VALUES ("4ca8c0ad-578c-4314-a613-c140b6baa4b7");
+INSERT INTO GD_NCS
+	VALUES ("4ca8c0ad-578c-4314-a613-c140b6baa4b7");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"4ca8c0ad-578c-4314-a613-c140b6baa4b7");
+INSERT INTO DIM_GE
+	VALUES (5082.000000,
+	3225.000000,
+	"4ca8c0ad-578c-4314-a613-c140b6baa4b7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("4ca8c0ad-578c-4314-a613-c140b6baa4b7",
+	0,
+	"caef5cbb-63c6-4f65-856f-9e3a88731b95");
+INSERT INTO GD_GE
+	VALUES ("56647663-5b64-4bd9-9798-332767a53064",
+	"f81cf3a2-2229-4a68-bd4a-d44912aca8f1",
+	"39f2bab9-b4aa-4698-a3af-d38383cf2713",
+	108,
+	0,
+	'AutomatedTestbench::Components::PayrollTestbench::Observations');
+INSERT INTO GD_SHP
+	VALUES ("56647663-5b64-4bd9-9798-332767a53064");
+INSERT INTO GD_NCS
+	VALUES ("56647663-5b64-4bd9-9798-332767a53064");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"56647663-5b64-4bd9-9798-332767a53064");
+INSERT INTO DIM_GE
+	VALUES (5302.000000,
+	3225.000000,
+	"56647663-5b64-4bd9-9798-332767a53064",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("56647663-5b64-4bd9-9798-332767a53064",
 	0,
 	"caef5cbb-63c6-4f65-856f-9e3a88731b95");
 INSERT INTO DIM_DIA
@@ -1464,11 +1536,28 @@ INSERT INTO SPR_RS
 	VALUES ("7e160586-e91d-4df7-ab67-291d123d6e83",
 	'DataSent',
 	'Signal that all of multi-part data stream requested has been sent to6the requesting client.',
-	'if ( param.Ident == "available" )
+	'// Check received data count; trigger observation if appropriate.
+
+if ( param.Ident == "available" )
+  select many depts from instances of Department;
+  if ( cardinality depts != param.Count )
+    LOG::LogFailure( message:"Bad count of available payrolls" );
+  end if;
   send TESTSEQ::Assess( key:"DepartmentsSent" );
 end if;
 
+if ( param.Ident == "employees" )
+  select many payees from instances of Payee;
+  if ( cardinality payees != param.Count )
+    LOG::LogFailure( message:"Bad count of employees sent" );
+  end if;
+end if;
+
 if ( param.Ident == "payroll" )
+  select many elements from instances of PayrollElement;
+  if ( cardinality elements != param.Count )
+    LOG::LogFailure( message:"Bad count of pay elements sent" );
+  end if;
   send TESTSEQ::Assess( key:"PayrollAvailable" );
 end if;',
 	1,

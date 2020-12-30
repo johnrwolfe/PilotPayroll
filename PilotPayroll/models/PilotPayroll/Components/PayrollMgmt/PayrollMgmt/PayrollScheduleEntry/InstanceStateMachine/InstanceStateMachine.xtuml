@@ -381,8 +381,10 @@ INSERT INTO SM_ACT
 	VALUES ("76eb83cc-f949-4d19-9fe3-3cae6888575a",
 	"508f31ae-a839-489f-b30f-9028ebcec96f",
 	1,
-	'// @TODO send a missed submission message
-LOG::LogInfo( message:"Payroll submission date passed !!!!!!!!!!!!!!!" );
+	'// Payroll has not been submitted to Finance component by due date. 
+// Send a missed submission notification.
+
+LOG::LogInfo( message:"Payroll submission date passed !" );
 select one dept related by self->Department[R4.''is scheduled for''];
 send USER::Notification( Ident:"overdue", Content:dept.Name );
 ',
