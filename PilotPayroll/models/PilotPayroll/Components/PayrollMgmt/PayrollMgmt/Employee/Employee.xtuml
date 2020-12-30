@@ -14,47 +14,50 @@ INSERT INTO O_TFR
 	'(Re)evaluate payments by traversing the set of structure elements and applying modifiers as appropriate.',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// traverse the structure elements and populate the pay element values.
-select one payperiod related by self->Payroll[R7.''is on'']
-                                    ->PayPeriod[R33.''is for''];
-select many structElements related by self->PaymentStructureElement[R27.''has payments specified by'']
-  where selected.EffectiveDate < payperiod.PayPeriodEnd;
-// Pass 1 - evaluate non-dependent elements
-for each structElement in structElements
-  select one elementSpec related by structElement->PaymentElementSpec[R12.''is typed by''];
-  select one target related by elementSpec->PaymentElementSpec[R30.''is a modifier for''];
-  if ( empty target )	// this is not a modifier - proceed
-  	select one payElement related by structElement->EmployeePaymentElement[R13.''is current realization of''];
-  	if ( empty payElement )	// payment structure has been edited: @TODO decide: create new element on the fly?
-  	  break;
-  	end if;
-  	select one payroll related by payElement->Payroll[R31.''has been modified for''];
-  	if ( empty payroll )
-      payElement.Amount = structElement.Evaluate();
+	'// (Re)evaluate the current payroll elements for this employee.
+// For each element, (re)calculate its value - if it has not been edited in a review.
+// Navigate to the element specification to understand how to evaluate the element.
+// Non-dependent values are calculated first; they may just pro-rate based on nominal value.
+// Then, modifier-type elements (multipliers) evaluate based on their specified ''target''.
+// 
+// Note: There is currently no support for editing values in a review; this is evaluated once.
+
+select many elements related by self->PaymentStructureElement[R27.''has payments specified by'']
+                                    ->EmployeePaymentElement[R13.''is current realization of''];
+
+// Pass 1 - evaluate non-dependent elements that have not been edited by a reviewer.
+for each element in elements
+  select one payroll related by element->Payroll[R31.''has been edited for''];
+  if ( empty payroll )
+    select one structElement related by element->PaymentStructureElement[R13.''is template for''];
+    select one targetSpec related by structElement->PaymentElementSpec[R12.''is typed by'']
+                                                ->PaymentElementSpec[R30.''is a modifier for''];
+    if ( empty targetSpec )	// this is not a modifier - proceed
+      element.Amount = structElement.Evaluate();
  	end if;
- end if;
+  end if;
 end for;
-// Pass 2 - perform any modifications e.g. multiply base pay by bonus percentage
-for each structElement in structElements
-  select one elementSpec related by structElement->PaymentElementSpec[R12.''is typed by''];
-  select one target related by elementSpec->PaymentElementSpec[R30.''is a modifier for''];
-  if ( not empty target )	// this structElement is a modifier - proceed
-  	for each targetElement in structElements
-  	  select one targetElementSpec related by targetElement->PaymentElementSpec[R12.''is typed by''];
-  	  if ( target == targetElementSpec )	// found our man...
-  	    select one tgtElement related by targetElement->EmployeePaymentElement[R13.''is current realization of''];
-    	if ( empty tgtElement )	// payment structure has been edited: @TODO decide: create new element on the fly?
-    	  break;
-    	end if;
-    	select one payroll related by tgtElement->Payroll[R31.''has been modified for''];
-  	    if ( empty payroll )
-          select one payElement related by structElement->EmployeePaymentElement[R13.''is current realization of''];
-          payElement.Amount = structElement.Modify( TargetValue:tgtElement.Amount,
-                                                    TargetEffectiveDate:targetElement.EffectiveDate );
+
+// Pass 2 - evaluate any modifier elements: e.g. multiply base pay (''target'') by bonus percentage ("modifier'')
+for each element in  elements
+  select one payroll related by element->Payroll[R31.''has been edited for''];
+  if ( empty payroll )
+    select one structElement related by element->PaymentStructureElement[R13.''is template for''];
+    select one targetSpec related by structElement->PaymentElementSpec[R12.''is typed by'']
+                                                ->PaymentElementSpec[R30.''is a modifier for''];
+    if ( not empty targetSpec )	  // this element is a modifier - proceed to identify its ''target''
+      select many structElements related by self->PaymentStructureElement[R27.''has payments specified by''];
+  	  for each targetElement in structElements
+  	    select one targetElementSpec related by targetElement->PaymentElementSpec[R12.''is typed by'']
+         where ( selected.Label == targetSpec.Label );
+  	    if ( not_empty targetElementSpec )	// this is the target element''s specification
+  	      select one payElement related by targetElement->EmployeePaymentElement[R13.''is current realization of''];
+          element.Amount = structElement.Modify( TargetValue:payElement.Amount,
+                                                 TargetEffectiveDate:targetElement.EffectiveDate );
+          break;
  	    end if;
- 	    break;
- 	  end if;
- 	end for;
+ 	  end for;
+    end if;
   end if;
 end for;
 ',

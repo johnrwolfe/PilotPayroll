@@ -18,7 +18,10 @@ The value will be pro-rated if creation falls within the current pay period.
 ',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
+	'// Establish the value of a pay element using the nominal value taken from its structure template.
+// If the pay element became effective within the current pay period it should be be pro-rated.
+
+select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
                                     ->Payroll[R7.''is on'']
                                     ->PayPeriod[R33.''is for''];
 if ( self.EffectiveDate > payperiod.PayPeriodStart )
@@ -38,7 +41,11 @@ The modification may be pro-rated depending on creation dates of both elements.
 ',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
+	'// Establish the value of a pay element using the nominal value taken from its structure template.
+// The modifier''s nominal value is used as a multiplier of its ''target'' element value.
+// If the pay element became effective within the current pay period it should be be pro-rated.
+
+select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
                                     ->Payroll[R7.''is on'']
                                     ->PayPeriod[R33.''is for''];
 if ( self.EffectiveDate > payperiod.PayPeriodStart )
@@ -76,7 +83,10 @@ INSERT INTO O_TFR
 	'If this element is not in play for the entire pay period it mist be prorated.',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
+	'// Check whether a pay element has become effective within a pay period.
+// If, so evaluate a fractional pro-rating factor; else, return 1.
+
+select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
                                     ->Payroll[R7.''is on'']
                                     ->PayPeriod[R33.''is for''];
 if ( self.EffectiveDate > payperiod.PayPeriodStart )	// becomes effective within period
@@ -97,7 +107,11 @@ INSERT INTO O_TFR
 	'If this element is not in play for the entire pay period it mist be prorated.',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
-	'select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
+	'// Check whether a modifier needs to be pro-rated.
+// If, so evaluate a fractional pro-rating factor; else, return 1.
+// Note that the effective date must be checked against the ''target'' effective date.
+
+select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
                                     ->Payroll[R7.''is on'']
                                     ->PayPeriod[R33.''is for''];
 if ( self.EffectiveDate > payperiod.PayPeriodStart )		// becomes effective within period..

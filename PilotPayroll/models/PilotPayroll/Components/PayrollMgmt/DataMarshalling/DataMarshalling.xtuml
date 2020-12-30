@@ -5,15 +5,12 @@ INSERT INTO EP_PKG
 	"00000000-0000-0000-0000-000000000000",
 	"5713191d-1d3c-41cb-add1-1cce3729acf2",
 	'DataMarshalling',
-	'The marshalling/unmarshalling functions are packaged here because they are not subject matter of the Payroll application.
+	'The marshalling functions are packaged here because they are not subject matter of the Payroll application.
 The separation originated out of concern for efficient client-server transmission of multiple-instance data.
 
 At this time, data for each instance is sent or received individually.
 
-A "data sent" signal informs the client that all data for all instances has been sent and can be acted on.
-
-An "updates sent" signal from the client indicates that all update instances have been submitted.
-In this case, the Payroll application can be signalled to assess the effects of any updates.
+A "data sent" signal informs the client that data for all instances has been sent and can be acted on.
 
 Note:
 A component providing an efficient solution to combined instance data transmission could be interposed between these
@@ -53,14 +50,16 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'MarshalPayroll',
 	'Send department employee and payment element data on request.',
-	'// Send a record for each employeee; then send payment data.
+	'// Send employee identification for each requested employee.
+// Then follow with payment details for each employee.
 
 count = 0;
 employees = param.Employees;
 for each employee in employees
   send USER::PayeeData( Department:param.DeptName, 
                         EmployeeID:employee.NationalID, 
-                        EmployeeFirstName:employee.FirstName, EmployeeLastName:employee.LastName );
+                        EmployeeFirstName:employee.FirstName, 
+                        EmployeeLastName:employee.LastName );
   count = count + 1;
 end for;
 send USER::DataSent( Ident:"employees", Count:count );
@@ -68,7 +67,7 @@ send USER::DataSent( Ident:"employees", Count:count );
 count = 0;
 for each employee in employees
   select many payments related by employee->EmployeePayment[R7]
-                                     ->EmployeePaymentElement[R15.''is composed of''];
+                                          ->EmployeePaymentElement[R15.''is composed of''];
   for each payment in payments
 	hold = False;
     unapproved = False;
@@ -85,7 +84,8 @@ for each employee in employees
     send USER::PayrollData( EmployeeID:employee.NationalID,
                             PaymentLabel:spec.Label, 
                             PaymentAmount:payment.Amount, 
-                            HoldStatus:hold, UnapprovalStatus: unapproved  );
+                            HoldStatus:hold, 
+                            UnapprovalStatus: unapproved  );
     count = count + 1;
   end for;
 end for;

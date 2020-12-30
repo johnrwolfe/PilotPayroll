@@ -16,7 +16,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// create payment contribution elements from the payment structure ''template''
+	'// Create payment contribution elements from the payment structure ''template''
+// This is done once, for all department employees, at initial payroll generation.
+// For each employee structure element, an editable value element is constructed.
+// It is these editable values which are presented for review.
+// These values will be totalled to calculate each employee''s payment in a pay period.
+
 select many employees related by self->Department[R34.''is being reviewed for'']
                                      ->Employee[R6.''employs''];
 for each employee in employees
@@ -41,7 +46,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select many employees related by self->Employee[R7.''has payments for''];
+	'// Calculate each employee''s total payment for the current pay period.
+
+select many employees related by self->Employee[R7.''has payments for''];
 for each employee in employees
   employee.EvaluatePaymentElements();
   employee.CalculateTotalPayment();
@@ -57,7 +64,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one dept related by self->Department[R34.''is being reviewed for''];
+	'// If there are still unapproved items, a payroll cannot be approved.
+
+select one dept related by self->Department[R34.''is being reviewed for''];
 select any unapproved related by self->EmployeePaymentElement[R35.''has unapproved''];
 if ( not_empty unapproved )
   LOG::LogInfo( message:"Payroll for department " + dept.Name + " has unapproved elements!" );
@@ -76,7 +85,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one dept related by self->Department[R34.''is being reviewed for''];
+	'// If there are any unapproved items, a payroll may not be submitted to Finance.
+
+select one dept related by self->Department[R34.''is being reviewed for''];
 select any unapproved related by self->EmployeePaymentElement[R35.''has unapproved''];
 if ( not_empty unapproved )
   LOG::LogFailure( message:"Unable to submit payroll for department " + dept.Name );
@@ -95,7 +106,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Locate the element to be approved; if needed, approve ot.
+	'// Locate an element by matching its label to the employee''s structure element specification.
+// If needed, approve it.
+
 select any employee related by self->Employee[R7.''has payments for'']
  where ( selected.NationalID == param.ID );
 if ( not_empty employee )
@@ -142,8 +155,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Update the ''hold'' status for a payment element.
+	'// Locate an element by matching its label to the employee''s structure element specification.
 // Placing a hold automatically assigns an explicit ''needs approval'' status.
+// Removing a hold does NOT remove the need for explicit approal.
 
 select any employee related by self->Employee[R7.''has payments for'']
  where ( selected.NationalID == param.ID );

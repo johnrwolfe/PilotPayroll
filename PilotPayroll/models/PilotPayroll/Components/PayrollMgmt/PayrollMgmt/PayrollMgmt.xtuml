@@ -5,7 +5,21 @@ INSERT INTO EP_PKG
 	"00000000-0000-0000-0000-000000000000",
 	"5713191d-1d3c-41cb-add1-1cce3729acf2",
 	'PayrollMgmt',
-	'',
+	'This is an incomplete rendering of an ERP component representing basic payroll management.
+For current demonstration purposes, only some basic functionality is implemented.
+
+An employee''s total compensation may be composed of a number of payment types.
+This is represented by a set of ''payment structure'' entities which carry a nominal value.
+Some payment types represent multipliers which apply to other types - e.g. bonus as percentage of salary.
+
+When payroll is generated for a pay period, a corresponding set of editable values is created.
+These values may be viewed, held, approved; at present, there is no support for editing values.
+
+Note:
+There is no support for accepting changes to a department''s staff.
+There is no support for modifying the structure of an employee''s compensation.
+There are some placeholder actions where interaction with a Finance component would occur.
+',
 	0);
 INSERT INTO GD_MD
 	VALUES ("3b9efbba-f941-4675-b603-b48c16c6d6d9",
@@ -1770,8 +1784,8 @@ INSERT INTO DIM_ND
 	0.000000,
 	"f914891e-fe78-4713-8d34-98aade22e924");
 INSERT INTO DIM_GE
-	VALUES (1248.000000,
-	567.000000,
+	VALUES (1218.000000,
+	596.000000,
 	"f914891e-fe78-4713-8d34-98aade22e924",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
@@ -4345,7 +4359,7 @@ INSERT INTO R_PART
 	"38446885-a2cb-4961-970e-7fe0f3a64407",
 	0,
 	1,
-	'has been modified for');
+	'has been edited for');
 INSERT INTO R_RTO
 	VALUES ("082d7012-4ccd-4f69-8aac-c0d1f9d5d21c",
 	"9ea59452-9c3f-4447-984c-e611397b9e2c",
@@ -4362,7 +4376,7 @@ INSERT INTO R_PART
 	"631d3939-0fa1-48a2-950e-5700a0c68c80",
 	1,
 	1,
-	'has modified');
+	'has edited');
 INSERT INTO R_RTO
 	VALUES ("4dc385b2-4064-4e1a-9f67-b4ce8b44434b",
 	"9ea59452-9c3f-4447-984c-e611397b9e2c",

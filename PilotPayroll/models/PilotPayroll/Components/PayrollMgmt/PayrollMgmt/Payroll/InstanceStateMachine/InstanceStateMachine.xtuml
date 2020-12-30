@@ -719,7 +719,9 @@ INSERT INTO SM_ACT
 	VALUES ("1c10176f-bbe6-456b-8c57-70e72c511dde",
 	"cd4b8730-3d31-42cc-b2a2-c0b6313563f3",
 	1,
-	'// @TODO - this is temporary: end payroll scheduler lifecycle here because Finance not yet involved.
+	'// This is temporary:
+// End payroll scheduler lifecycle here because there is, currently, no Finance component involved.
+
 select one dept related by self->Department[R34.''is being reviewed for''];
 unrelate self from dept across R34.''is being reviewed for'';
 relate self to dept across R24.''has been generated for'';
@@ -869,7 +871,7 @@ INSERT INTO SM_ACT
 	VALUES ("bd408fc3-81f3-45f4-9923-6f8410f8da32",
 	"cd4b8730-3d31-42cc-b2a2-c0b6313563f3",
 	1,
-	'// @TODO This cannot happen until Finance gets involved.',
+	'// Placeholder: This cannot happen until integrated with a Finance component.',
 	'',
 	0);
 INSERT INTO SM_TAH
