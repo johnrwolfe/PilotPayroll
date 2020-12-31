@@ -95,6 +95,20 @@ WaitForTrigger::Create( seqLabel:"seq09", key:"PayrollAvailable", concurrent:Fal
 PayrollStatusUpdate::Create( seqLabel:"seq09", dept:"IT", requestedstatus:"FinalSubmit" );
 GetNotification::Create( seqLabel:"seq09", matchIdent:"submitted" );
 
+// Use Case UC06A 
+send TESTSEQ::AddTestCase( caseLabel:"UC06A" ); 
+send TESTSEQ::AddStimulusSequence( seqLabel:"seq06" );
+FastForward::Create( seqLabel:"seq06", days:29, hours:0 );
+GetNotification::Create( seqLabel:"seq06", matchIdent:"imminent" );
+
+// Use Case UC05A
+send TESTSEQ::AddTestCase( caseLabel:"UC05A" );
+send TESTSEQ::AddStimulusSequence( seqLabel:"seq05" );
+FastForward::Create( seqLabel:"seq05", days:1, hours:1 );
+GetNotification::Create( seqLabel:"seq05", matchIdent:"generating" );
+GetNotification::Create( seqLabel:"seq05", matchIdent:"generated" );
+
+
 
 bucket.Initialized();
 ',

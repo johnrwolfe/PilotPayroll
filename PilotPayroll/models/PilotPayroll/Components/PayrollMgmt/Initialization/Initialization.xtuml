@@ -75,6 +75,18 @@ period.PayPeriodEnd = now + TimeUtilities::DayHourToSeconds(Days:15, Hours:0 );;
 relate period to schedule across R32.''specifies dates for'';
 schedule.Initialize();
 
+create object instance schedule of PayrollScheduleEntry;
+relate schedule to dept across R4.''is scheduled for'';
+schedule.NotificationDate = now + TimeUtilities::DayHourToSeconds(Days:43, Hours:10 );
+schedule.DraftGenerationDate = schedule.NotificationDate + TimeUtilities::DayHourToSeconds(Days:1, Hours:0 );
+schedule.SubmittalDueDate = schedule.DraftGenerationDate + TimeUtilities::DayHourToSeconds(Days:4, Hours:0 );
+create object instance period of PayPeriod;
+period.PayPeriodStart = now + TimeUtilities::DayHourToSeconds(Days:16, Hours:0 );
+period.PayPeriodEnd = now + TimeUtilities::DayHourToSeconds(Days:45, Hours:0 );;
+relate period to schedule across R32.''specifies dates for'';
+schedule.Initialize();
+
+
 // staff up
 
 create object instance emp of Employee;
