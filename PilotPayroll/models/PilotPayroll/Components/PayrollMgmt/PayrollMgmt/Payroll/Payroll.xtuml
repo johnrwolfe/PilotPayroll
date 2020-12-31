@@ -27,8 +27,7 @@ select many employees related by self->Department[R34.''is being reviewed for'']
 for each employee in employees
   create object instance payment of EmployeePayment;
   relate employee to self across R7.''is on'' using payment;
-  select many structureElements related by employee
-              ->PaymentStructureElement[R27.''has payment contributions specified by''];
+  select many structureElements related by employee ->PaymentStructureElement[R27.''has payment contributions specified by''];
   for each structElem in structureElements
   	create object instance payElement of EmployeePaymentElement;
   	relate payElement to structElem across R13.''is a realization of'';
@@ -48,10 +47,10 @@ INSERT INTO O_TFR
 	1,
 	'// Calculate each employee''s total payment for the current pay period.
 
-select many employees related by self->Employee[R7.''has payments for''];
-for each employee in employees
-  employee.EvaluatePaymentElements();
-  employee.CalculateTotalPayment();
+select many payments related by self->EmployeePayment[R7];
+for each payment in payments
+  payment.EvaluatePaymentElements();
+  payment.CalculateTotalPayment();
 end for;',
 	1,
 	'',

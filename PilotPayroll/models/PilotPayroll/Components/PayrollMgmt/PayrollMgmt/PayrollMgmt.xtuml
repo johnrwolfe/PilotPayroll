@@ -3364,6 +3364,51 @@ INSERT INTO PE_PE
 	"66af3a6e-b969-4d52-8331-503fed93597c",
 	"00000000-0000-0000-0000-000000000000",
 	3);
+INSERT INTO S_DT
+	VALUES ("bbc6743f-7f1b-451f-bac4-86494c40a6fb",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<EmployeePaymentElement>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("bbc6743f-7f1b-451f-bac4-86494c40a6fb",
+	0,
+	"4dc385b2-4064-4e1a-9f67-b4ce8b44434b");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("4dc385b2-4064-4e1a-9f67-b4ce8b44434b",
+	'EmployeePaymentElement',
+	14,
+	'EmployeePaymentElement',
+	'Holds an amount which contributes to or deducts from an employee''s total payment for a pay period.
+( A line item in an employee''s payment for a pay period. )
+The amount is initially evaluated from the corresponding entry in the employee''s payment structure.
+It may be subsequently altered by review/approval actions.
+If modified by a reviewer, it must subsequently be approved - perhaps by the same reviewer.
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./EmployeePaymentElement/EmployeePaymentElement.xtuml');
+INSERT INTO PE_PE
+	VALUES ("bbc6743f-7f1b-451f-bac4-86494c40a6fb",
+	1,
+	"66af3a6e-b969-4d52-8331-503fed93597c",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("b33a52d1-c72c-41e6-8fa2-7fdb4a9fa618",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<EmployeePaymentElement>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("b33a52d1-c72c-41e6-8fa2-7fdb4a9fa618",
+	1,
+	"4dc385b2-4064-4e1a-9f67-b4ce8b44434b");
+INSERT INTO PE_PE
+	VALUES ("b33a52d1-c72c-41e6-8fa2-7fdb4a9fa618",
+	1,
+	"66af3a6e-b969-4d52-8331-503fed93597c",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("12fc0e6c-15ce-44f7-9f7a-df5c04b6d412");
 INSERT INTO R_REL
@@ -3891,19 +3936,6 @@ INSERT INTO R_OIR
 	"3d465420-cc4a-49ac-9629-39f80b711702",
 	"b71165ab-e4a7-4c5c-a6e4-d23f1a79811f",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("4dc385b2-4064-4e1a-9f67-b4ce8b44434b",
-	'EmployeePaymentElement',
-	14,
-	'EmployeePaymentElement',
-	'Holds an amount which contributes to or deducts from an employee''s total payment for a pay period.
-( A line item in an employee''s payment for a pay period. )
-The amount is initially evaluated from the corresponding entry in the employee''s payment structure.
-It may be subsequently altered by review/approval actions.
-If modified by a reviewer, it must subsequently be approved - perhaps by the same reviewer.
-',
-	"00000000-0000-0000-0000-000000000000",
-	'./EmployeePaymentElement/EmployeePaymentElement.xtuml');
 INSERT INTO PE_PE
 	VALUES ("3d465420-cc4a-49ac-9629-39f80b711702",
 	1,
