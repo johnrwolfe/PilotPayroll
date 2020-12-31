@@ -9,136 +9,6 @@ INSERT INTO O_OBJ
 ( an employee-specific payslip line item specification)
 The default values specified here may be altered by payroll review actions.',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_TFR
-	VALUES ("a82453ee-23e4-4211-a812-c9fe5b29263d",
-	"8705371c-e3aa-4840-b680-68cee4da6b5b",
-	'Evaluate',
-	'This operation will copy an initialization value to a non-edited payment contribution.
-The value will be pro-rated if creation falls within the current pay period.
-',
-	"ba5eda7a-def5-0000-0000-000000000003",
-	1,
-	'// Establish the value of a pay element using the nominal value taken from its structure template.
-// If the pay element became effective within the current pay period it should be be pro-rated.
-
-select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
-                                    ->Payroll[R7.''is on'']
-                                    ->PayPeriod[R33.''is for''];
-if ( self.EffectiveDate > payperiod.PayPeriodStart )
-  return self.NominalValue * self.ProRateValue();
-end if;                                 
-return self.NominalValue;',
-	1,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	0);
-INSERT INTO O_TFR
-	VALUES ("2564f4e6-24a4-460f-977a-dab3dec7c4d7",
-	"8705371c-e3aa-4840-b680-68cee4da6b5b",
-	'Modify',
-	'This operation will modify a value in a non-edited payment contribution.
-The modification may be pro-rated depending on creation dates of both elements.
-',
-	"ba5eda7a-def5-0000-0000-000000000003",
-	1,
-	'// Establish the value of a pay element using the nominal value taken from its structure template.
-// The modifier''s nominal value is used as a multiplier of its ''target'' element value.
-// If the pay element became effective within the current pay period it should be be pro-rated.
-
-select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
-                                    ->Payroll[R7.''is on'']
-                                    ->PayPeriod[R33.''is for''];
-if ( self.EffectiveDate > payperiod.PayPeriodStart )
-  result = self.NominalValue * param.TargetValue * 
-         self.ProRateModifier( TargetEffectiveDate:param.TargetEffectiveDate );
-end if;                                 
-result = param.TargetValue * self.NominalValue;
-return result;',
-	1,
-	'',
-	"a82453ee-23e4-4211-a812-c9fe5b29263d",
-	0);
-INSERT INTO O_TPARM
-	VALUES ("831a440f-95f5-4f33-bde3-1a941846c128",
-	"2564f4e6-24a4-460f-977a-dab3dec7c4d7",
-	'TargetValue',
-	"ba5eda7a-def5-0000-0000-000000000003",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'An input value to be operated on by the value of this structure element.');
-INSERT INTO O_TPARM
-	VALUES ("5f554f56-d031-4749-96e8-08d7667ca313",
-	"2564f4e6-24a4-460f-977a-dab3dec7c4d7",
-	'TargetEffectiveDate',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"831a440f-95f5-4f33-bde3-1a941846c128",
-	'');
-INSERT INTO O_TFR
-	VALUES ("f0578c0c-6003-470e-a93b-eac5e8ebe8bf",
-	"8705371c-e3aa-4840-b680-68cee4da6b5b",
-	'ProRateValue',
-	'If this element is not in play for the entire pay period it mist be prorated.',
-	"ba5eda7a-def5-0000-0000-000000000003",
-	1,
-	'// Check whether a pay element has become effective within a pay period.
-// If, so evaluate a fractional pro-rating factor; else, return 1.
-
-select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
-                                    ->Payroll[R7.''is on'']
-                                    ->PayPeriod[R33.''is for''];
-if ( self.EffectiveDate > payperiod.PayPeriodStart )	// becomes effective within period
-  alldays = 1.0 + payperiod.PayPeriodEnd - payperiod.PayPeriodStart;
-  effectivedays = 1.0 + payperiod.PayPeriodEnd - self.EffectiveDate;
-  return effectivedays / alldays;
-else 
-  return 1.0;
-end if;',
-	1,
-	'',
-	"2564f4e6-24a4-460f-977a-dab3dec7c4d7",
-	0);
-INSERT INTO O_TFR
-	VALUES ("c991a661-64cd-4ac8-8c50-df01fe4919ec",
-	"8705371c-e3aa-4840-b680-68cee4da6b5b",
-	'ProRateModifier',
-	'If this element is not in play for the entire pay period it mist be prorated.',
-	"ba5eda7a-def5-0000-0000-000000000003",
-	1,
-	'// Check whether a modifier needs to be pro-rated.
-// If, so evaluate a fractional pro-rating factor; else, return 1.
-// Note that the effective date must be checked against the ''target'' effective date.
-
-select one payperiod related by self->Employee[R27.''specifies a payment contribution for'']
-                                    ->Payroll[R7.''is on'']
-                                    ->PayPeriod[R33.''is for''];
-if ( self.EffectiveDate > payperiod.PayPeriodStart )		// becomes effective within period..
-  if ( self.EffectiveDate > param.TargetEffectiveDate )
-    alldays = 1.0 + payperiod.PayPeriodEnd - payperiod.PayPeriodStart;	// tentatively..
-  	if ( param.TargetEffectiveDate > payperiod.PayPeriodStart )			// .. begins within period
-      alldays = 1.0 + payperiod.PayPeriodEnd - param.TargetEffectiveDate;
-    end if;
-    effectivedays = 1.0 + payperiod.PayPeriodEnd - self.EffectiveDate;
-    return effectivedays / alldays;
-  end if;
-end if;
-return 1.0;
-',
-	1,
-	'',
-	"f0578c0c-6003-470e-a93b-eac5e8ebe8bf",
-	0);
-INSERT INTO O_TPARM
-	VALUES ("001fe76a-02c8-40c4-9213-05f39f705fa5",
-	"c991a661-64cd-4ac8-8c50-df01fe4919ec",
-	'TargetEffectiveDate',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO O_NBATTR
 	VALUES ("a17ee2c3-70aa-4bb3-a6a9-c6df81a8a9b0",
 	"8705371c-e3aa-4840-b680-68cee4da6b5b");
@@ -198,6 +68,20 @@ INSERT INTO EP_PKG_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	"5713191d-1d3c-41cb-add1-1cce3729acf2",
 	'PayrollMgmt',
-	'',
+	'This is an incomplete rendering of an ERP component representing basic payroll management.
+For current demonstration purposes, only some basic functionality is implemented.
+
+An employee''s total compensation may be composed of a number of payment types.
+This is represented by a set of ''payment structure'' entities which carry a nominal value.
+Some payment types represent multipliers which apply to other types - e.g. bonus as percentage of salary.
+
+When payroll is generated for a pay period, a corresponding set of editable values is created.
+These values may be viewed, held, approved; at present, there is no support for editing values.
+
+Note:
+There is no support for accepting changes to a department''s staff.
+There is no support for modifying the structure of an employee''s compensation.
+There are some placeholder actions where interaction with a Finance component would occur.
+',
 	0,
 	'../PayrollMgmt.xtuml');

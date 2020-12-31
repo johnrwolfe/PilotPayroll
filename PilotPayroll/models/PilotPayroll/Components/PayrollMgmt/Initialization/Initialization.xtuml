@@ -146,7 +146,7 @@ create object instance struct of PaymentStructureElement;
 relate struct to emp across R27.''specifies a payment contribution for'';
 select any payspec from instances of PaymentElementSpec where selected.Label == "Fractional bonus";
 relate struct to payspec across R12.''is typed by'';
-struct.EffectiveDate = now - TimeUtilities::DayHourToSeconds(Days:30, Hours:0 );
+struct.EffectiveDate = now + TimeUtilities::DayHourToSeconds(Days:5, Hours:0 );
 struct.NominalValue = 0.1;
 
 create object instance emp of Employee;
