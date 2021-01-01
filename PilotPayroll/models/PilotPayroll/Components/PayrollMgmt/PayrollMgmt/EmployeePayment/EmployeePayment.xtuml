@@ -34,7 +34,7 @@ for each element in elements
   select one targetSpec related by structElement->PaymentElementSpec[R12.''is typed by'']
                                                 ->PaymentElementSpec[R30.''is a modifier for''];
   if ( empty targetSpec )	// this is not a modifier - proceed to evaluate
-    element.Amount = structElement.NominalValue * self.ProRateFactor( Date:structElement.EffectiveDate );
+    element.Amount = structElement.NominalValue * self.ProRateFactor( EffectiveDate:structElement.EffectiveDate );
  	end if;
 end for;
 
@@ -94,8 +94,9 @@ The modification may be pro-rated depending on creation dates of both elements.
 // The modifier''s nominal value is used as a multiplier of its ''target'' element value.
 // If the pay element became effective within the current pay period it should be be pro-rated.
 
+select one payperiod related by self->Payroll[R7.''is on'']->PayPeriod[R33.''is for''];
 result = param.TargetValue * param.Value;
-if ( param.EffectiveDate > self.StartDate )
+if ( param.EffectiveDate > payperiod.Start )
   result = result * self.ProRateModifier( EffectiveDate:param.EffectiveDate, 
                                           TargetEffectiveDate:param.TargetEffectiveDate );
 end if;                                
@@ -112,7 +113,7 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'An input value to be operated on by the value of this structure element.');
+	'An input value to be operated on by the value of the modifier.');
 INSERT INTO O_TPARM
 	VALUES ("3753391c-ef13-4038-bf2a-ce67e8ab62a8",
 	"44ad1c48-8811-456d-b6fb-011ada00ca74",
@@ -121,7 +122,9 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"fbcaebfa-1c4e-4819-976f-f8436251f5f6",
-	'');
+	'The date when this taget value came into effect.
+units: seconds
+origin: start of epoch');
 INSERT INTO O_TPARM
 	VALUES ("fbcaebfa-1c4e-4819-976f-f8436251f5f6",
 	"44ad1c48-8811-456d-b6fb-011ada00ca74",
@@ -130,7 +133,9 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"ae8d6ae3-0db5-41fc-ae97-d92cfc480cbf",
-	'');
+	'The date when this modifier came into effect.
+units: seconds
+origin: start of epoch');
 INSERT INTO O_TPARM
 	VALUES ("ae8d6ae3-0db5-41fc-ae97-d92cfc480cbf",
 	"44ad1c48-8811-456d-b6fb-011ada00ca74",
@@ -139,7 +144,7 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"3b406592-749d-40df-9b91-c0a73394ac28",
-	'');
+	'The value (factor) of this modifier.');
 INSERT INTO O_TFR
 	VALUES ("a0cdf5c4-7bcc-4c98-8db6-33abe7e6a2d7",
 	"21b3f00e-5083-45c8-92be-24d44a0e0927",
@@ -150,9 +155,10 @@ INSERT INTO O_TFR
 	'// Check whether a pay element has become effective within a pay period.
 // If so, evaluate a fractional pro-rating factor; else return 1.0.
 
-if ( param.Date > self.StartDate )
-  alldays = 1.0 + self.EndDate - self.StartDate;
-  effectivedays = 1.0 + self.EndDate - param.Date;
+select one payperiod related by self->Payroll[R7.''is on'']->PayPeriod[R33.''is for''];
+if ( param.EffectiveDate > payperiod.Start )
+  alldays = 1.0 + payperiod.End - payperiod.Start;
+  effectivedays = 1.0 + payperiod.End - param.EffectiveDate;
   return effectivedays / alldays;
 else 
   return 1.0;
@@ -164,12 +170,14 @@ end if;',
 INSERT INTO O_TPARM
 	VALUES ("dd0bef8c-1c65-458b-ab61-8be3f478ff35",
 	"a0cdf5c4-7bcc-4c98-8db6-33abe7e6a2d7",
-	'Date',
+	'EffectiveDate',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'');
+	'The date when the value being evaluated came into effect.
+units: seconds
+origin: start of epoch');
 INSERT INTO O_TFR
 	VALUES ("72c37953-d150-4019-9f21-6c3637971a44",
 	"21b3f00e-5083-45c8-92be-24d44a0e0927",
@@ -181,17 +189,20 @@ INSERT INTO O_TFR
 // If, so evaluate a fractional pro-rating factor; else, return 1.
 // Note that the effective date must be checked against the ''target'' effective date.
 
-if ( param.EffectiveDate > self.StartDate )		            // becomes effective within period..
-  alldays = 1.0 + self.EndDate - self.StartDate;  // tentatively..
+select one payperiod related by self->Payroll[R7.''is on'']->PayPeriod[R33.''is for''];
+if ( param.EffectiveDate > payperiod.Start )		    // modifier becomes effective within period..
+  alldays = 1.0 + payperiod.End - payperiod.Start;  // tentatively..
+  if ( param.TargetEffectiveDate > payperiod.Start )			// ''target'' also begins within period
+    alldays = 1.0 + payperiod.End - param.TargetEffectiveDate;
+  end if;
   if ( param.EffectiveDate > param.TargetEffectiveDate )
-  	if ( param.TargetEffectiveDate > self.StartDate )			// .. begins within period
-      alldays = 1.0 + self.EndDate - param.TargetEffectiveDate;
-    end if;
-    effectivedays = 1.0 + self.EndDate - param.EffectiveDate;
+    effectivedays = 1.0 + payperiod.End - param.EffectiveDate;
     return effectivedays / alldays;
   end if;
 end if;
 return 1.0;
+
+
 ',
 	1,
 	'',
@@ -205,7 +216,9 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"732ede39-9acc-4d33-95e1-53898fc385f0",
-	'');
+	'The date when the target value being modified came into effect.
+units: seconds
+origin: start of epoch');
 INSERT INTO O_TPARM
 	VALUES ("732ede39-9acc-4d33-95e1-53898fc385f0",
 	"72c37953-d150-4019-9f21-6c3637971a44",
@@ -214,7 +227,9 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'');
+	'The date when this modifier came into effect.
+units: seconds
+origin: start of epoch');
 INSERT INTO O_NBATTR
 	VALUES ("40e511b6-3e21-4c6d-8e9b-eda859847d12",
 	"21b3f00e-5083-45c8-92be-24d44a0e0927");
@@ -231,53 +246,6 @@ INSERT INTO O_ATTR
 	'Amount',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000003",
-	'',
-	'');
-INSERT INTO O_DBATTR
-	VALUES ("bd57af19-1827-4e09-9704-cc4df9e0ae82",
-	"21b3f00e-5083-45c8-92be-24d44a0e0927",
-	'select one payperiod related by self->Payroll[R7.''is on'']->PayPeriod[R33.''is for''];
-self.StartDate = payperiod.PayPeriodStart;
-
-',
-	1,
-	0);
-INSERT INTO O_BATTR
-	VALUES ("bd57af19-1827-4e09-9704-cc4df9e0ae82",
-	"21b3f00e-5083-45c8-92be-24d44a0e0927");
-INSERT INTO O_ATTR
-	VALUES ("bd57af19-1827-4e09-9704-cc4df9e0ae82",
-	"21b3f00e-5083-45c8-92be-24d44a0e0927",
-	"40e511b6-3e21-4c6d-8e9b-eda859847d12",
-	'StartDate',
-	'',
-	'',
-	'StartDate',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000002",
-	'',
-	'');
-INSERT INTO O_DBATTR
-	VALUES ("6ac9dfb9-7d00-4c64-9111-e8fae5ff29d3",
-	"21b3f00e-5083-45c8-92be-24d44a0e0927",
-	'select one payperiod related by self->Payroll[R7.''is on'']->PayPeriod[R33.''is for''];
-self.EndDate = payperiod.PayPeriodEnd;
-',
-	1,
-	0);
-INSERT INTO O_BATTR
-	VALUES ("6ac9dfb9-7d00-4c64-9111-e8fae5ff29d3",
-	"21b3f00e-5083-45c8-92be-24d44a0e0927");
-INSERT INTO O_ATTR
-	VALUES ("6ac9dfb9-7d00-4c64-9111-e8fae5ff29d3",
-	"21b3f00e-5083-45c8-92be-24d44a0e0927",
-	"bd57af19-1827-4e09-9704-cc4df9e0ae82",
-	'EndDate',
-	'',
-	'',
-	'EndDate',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID
