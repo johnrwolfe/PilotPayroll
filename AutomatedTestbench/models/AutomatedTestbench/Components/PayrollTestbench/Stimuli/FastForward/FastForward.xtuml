@@ -60,7 +60,7 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one stimulus related by self->Stimulus[R300];
-ts = TimeUtilities::AdvanceTime( days: self.days, hours:self.hours, minutes:0 );
+ts = TimeUtilities::AdvanceTime( days:self.days, hours:self.hours, minutes:0 );
 
 stimulus.Complete();',
 	1,

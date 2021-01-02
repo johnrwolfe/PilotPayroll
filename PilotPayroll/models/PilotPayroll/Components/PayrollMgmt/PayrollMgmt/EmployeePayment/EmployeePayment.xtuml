@@ -71,7 +71,7 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Combine evaluated element values for total payment.
-self .Amount = 0;
+self.Amount = 0;
 select many payElements related by self->EmployeePaymentElement[R15.''is composed of''];
 for each payElement in payElements
   self.Amount = self.Amount + payElement.Amount;  
@@ -149,17 +149,19 @@ INSERT INTO O_TFR
 	VALUES ("a0cdf5c4-7bcc-4c98-8db6-33abe7e6a2d7",
 	"21b3f00e-5083-45c8-92be-24d44a0e0927",
 	'ProRateFactor',
-	'If this element is not in play for the entire pay period it mist be prorated.',
+	'If this element is not in effect for the entire pay period it must be prorated.',
 	"ba5eda7a-def5-0000-0000-000000000003",
 	1,
 	'// Check whether a pay element has become effective within a pay period.
 // If so, evaluate a fractional pro-rating factor; else return 1.0.
+// Note: dates are actually represented in seconds!
 
 select one payperiod related by self->Payroll[R7.''is on'']->PayPeriod[R33.''is for''];
 if ( param.EffectiveDate > payperiod.Start )
-  alldays = 1.0 + payperiod.End - payperiod.Start;
-  effectivedays = 1.0 + payperiod.End - param.EffectiveDate;
-  return effectivedays / alldays;
+  duration = payperiod.End - payperiod.Start;
+  ineffect = payperiod.End - param.EffectiveDate;
+  result = 1.0 * ineffect / duration;
+  return result;
 else 
   return 1.0;
 end if;',
@@ -188,22 +190,21 @@ INSERT INTO O_TFR
 	'// Check whether a modifier needs to be pro-rated.
 // If, so evaluate a fractional pro-rating factor; else, return 1.
 // Note that the effective date must be checked against the ''target'' effective date.
+// Note: dates are actually represented in seconds!
 
 select one payperiod related by self->Payroll[R7.''is on'']->PayPeriod[R33.''is for''];
 if ( param.EffectiveDate > payperiod.Start )		    // modifier becomes effective within period..
-  alldays = 1.0 + payperiod.End - payperiod.Start;  // tentatively..
+  duration = payperiod.End - payperiod.Start;       // tentatively..
   if ( param.TargetEffectiveDate > payperiod.Start )			// ''target'' also begins within period
-    alldays = 1.0 + payperiod.End - param.TargetEffectiveDate;
+    duration = payperiod.End - param.TargetEffectiveDate;
   end if;
   if ( param.EffectiveDate > param.TargetEffectiveDate )
-    effectivedays = 1.0 + payperiod.End - param.EffectiveDate;
-    return effectivedays / alldays;
+    ineffect = payperiod.End - param.EffectiveDate;
+    result = 1.0 * ineffect / duration;
+    return result;
   end if;
 end if;
-return 1.0;
-
-
-',
+return 1.0;',
 	1,
 	'',
 	"a0cdf5c4-7bcc-4c98-8db6-33abe7e6a2d7",

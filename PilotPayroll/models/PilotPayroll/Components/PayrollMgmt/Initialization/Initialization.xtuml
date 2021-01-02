@@ -71,7 +71,7 @@ schedule.DraftGenerationDate = schedule.NotificationDate + TimeUtilities::DayHou
 schedule.SubmittalDueDate = schedule.DraftGenerationDate + TimeUtilities::DayHourToSeconds(Days:4, Hours:0 );
 create object instance period of PayPeriod;
 period.Start = now - TimeUtilities::DayHourToSeconds(Days:15, Hours:0 );
-period.End = now + TimeUtilities::DayHourToSeconds(Days:15, Hours:0 );;
+period.End = now + TimeUtilities::DayHourToSeconds(Days:15, Hours:0 );
 relate period to schedule across R32.''specifies dates for'';
 schedule.Initialize();
 
@@ -82,7 +82,7 @@ schedule.DraftGenerationDate = schedule.NotificationDate + TimeUtilities::DayHou
 schedule.SubmittalDueDate = schedule.DraftGenerationDate + TimeUtilities::DayHourToSeconds(Days:4, Hours:0 );
 create object instance period of PayPeriod;
 period.Start = now + TimeUtilities::DayHourToSeconds(Days:16, Hours:0 );
-period.End = now + TimeUtilities::DayHourToSeconds(Days:45, Hours:0 );;
+period.End = now + TimeUtilities::DayHourToSeconds(Days:46, Hours:0 );
 relate period to schedule across R32.''specifies dates for'';
 schedule.Initialize();
 
