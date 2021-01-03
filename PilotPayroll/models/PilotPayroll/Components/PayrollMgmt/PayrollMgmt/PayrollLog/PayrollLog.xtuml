@@ -15,10 +15,10 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'LOG::LogInfo( message:"*** Logging Payroll Generation *** " );
-select many employees related by self->Payroll[R8.''records generation of'']
-                                     ->Employee[R7.''has payments for''];
-for each employee in employees
-  select one payment related by employee->EmployeePayment[R7];
+select many payments related by self->Payroll[R8.''records generation of'']->EmployeePayment[R7];
+                                    
+for each payment in payments
+  select one employee related by payment->Employee[R7.''has payments for''];
   LOG::LogInfo( message:employee.FirstName + " " + employee.LastName );
   LOG::LogReal( message:"Total pay this period: ", r: payment.Amount );
   select many payelements related by payment->EmployeePaymentElement[R15.''is composed of''];

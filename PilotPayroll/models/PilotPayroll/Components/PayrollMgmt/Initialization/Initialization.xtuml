@@ -70,10 +70,22 @@ schedule.NotificationDate = now + TimeUtilities::DayHourToSeconds(Days:13, Hours
 schedule.DraftGenerationDate = schedule.NotificationDate + TimeUtilities::DayHourToSeconds(Days:1, Hours:0 );
 schedule.SubmittalDueDate = schedule.DraftGenerationDate + TimeUtilities::DayHourToSeconds(Days:4, Hours:0 );
 create object instance period of PayPeriod;
-period.PayPeriodStart = now - TimeUtilities::DayHourToSeconds(Days:15, Hours:0 );
-period.PayPeriodEnd = now + TimeUtilities::DayHourToSeconds(Days:15, Hours:0 );;
+period.Start = now - TimeUtilities::DayHourToSeconds(Days:15, Hours:0 );
+period.End = now + TimeUtilities::DayHourToSeconds(Days:15, Hours:0 );
 relate period to schedule across R32.''specifies dates for'';
 schedule.Initialize();
+
+create object instance schedule of PayrollScheduleEntry;
+relate schedule to dept across R4.''is scheduled for'';
+schedule.NotificationDate = now + TimeUtilities::DayHourToSeconds(Days:43, Hours:10 );
+schedule.DraftGenerationDate = schedule.NotificationDate + TimeUtilities::DayHourToSeconds(Days:1, Hours:0 );
+schedule.SubmittalDueDate = schedule.DraftGenerationDate + TimeUtilities::DayHourToSeconds(Days:4, Hours:0 );
+create object instance period of PayPeriod;
+period.Start = now + TimeUtilities::DayHourToSeconds(Days:16, Hours:0 );
+period.End = now + TimeUtilities::DayHourToSeconds(Days:46, Hours:0 );
+relate period to schedule across R32.''specifies dates for'';
+schedule.Initialize();
+
 
 // staff up
 
@@ -134,7 +146,7 @@ create object instance struct of PaymentStructureElement;
 relate struct to emp across R27.''specifies a payment contribution for'';
 select any payspec from instances of PaymentElementSpec where selected.Label == "Fractional bonus";
 relate struct to payspec across R12.''is typed by'';
-struct.EffectiveDate = now - TimeUtilities::DayHourToSeconds(Days:30, Hours:0 );
+struct.EffectiveDate = now + TimeUtilities::DayHourToSeconds(Days:5, Hours:0 );
 struct.NominalValue = 0.1;
 
 create object instance emp of Employee;

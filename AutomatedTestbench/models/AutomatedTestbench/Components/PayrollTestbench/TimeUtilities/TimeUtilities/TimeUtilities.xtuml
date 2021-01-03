@@ -30,13 +30,13 @@ INSERT INTO O_TFR
 // Before changing any of it, please review https://github.com/johnrwolfe/CarPark/issues/42.
 //------------------------------------------------------------------------------------------
 HoursInMicroseconds = ConversionFactors::MicrosecondsPerHalfHour * 2;
-hours = param.days * 24;
+hours = ( param.days * 24 ) + param.hours;
 while ( hours > 0 )
   current_time = TIM::advance_time( microseconds:HoursInMicroseconds );
   hours = hours - 1;
 end while;
 MinutesInMicroseconds = ConversionFactors::MicrosecondsPerMinute * param.minutes;
-current_time = TIM::advance_time( microseconds:HoursInMicroseconds + MinutesInMicroseconds );
+current_time = TIM::advance_time( microseconds:MinutesInMicroseconds );
 return current_time;',
 	1,
 	'',
@@ -76,7 +76,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
-	'return param.Days * TimeConversion::QuantumPerDay + TimeConversion::QuantumPerHour;',
+	'return ( param.Days * TimeConversion::QuantumPerDay ) + ( param.Hours * TimeConversion::QuantumPerHour );',
 	1,
 	'',
 	"a49205f8-09d8-4688-9dd6-839e928b24bb",
